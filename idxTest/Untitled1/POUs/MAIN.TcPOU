@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Linear: AXIS_REF;
+	count :INT;
+	fbAxisPower: MC_Power;
+    fbAxisMoveAbsolute: MC_MoveAbsolute;
+	fbAxisMoveRel: MC_MoveRelative;
+	fbMcHome: MC_Home;
+    bEnable: BOOL := FALSE;
+    fOverride: LREAL := 100;
+    bMove: BOOL := FALSE;
+    fTargetPosition: LREAL := 90;
+    fTargetVelocity: LREAL := 5;
+	home :BOOL:=FALSE;
+	RelMove :BOOL :=FALSE;
+	RelDistance:LREAL:=2;
+	
+	fbMqttClient : FB_IotMqttClient;
+	SetParameter : BOOL :=TRUE;
+	mqttConnect : BOOL :=TRUE;
+	(*publish settings*)
+	TopicPub   : STRING(255) := 'PLC';
+    PayloadPub : STRING(255);
+	MQTTi :UDINT;
+	
+
+	 (* received message *)
+    Subscribed    : BOOL;
+    TopicSub      : STRING(255) := 'PLC/Telemetry';
+    {attribute 'TcEncoding':='UTF-8'}
+    sTopicRcv      : STRING(255);
+    {attribute 'TcEncoding':='UTF-8'}
+    sPayloadRcv    : STRING(255);
+    fbMessageQueue : FB_IotMqttMessageQueue;
+    fbMessage      : FB_IotMqttMessage;
+	
+	fbMQTTtimer : TON :=(PT:=T#1S);
+	
+	
+	
+
+	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Linear.ReadStatus();
+
+fbAxisPower(
+    Axis:= Linear,
+    Enable:= bEnable,
+    Enable_Positive:= bEnable,
+    Enable_Negative:= bEnable,
+    Override:= fOverride,
+    BufferMode:= ,
+    Options:= ,
+    Status=> ,
+    Busy=> ,
+    Active=> ,
+    Error=> ,
+    ErrorID=> );
+
+fbAxisMoveAbsolute(
+    Axis:= Linear,
+    Execute:= bMove,
+    Position:= fTargetPosition,
+    Velocity:= fTargetVelocity,
+    Acceleration:= ,
+    Deceleration:= ,
+    Jerk:= ,
+    BufferMode:= ,
+    Options:= ,
+    Done=> ,
+    Busy=> ,
+    Active=> ,
+    CommandAborted=> ,
+    Error=> ,
+    ErrorID=> );
+	
+fbMcHome(
+	Axis:=Linear,
+	Execute:=home,
+	Position:=5,
+	HomingMode:=MC_DefaultHoming);
+	
+fbAxisMoveRel(
+	Axis:=Linear,
+	Execute:=RelMove,
+	distance:=RelDistance,
+	Velocity:=10);
+	
+	
+	]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="17" Count="29" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="59" Count="1" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="2" />
+      <LineId Id="74" Count="2" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="84" Count="1" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="66" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
