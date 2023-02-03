@@ -3,13 +3,20 @@
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	idxCtrl_1 AT%I* :BYTE;
+	idxCtrl_2 AT%I* :BYTE;
+	idxInput AT%I*	:BYTE;
+	idxModeDisplay AT%I*:BYTE;
+	idxerror AT%I*	:WORD;
+	
 	Linear: AXIS_REF;
 	count :INT;
 	fbAxisPower: MC_Power;
     fbAxisMoveAbsolute: MC_MoveAbsolute;
 	fbAxisMoveRel: MC_MoveRelative;
 	fbMcHome: MC_Home;
-    bEnable: BOOL := FALSE;
+	fbReset: MC_Reset;
+    bEnable: BOOL := TRUE;
     fOverride: LREAL := 100;
     bMove: BOOL := FALSE;
     fTargetPosition: LREAL := 90;
@@ -17,6 +24,7 @@ VAR
 	home :BOOL:=FALSE;
 	RelMove :BOOL :=FALSE;
 	RelDistance:LREAL:=2;
+	resetAxis :BOOL := FALSE;
 	
 	fbMqttClient : FB_IotMqttClient;
 	SetParameter : BOOL :=TRUE;
@@ -44,11 +52,19 @@ VAR
 
 	
 	
+	TestingMode: BOOL := FALSE;
+	TestPosA: REAL :=200;
+	TestPosB: REAL :=100;
+	MoveAbsDone: BOOL := TRUE;
+	TestingFlag: BOOL := false;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Linear.ReadStatus();
 
+IF NOT idxInput.3 THEN
+	bEnable:=FALSE;
+END_IF
 fbAxisPower(
     Axis:= Linear,
     Enable:= bEnable,
@@ -63,6 +79,7 @@ fbAxisPower(
     Error=> ,
     ErrorID=> );
 
+
 fbAxisMoveAbsolute(
     Axis:= Linear,
     Execute:= bMove,
@@ -73,7 +90,7 @@ fbAxisMoveAbsolute(
     Jerk:= ,
     BufferMode:= ,
     Options:= ,
-    Done=> ,
+    Done=>MoveAbsDone ,
     Busy=> ,
     Active=> ,
     CommandAborted=> ,
@@ -91,13 +108,40 @@ fbAxisMoveRel(
 	Execute:=RelMove,
 	distance:=RelDistance,
 	Velocity:=10);
+
+IF resetAxis THEN
+fbReset(
+Axis:=Linear,
+Execute:=resetAxis);
+resetAxis:=FALSE;
+idxCtrl_1 := 16#80;
+END_IF
+
+	
+IF TestingMode AND Linear.NcToPlc.StateDword.0 THEN
+	bMove:=TRUE;
+	IF TestingFlag THEN
+		fTargetPosition:= TestPosA;
+	ELSE 
+		fTargetPosition:= TestPosB;
+	END_IF
+IF MoveAbsDone THEN
+	Bmove:=FALSE;
+	TestingFlag := NOT TestingFlag;
+END_IF
+
+END_IF
 	
 	
 	]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
-      <LineId Id="17" Count="29" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="284" Count="2" />
+      <LineId Id="18" Count="13" />
+      <LineId Id="217" Count="0" />
+      <LineId Id="32" Count="14" />
       <LineId Id="16" Count="0" />
       <LineId Id="59" Count="1" />
       <LineId Id="65" Count="0" />
@@ -105,7 +149,27 @@ fbAxisMoveRel(
       <LineId Id="74" Count="2" />
       <LineId Id="78" Count="0" />
       <LineId Id="84" Count="1" />
-      <LineId Id="79" Count="0" />
+      <LineId Id="182" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="189" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="192" Count="0" />
+      <LineId Id="279" Count="0" />
+      <LineId Id="183" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="210" Count="2" />
+      <LineId Id="214" Count="1" />
+      <LineId Id="213" Count="0" />
+      <LineId Id="207" Count="0" />
+      <LineId Id="223" Count="0" />
+      <LineId Id="225" Count="0" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="208" Count="0" />
+      <LineId Id="196" Count="0" />
       <LineId Id="77" Count="0" />
       <LineId Id="66" Count="0" />
     </LineIds>
