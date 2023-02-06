@@ -1405,6 +1405,62 @@ External Setpoint Generation:
 				</Relation>
 			</Relations>
 		</DataType>
+		<DataType>
+			<Name GUID="{D9F73849-7453-424F-8DBD-20396B0BE7C6}" PersistentType="true">LinearMotor</Name>
+			<DisplayName TxtId=""><![CDATA[M3]]></DisplayName>
+			<Comment TxtId=""><![CDATA[All Errors to do with linear Motor Axis]]></Comment>
+			<EventId>
+				<Name Id="1">Motor_enabled</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Enabled]]></DisplayName>
+				<Comment TxtId=""><![CDATA[Motor under Position Control]]></Comment>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="2">Motor_disabled</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Disabled]]></DisplayName>
+				<Comment TxtId=""><![CDATA[Motor not under PID Control]]></Comment>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="3">IDXmotorError</Name>
+				<DisplayName TxtId=""><![CDATA[IDX Error  {0}]]></DisplayName>
+				<Comment TxtId=""><![CDATA[idx motor needs resetting]]></Comment>
+				<Severity>Error</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="4">Controller_Error</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Controller Error {0}]]></DisplayName>
+				<Severity>Error</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="5">MotorMove</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Move Command to {0}mm at {1} mm/s sent]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="6">AxisReset</Name>
+				<DisplayName TxtId=""><![CDATA[IDX and PLC motion Controller Reset]]></DisplayName>
+				<Severity>Verbose</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="7">MoveComplete</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Move Finished]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="8">Homing</Name>
+				<DisplayName TxtId=""><![CDATA[Homing command sent]]></DisplayName>
+				<Severity>Verbose</Severity>
+			</EventId>
+			<Hides>
+				<Hide GUID="{94B1BCBE-B3F4-4FDC-8FA2-15970C256A27}"/>
+				<Hide GUID="{E7D6DCC6-5886-404F-8C72-4E704C6E1119}"/>
+				<Hide GUID="{3C52AEF9-C7B7-4380-BAC1-9275AC0B1188}"/>
+				<Hide GUID="{01BA3765-618E-4D2F-9E3E-644A4400F20E}"/>
+				<Hide GUID="{BA4991CF-FF4D-4169-86B4-8BB95F9E0753}"/>
+				<Hide GUID="{C007E367-4FF0-4EFA-9537-F03A70ADF99F}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00fffffffffff77777fffffffffff88887fffffffffff88887fffffffffff88c87fffffff0fff8ccc7f0000000fff88c878000000099f88c87f0000000fff88c87ffff0ff0fff88c87f0000ffffff88c87fffffffffff88c87fffffffffff88c87fffffffffff88887fffffffffff88887</ImageData>
@@ -1440,8 +1496,9 @@ External Setpoint Generation:
 				<Axis Id="1" CreateSymbols="true" AxisType="1">
 					<Name>Linear</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="12000" DecelerationMaximum="12000" Acceleration="10000" Deceleration="10000" Jerk="800000" DelayTime="0.035"/>
-						<Velo RefSearch="10" RefSync="10" SlowManual="20" FastManual="200" Fast="250" Maximum="250"/>
+						<Dynamic AccelerationMaximum="12000" DecelerationMaximum="12000" Acceleration="10000" Deceleration="10000" Jerk="100000" DelayTime="0.035"/>
+						<Velo RefSearch="10" RefSync="10" SlowManual="20" FastManual="200" Fast="250" Maximum="280"/>
+						<PositionAreaControl Range="10"/>
 						<MotionControl Time="1"/>
 						<TargetPosControl Time="0.1"/>
 						<PEHControl Enable="true" Time="0.5"/>
@@ -1511,7 +1568,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="16">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00020000">
-							<Analog VeloReferenz="200" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="250" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1589,25 +1646,21 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{74E1E2C1-13E3-A9E8-AF3A-9D21B6A99494}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{FE32055F-4F47-2BFF-AA5A-30A09983C249}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.idxCtrl_1</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.idxCtrl_2</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Linear.NcToPlc</Name>
-							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.idxInput</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxState</Name>
+							<Type>WORD</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxModeDisplay</Name>
 							<Type>BYTE</Type>
 						</Var>
 						<Var>
@@ -1615,8 +1668,12 @@ External Setpoint Generation:
 							<Type>WORD</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.idxModeDisplay</Name>
-							<Type>BYTE</Type>
+							<Name>MAIN.idxControl</Name>
+							<Type>WORD</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Linear.NcToPlc</Name>
+							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -1637,6 +1694,13 @@ External Setpoint Generation:
 						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
 							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
 								<Link VarA="MAIN.idxMode" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Drive^Outputs^Out^nCtrl5" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-02-03T14:51:18">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
+								<Link VarA="MAIN.idxCtrl" TypeA="WORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000004}" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -1769,6 +1833,7 @@ External Setpoint Generation:
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState5</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl5</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState8</Variable>
+			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState1</Variable>
 		</SymbolWatch>
 	</Project>
 	<Mappings>
@@ -1802,10 +1867,13 @@ External Setpoint Generation:
 			<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
 				<Link VarA="PlcTask Inputs^MAIN.idxInput" VarB="Module 1 (CSP Mode)^CSP Inputs^Digital inputs logic state"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxModeDisplay" VarB="Module 1 (CSP Mode)^CSP Inputs^Mode of operation display"/>
+				<Link VarA="PlcTask Inputs^MAIN.idxState" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxerror" VarB="Module 1 (CSP Mode)^CSP Inputs^Error code"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
 				<Link VarA="PlcTask Inputs^MAIN.Linear.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl1"/>
+				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl2" Size="8" OffsA="8"/>
 				<Link VarA="PlcTask Outputs^MAIN.Linear.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>

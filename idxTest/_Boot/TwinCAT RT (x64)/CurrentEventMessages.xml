@@ -488,4 +488,52 @@
 			<Value>true</Value>
 		</Property>
 	</Source>
+	<Source>
+		<GUID>{C007E367-4FF0-4EFA-9537-F03A70ADF99F}</GUID>
+		<Name LcId="1033">M3</Name>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1033">Motor Enabled</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor under Position Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1033">Motor Disabled</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor not under PID Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>3</Id>
+			<Message LcId="1033">IDX Error  {0}</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">idx motor needs resetting</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>4</Id>
+			<Message LcId="1033">Motor Controller Error {0}</Message>
+		</Event>
+		<Event>
+			<Id>5</Id>
+			<Message LcId="1033">Motor Move Command to {0}mm at {1} mm/s sent</Message>
+		</Event>
+		<Event>
+			<Id>6</Id>
+			<Message LcId="1033">IDX and PLC motion Controller Reset</Message>
+		</Event>
+		<Event>
+			<Id>7</Id>
+			<Message LcId="1033">Motor Move Finished</Message>
+		</Event>
+		<Detail>
+			<Name>Comment</Name>
+			<Text LcId="1033">All Errors to do with linear Motor Axis</Text>
+		</Detail>
+	</Source>
 </TcEventSources>
