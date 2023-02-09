@@ -1646,7 +1646,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{FE32055F-4F47-2BFF-AA5A-30A09983C249}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{B50872B8-CB4D-F216-6F6D-056CEAE7FF1E}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1662,6 +1662,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.idxModeDisplay</Name>
 							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxCTRL1</Name>
+							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.idxerror</Name>
@@ -1826,7 +1830,6 @@ External Setpoint Generation:
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Statusword</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Position actual value</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Outputs^Target position</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl1</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl2</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Current actual value averaged</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Outputs^Controlword</Variable>
@@ -1834,6 +1837,7 @@ External Setpoint Generation:
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl5</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState8</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState1</Variable>
+			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl1</Variable>
 		</SymbolWatch>
 	</Project>
 	<Mappings>
@@ -1872,6 +1876,7 @@ External Setpoint Generation:
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
 				<Link VarA="PlcTask Inputs^MAIN.Linear.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Inputs^MAIN.idxCTRL1" VarB="Enc^Outputs^Out^nCtrl1"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl1"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl2" Size="8" OffsA="8"/>
 				<Link VarA="PlcTask Outputs^MAIN.Linear.PlcToNc" VarB="Inputs^FromPlc"/>

@@ -1406,7 +1406,7 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{C007E367-4FF0-4EFA-9537-F03A70ADF99F}" PersistentType="true">LinearMotor</Name>
+			<Name GUID="{D9F73849-7453-424F-8DBD-20396B0BE7C6}" PersistentType="true">LinearMotor</Name>
 			<DisplayName TxtId=""><![CDATA[M3]]></DisplayName>
 			<Comment TxtId=""><![CDATA[All Errors to do with linear Motor Axis]]></Comment>
 			<EventId>
@@ -1447,12 +1447,18 @@ External Setpoint Generation:
 				<DisplayName TxtId=""><![CDATA[Motor Move Finished]]></DisplayName>
 				<Severity>Info</Severity>
 			</EventId>
+			<EventId>
+				<Name Id="8">Homing</Name>
+				<DisplayName TxtId=""><![CDATA[Homing command sent]]></DisplayName>
+				<Severity>Verbose</Severity>
+			</EventId>
 			<Hides>
 				<Hide GUID="{94B1BCBE-B3F4-4FDC-8FA2-15970C256A27}"/>
 				<Hide GUID="{E7D6DCC6-5886-404F-8C72-4E704C6E1119}"/>
 				<Hide GUID="{3C52AEF9-C7B7-4380-BAC1-9275AC0B1188}"/>
 				<Hide GUID="{01BA3765-618E-4D2F-9E3E-644A4400F20E}"/>
 				<Hide GUID="{BA4991CF-FF4D-4169-86B4-8BB95F9E0753}"/>
+				<Hide GUID="{C007E367-4FF0-4EFA-9537-F03A70ADF99F}"/>
 			</Hides>
 		</DataType>
 	</DataTypes>
@@ -1640,7 +1646,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{FE32055F-4F47-2BFF-AA5A-30A09983C249}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{B50872B8-CB4D-F216-6F6D-056CEAE7FF1E}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1656,6 +1662,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.idxModeDisplay</Name>
 							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxCTRL1</Name>
+							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.idxerror</Name>
@@ -1820,7 +1830,6 @@ External Setpoint Generation:
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Statusword</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Position actual value</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Outputs^Target position</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl1</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl2</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Current actual value averaged</Variable>
 			<Variable>TIID^IDX70 (EtherCAT)^Drive 2 (IDX)^Module 1 (CSP Mode)^CSP Outputs^Controlword</Variable>
@@ -1828,6 +1837,7 @@ External Setpoint Generation:
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl5</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState8</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState1</Variable>
+			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl1</Variable>
 		</SymbolWatch>
 	</Project>
 	<Mappings>

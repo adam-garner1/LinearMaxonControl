@@ -489,7 +489,7 @@
 		</Property>
 	</Source>
 	<Source>
-		<GUID>{C007E367-4FF0-4EFA-9537-F03A70ADF99F}</GUID>
+		<GUID>{D9F73849-7453-424F-8DBD-20396B0BE7C6}</GUID>
 		<Name LcId="1033">M3</Name>
 		<Event>
 			<Id>1</Id>
@@ -530,6 +530,10 @@
 		<Event>
 			<Id>7</Id>
 			<Message LcId="1033">Motor Move Finished</Message>
+		</Event>
+		<Event>
+			<Id>8</Id>
+			<Message LcId="1033">Homing command sent</Message>
 		</Event>
 		<Detail>
 			<Name>Comment</Name>
