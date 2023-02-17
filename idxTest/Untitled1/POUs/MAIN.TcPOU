@@ -3,35 +3,25 @@
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	Linear: AXIS_REF;
+		
+	fbIDX70 :IDXMotor();
+	IdxEnable:BOOL;
 	idxState AT%I* :WORD;
 	idxInput AT%I*	:BYTE;
-	idxModeDisplay AT%I*:BYTE;
-	idxerror AT%I*	:WORD;
-	idxerrorSent :WORD :=0;
-	idxControl AT%I*	:WORD;
 	idxCTRL1 AT%I*:USINT;
-	
+	MovementTarget:LREAL;
+	MovementVelocity:LREAL:=50;
+	StartMove:BOOL;
 	fbMessage : FB_TcMessage;
-	EnableEventSent : BOOL :=TRUE;
-	MovementFinishedEventSent :BOOL := FALSE;
-	
-	
-	Linear: AXIS_REF;
-	count :INT;
-	fbAxisPower: MC_Power;
-    fbAxisMoveAbsolute: MC_MoveAbsolute;
-	fbAxisMoveRel: MC_MoveRelative;
-	fbMcHome: MC_Home;
-	fbReset: MC_Reset;
-    bEnable: BOOL := FALSE;
-    fOverride: LREAL := 100;
-    bMove: BOOL := FALSE;
-    fTargetPosition: LREAL := 90;
-    fTargetVelocity: LREAL := 50;
-	home :BOOL:=FALSE;
+	Homed:BOOL;
+	Ready:BOOL;
+	Homing :BOOL;
+	Estop: BOOL;
+	Home :BOOL:=FALSE;
 	resetAxis :BOOL:=FALSE;
 	TestingMode: BOOL := FALSE;
-
+	ResetTimer: TON :=(PT:=T#5S,IN:=FALSE);
 
 	(* fbMqttClient : FB_IotMqttClient;
 	SetParameter : BOOL :=TRUE;
@@ -59,129 +49,47 @@ VAR
 
 	
 	
-
+(*
 	TestPosA: REAL :=200;
 	TestPosB: REAL :=100;
 	MoveAbsDone: BOOL := TRUE;
 	TestingFlag: BOOL := FALSE;
 	TestingActive:BOOL :=FALSE;
-	Estop: BOOL;
+
 	TestingTime: TON:=(pt:=T#5S);
 	ResetConfirmation: BOOL;
-	timerON :Bool := False;
+	timerON :BOOL := FALSE;*)
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Linear.ReadStatus();
+      <ST><![CDATA[//Linear.ReadStatus();
 
-Estop :=  NOT idxinput.3;
+fbIDX70();// error checking 
+Ready:=fbIDX70.Enable(EnableMotor:= IdxEnable);
+fbIDX70.Reset(resetAxis:=resetAxis,IDXControlByte1:= idxCTRL1);// set to check for completeion
+fbIDX70.MoveTo(Position:=MovementTarget,Velocity:=MovementVelocity,Execute:=StartMove);
+
+//autoreset motor 
+IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
+	ResetTimer(IN :=FALSE);
+	resetAxis:=TRUE;	
+END_IF
+ResetTimer(IN:=TRUE);
+
+
+// Home Axis
+Homing := fbIDX70.Home(Execute:=Home);
+Homed :=fbIDX70.Homed();
+
+Estop :=  NOT idxinput.3; 
 
 IF Estop THEN  //Estop check
-	bEnable:=FALSE;
-END_IF
-
-IF NOT (idxerror = idxerrorSent) THEN
-	idxerrorSent:= idxerror;
-	fbMessage.CreateEx(TC_Events.LinearMotor.IDXmotorError,0);
-	fbMessage.ipArguments.Clear().AddDWord(idxerror);
-	fbMessage.Send(0);
-END_IF
-
-// Events Handling enable Motor 
-IF bEnable = EnableEventSent THEN	
-	EnableEventSent := NOT EnableEventSent;
-IF bEnable THEN
-	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_enabled,0);
-ELSE
-	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_disabled,0);
-END_IF
-fbMessage.Send(0);
-END_IF
-
-
-
-fbAxisPower(
-    Axis:= Linear,
-    Enable:= bEnable,
-    Enable_Positive:= bEnable,
-    Enable_Negative:= bEnable,
-    Override:= fOverride
-  );
-
-// move Absolute Axis
-
-	fbAxisMoveAbsolute(
-    Axis:= Linear,
-    Execute:= bMove,
-    Position:= fTargetPosition,
-    Velocity:= fTargetVelocity);
-	IF bMove THEN
-	fbMessage.CreateEx(TC_Events.LinearMotor.MotorMove,0);
-	fbMessage.ipArguments.Clear();
-	fbMessage.ipArguments.AddLReal(fTargetPosition);
-	fbMessage.ipArguments.AddLReal(fTargetVelocity);
-	fbMessage.Send(0);
-	MovementFinishedEventSent:= FALSE;
-	bMove := FALSE;
-
-ELSIF fbAxisMoveAbsolute.Done AND NOT MovementFinishedEventSent THEN
-	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
-	fbMessage.Send(0);
-	MovementFinishedEventSent := TRUE;
-	
-END_IF
-
-
-
-	
-// Home Axis
-	fbMcHome(
-	Axis:=Linear,
-	Execute:=home,
-	Position:=510,
-	HomingMode:=MC_DefaultHoming);
-IF home THEN
-	fbMessage.CreateEx(TC_Events.LinearMotor.Homing,0);
-	fbMessage.Send(0);
-	home:= FALSE;	
+	fbIDX70.Estop();// needs implementing  as event and quick stop function
+	IdxEnable:=FALSE;	
 END_IF
 
 	
-
-	
-
-fbReset(
-Axis:=Linear,
-Execute:=resetAxis,
-Done =>ResetConfirmation);
-
-IF resetAxis THEN
-resetAxis:=FALSE;
-idxCTRL1 := 16#80;// restop linear Motor
-fbMessage.CreateEx(TC_Events.LinearMotor.AxisReset,0);
-fbMessage.send(0);
-END_IF
-
-	
-(*IF TestingMode THEN //in testing mode
-	IF linear.NcToPlc.AxisState=0 AND NOT fbAxisMoveAbsolute.Busy THEN// check if axis has no current jobs 
-		bMove:=TRUE;
-	END_IF
-	
-	IF  fbAxisMoveAbsolute.Done THEN//swap ends for test
-		TestingFlag := NOT TestingFlag;
-	END_IF
-
-	IF TestingFlag THEN// change targets 
-		fTargetPosition:= TestPosA;
-	ELSE 
-		fTargetPosition:= TestPosB;
-	END_IF
-ELSE
-	TestingActive:= FALSE;
-END_IF *)
-	
-IF TestingMode THEN
+(*IF TestingMode THEN // in test class uses idx class functions 
 	IF NOT TestingActive THEN// code runs at start 
 		bMove:=TRUE;
 		fTargetPosition:= TestPosA;
@@ -208,91 +116,30 @@ ELSE
 	TimerON:=FALSE;
 	TestingFlag:=TRUE;
 END_IF
-TestingTime(IN:=TimerON);
+TestingTime(IN:=TimerON);*)
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="715" Count="0" />
+      <LineId Id="694" Count="0" />
+      <LineId Id="620" Count="0" />
+      <LineId Id="714" Count="0" />
+      <LineId Id="793" Count="0" />
+      <LineId Id="722" Count="0" />
+      <LineId Id="721" Count="0" />
+      <LineId Id="723" Count="0" />
+      <LineId Id="788" Count="0" />
+      <LineId Id="726" Count="0" />
+      <LineId Id="725" Count="0" />
+      <LineId Id="790" Count="1" />
+      <LineId Id="717" Count="3" />
       <LineId Id="288" Count="0" />
       <LineId Id="287" Count="0" />
       <LineId Id="347" Count="0" />
-      <LineId Id="284" Count="2" />
-      <LineId Id="385" Count="0" />
-      <LineId Id="384" Count="0" />
-      <LineId Id="389" Count="0" />
-      <LineId Id="386" Count="0" />
-      <LineId Id="390" Count="1" />
-      <LineId Id="387" Count="0" />
-      <LineId Id="348" Count="0" />
-      <LineId Id="290" Count="0" />
-      <LineId Id="353" Count="0" />
-      <LineId Id="375" Count="0" />
-      <LineId Id="359" Count="0" />
-      <LineId Id="356" Count="0" />
-      <LineId Id="363" Count="0" />
-      <LineId Id="365" Count="1" />
-      <LineId Id="382" Count="0" />
-      <LineId Id="355" Count="0" />
-      <LineId Id="378" Count="0" />
-      <LineId Id="380" Count="0" />
-      <LineId Id="369" Count="0" />
-      <LineId Id="18" Count="5" />
-      <LineId Id="30" Count="1" />
-      <LineId Id="217" Count="0" />
-      <LineId Id="397" Count="0" />
-      <LineId Id="401" Count="4" />
-      <LineId Id="457" Count="0" />
-      <LineId Id="407" Count="0" />
-      <LineId Id="409" Count="0" />
-      <LineId Id="408" Count="0" />
-      <LineId Id="410" Count="1" />
-      <LineId Id="413" Count="0" />
-      <LineId Id="459" Count="0" />
-      <LineId Id="406" Count="0" />
-      <LineId Id="416" Count="0" />
-      <LineId Id="418" Count="2" />
-      <LineId Id="417" Count="0" />
-      <LineId Id="399" Count="0" />
-      <LineId Id="415" Count="0" />
-      <LineId Id="414" Count="0" />
-      <LineId Id="42" Count="0" />
-      <LineId Id="349" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="468" Count="3" />
-      <LineId Id="467" Count="0" />
-      <LineId Id="476" Count="0" />
-      <LineId Id="473" Count="2" />
-      <LineId Id="466" Count="0" />
-      <LineId Id="464" Count="0" />
-      <LineId Id="463" Count="0" />
-      <LineId Id="69" Count="0" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="132" Count="0" />
-      <LineId Id="191" Count="0" />
-      <LineId Id="189" Count="0" />
-      <LineId Id="187" Count="0" />
-      <LineId Id="392" Count="0" />
-      <LineId Id="591" Count="0" />
-      <LineId Id="590" Count="0" />
-      <LineId Id="192" Count="0" />
-      <LineId Id="279" Count="0" />
-      <LineId Id="395" Count="1" />
-      <LineId Id="183" Count="0" />
-      <LineId Id="216" Count="0" />
-      <LineId Id="184" Count="0" />
-      <LineId Id="445" Count="0" />
-      <LineId Id="447" Count="0" />
-      <LineId Id="449" Count="0" />
-      <LineId Id="448" Count="0" />
-      <LineId Id="450" Count="0" />
-      <LineId Id="452" Count="1" />
-      <LineId Id="451" Count="0" />
-      <LineId Id="443" Count="0" />
-      <LineId Id="211" Count="1" />
-      <LineId Id="214" Count="1" />
-      <LineId Id="213" Count="0" />
-      <LineId Id="438" Count="0" />
-      <LineId Id="480" Count="0" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="696" Count="0" />
+      <LineId Id="285" Count="1" />
       <LineId Id="440" Count="0" />
       <LineId Id="196" Count="0" />
       <LineId Id="77" Count="0" />

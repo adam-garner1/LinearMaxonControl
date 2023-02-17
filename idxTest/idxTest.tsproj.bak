@@ -1406,7 +1406,7 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{D9F73849-7453-424F-8DBD-20396B0BE7C6}" PersistentType="true">LinearMotor</Name>
+			<Name GUID="{00E25715-CCD9-43EC-8C3B-209BA5AE5D18}" PersistentType="true">LinearMotor</Name>
 			<DisplayName TxtId=""><![CDATA[M3]]></DisplayName>
 			<Comment TxtId=""><![CDATA[All Errors to do with linear Motor Axis]]></Comment>
 			<EventId>
@@ -1452,6 +1452,21 @@ External Setpoint Generation:
 				<DisplayName TxtId=""><![CDATA[Homing command sent]]></DisplayName>
 				<Severity>Verbose</Severity>
 			</EventId>
+			<EventId>
+				<Name Id="9">HomingComplete</Name>
+				<DisplayName TxtId=""><![CDATA[Homing Successfully completed]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="10">PLC_restarted</Name>
+				<DisplayName TxtId=""><![CDATA[PLC Restarted]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="11">AxisError</Name>
+				<DisplayName TxtId=""><![CDATA[Axis Error {0}]]></DisplayName>
+				<Severity>Verbose</Severity>
+			</EventId>
 			<Hides>
 				<Hide GUID="{94B1BCBE-B3F4-4FDC-8FA2-15970C256A27}"/>
 				<Hide GUID="{E7D6DCC6-5886-404F-8C72-4E704C6E1119}"/>
@@ -1459,6 +1474,8 @@ External Setpoint Generation:
 				<Hide GUID="{01BA3765-618E-4D2F-9E3E-644A4400F20E}"/>
 				<Hide GUID="{BA4991CF-FF4D-4169-86B4-8BB95F9E0753}"/>
 				<Hide GUID="{C007E367-4FF0-4EFA-9537-F03A70ADF99F}"/>
+				<Hide GUID="{D9F73849-7453-424F-8DBD-20396B0BE7C6}"/>
+				<Hide GUID="{34A19C6A-DD0E-4E85-8034-AACF62C37792}"/>
 			</Hides>
 		</DataType>
 	</DataTypes>
@@ -1646,21 +1663,21 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{B50872B8-CB4D-F216-6F6D-056CEAE7FF1E}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{3B4B2F3F-99CB-DF4A-A77C-C264781FEA38}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.idxInput</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.idxState</Name>
 							<Type>WORD</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.idxModeDisplay</Name>
+							<Name>MAIN.Linear.NcToPlc</Name>
+							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxInput</Name>
 							<Type>BYTE</Type>
 						</Var>
 						<Var>
@@ -1668,22 +1685,22 @@ External Setpoint Generation:
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.idxerror</Name>
-							<Type>WORD</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.idxControl</Name>
-							<Type>WORD</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Linear.NcToPlc</Name>
+							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
 							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDX70.MotorError</Name>
+							<Type>WORD</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
 							<Name>MAIN.Linear.PlcToNc</Name>
+							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDX70.Axis.PlcToNc</Name>
 							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -1705,6 +1722,24 @@ External Setpoint Generation:
 						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
 							<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
 								<Link VarA="MAIN.idxCtrl" TypeA="WORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000004}" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-02-15T10:48:55">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
+								<Link VarA="MAIN.idxerror" TypeA="WORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000004}" VarB="Module 1 (CSP Mode)^CSP Inputs^Error code" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2023-02-15T16:30:00">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
+								<Link VarA="MAIN.idxModeDisplay" TypeA="BYTE" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000001}" VarB="Module 1 (CSP Mode)^CSP Inputs^Mode of operation display" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
+								<Link VarA="MAIN.idxControl" TypeA="WORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000004}" VarB="Drive^Outputs^Out^nCtrl1" Size="8" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.idxControl" TypeA="WORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000004}" VarB="Drive^Outputs^Out^nCtrl2" Size="8" OffsA="8" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -1869,16 +1904,14 @@ External Setpoint Generation:
 		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
 			<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 2 (IDX)">
+				<Link VarA="PlcTask Inputs^MAIN.fbIDX70.MotorError" VarB="Module 1 (CSP Mode)^CSP Inputs^Error code"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxInput" VarB="Module 1 (CSP Mode)^CSP Inputs^Digital inputs logic state"/>
-				<Link VarA="PlcTask Inputs^MAIN.idxModeDisplay" VarB="Module 1 (CSP Mode)^CSP Inputs^Mode of operation display"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxState" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword"/>
-				<Link VarA="PlcTask Inputs^MAIN.idxerror" VarB="Module 1 (CSP Mode)^CSP Inputs^Error code"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
-				<Link VarA="PlcTask Inputs^MAIN.Linear.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl1"/>
-				<Link VarA="PlcTask Inputs^MAIN.idxControl" VarB="Drive^Outputs^Out^nCtrl2" Size="8" OffsA="8"/>
-				<Link VarA="PlcTask Outputs^MAIN.Linear.PlcToNc" VarB="Inputs^FromPlc"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbIDX70.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Inputs^MAIN.idxCTRL1" VarB="Enc^Outputs^Out^nCtrl1"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbIDX70.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
