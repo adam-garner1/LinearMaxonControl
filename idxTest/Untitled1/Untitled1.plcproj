@@ -20,10 +20,16 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\EverestMC.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\IDXMotor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\TestMode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

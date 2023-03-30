@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="TestMode" Id="{cc215add-2cee-463a-89db-a55b22aac16a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC TestMode
+VAR_INPUT
+
+END_VAR
+VAR_OUTPUT
+	TestingActive:BOOL;
+END_VAR
+VAR
+	TestPosA: LREAL;
+	TestPosB :LREAL;
+	RefAxis : REFERENCE TO IDXMotor(); 
+	AxisStatus : ST_AxisStatus;
+	Operational :BOOL;
+	InTargetPos: BOOL;
+	HasJob :BOOL;
+	DwellTimer: TON :=(PT:=T#5S,IN:=FALSE);
+	Error :BOOL;// not used 
+	TimerON: BOOL;
+	Velo: LREAL;
+	MoveExecute :BOOL;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//if testing active  can assume testing has begun 
+
+//RefAxis.Status(Status =>AxisStatus); //problem
+IF __ISVALIDREF(RefAxis) THEN 
+	
+
+AxisStatus := RefAxis.Status();
+Operational:= AxisStatus.Operational;
+
+IF TestingActive AND NOT Error THEN
+	InTargetPos :=  AxisStatus.InTargetPosition;
+	HasJob :=  AxisStatus.HasJob;
+	
+	IF Operational AND InTargetPos AND NOT HasJob THEN			
+	 	TimerON:=TRUE;
+
+	END_IF
+	IF DwellTimer.Q THEN
+		MoveExecute := TRUE;
+		TimerON:=FALSE;
+	END_IF
+
+	IF ABS(RefAxis.Position()-TestPosA)<1 THEN
+		RefAxis.MoveTo(Position:= TestPosB,Velocity:=Velo,Execute:=MoveExecute);
+		ELSE
+			RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velo,Execute:=MoveExecute);
+	END_IF
+
+END_IF
+
+IF NOT operational THEN
+	TestingActive := FALSE;
+END_IF
+
+	
+
+END_IF
+
+DwellTimer(IN:=TimerON);
+
+
+
+
+
+
+
+(*IF TestingMode THEN // in test class uses idx class functions 
+	IF NOT TestingActive THEN// code runs at start 
+		bMove:=TRUE;
+		fTargetPosition:= TestPosA;
+		TestingActive := TRUE;
+	END_IF
+	
+
+ IF fbAxisMoveAbsolute.Done THEN
+	 TimerON:=TRUE;
+ END_IF
+
+IF TestingTime.Q THEN
+	TimerON:=FALSE;
+	bMove:=TRUE;
+	TestingFlag := NOT TestingFlag;
+	IF TestingFlag THEN// change targets 
+		fTargetPosition:= TestPosA;
+	ELSE 
+		fTargetPosition:= TestPosB;
+	END_IF
+END_IF
+ELSE 
+	TestingActive:= FALSE;
+	TimerON:=FALSE;
+	TestingFlag:=TRUE;
+END_IF
+TestingTime(IN:=TimerON);*)
+]]></ST>
+    </Implementation>
+    <Method Name="EndTest" Id="{3f36bde4-a7b6-49a1-aaec-56010704c723}">
+      <Declaration><![CDATA[METHOD EndTest : BOOL
+VAR_INPUT
+	END :BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF End THEN
+	end:=FALSE;
+	TestingActive:=FALSE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StartTest" Id="{749a70aa-672e-4cf9-8f81-4ac183f3f1bd}">
+      <Declaration><![CDATA[METHOD StartTest : BOOL
+VAR_INPUT
+	PositionA: LREAL;
+	PositionB :LREAL;
+	Velocity : LREAL;
+	Axis : REFERENCE TO IDXMotor();
+	Dwell :TIME;
+END_VAR
+VAR_IN_OUT
+	Execute :BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ IF Execute THEN
+TestingActive :=TRUE;
+END_IF
+
+
+TestPosA := PositionA;
+TestPosB := PositionB;
+Velo:= Velocity;
+DwellTimer.PT := dwell;
+RefAxis REF= Axis;
+// error if not enabled 
+RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velocity,Execute:=Execute);]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="TestMode">
+      <LineId Id="51" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="112" Count="0" />
+      <LineId Id="114" Count="2" />
+      <LineId Id="113" Count="0" />
+      <LineId Id="121" Count="1" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="76" Count="1" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="108" Count="1" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="110" Count="0" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="93" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="104" Count="2" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="128" Count="1" />
+      <LineId Id="124" Count="1" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="52" Count="6" />
+      <LineId Id="11" Count="28" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="TestMode.EndTest">
+      <LineId Id="5" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="8" Count="0" />
+    </LineIds>
+    <LineIds Name="TestMode.StartTest">
+      <LineId Id="21" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="23" Count="1" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="19" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

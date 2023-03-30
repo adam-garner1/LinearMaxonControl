@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="IDXMotor" Id="{2d0ab0a1-a5a3-4c64-bc51-ecb0c0b67505}" SpecialFunc="None">
-    <Declaration><![CDATA[// function to house all commmands to do with idx motor 
+    <Declaration><![CDATA[   // function to house all commmands to do with idx motor 
 
 FUNCTION_BLOCK IDXMotor
 VAR_INPUT
@@ -20,11 +20,11 @@ VAR
 	fbMessage : FB_TcMessage;
 	EnableEventSent:BOOL:= TRUE;
 	HomeEventSent:BOOL:=TRUE;
-	MovementFinishedEventSent:BOOL;
     fbAxisMoveAbsolute: MC_MoveAbsolute;	
 	fbMcHome: MC_Home;
 	fbAxisPower: MC_Power;
 	fbReset: MC_Reset;
+	fbMoveRel : MC_MoveRelative;
 	
 END_VAR
 ]]></Declaration>
@@ -158,10 +158,34 @@ END_VAR
     <Method Name="MoveRelative" Id="{b8493f8e-43b3-46fb-816b-e627b7c74ccc}">
       <Declaration><![CDATA[METHOD MoveRelative : BOOL
 VAR_INPUT
+	Distance: LREAL;
+	Velocity: LREAL;	
+END_VAR
+VAR_IN_OUT
+	Execute: BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	fbMoveRel( // in idx class 
+    Axis:= Axis,
+    Execute:= Execute,
+    Distance:= Distance,
+    Velocity:= Velocity,);
+	
+		IF Execute THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.RelativeMove,0);
+	fbMessage.ipArguments.Clear();
+	fbMessage.ipArguments.AddLReal(Distance);
+	fbMessage.ipArguments.AddLReal(Velocity);
+	fbMessage.Send(0);
+	Execute := FALSE;
+END_IF
+
+IF fbMoveRel.Done  THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
+	fbMessage.Send(0);
+	
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveTo" Id="{08282b44-b328-422b-9de4-f7d3248d3805}">
@@ -179,7 +203,7 @@ END_VAR
     Axis:= Axis,
     Execute:= Execute,
     Position:= Position,
-    Velocity:= Velocity);
+    Velocity:= Velocity,);
 	
 	IF Execute THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MotorMove,0);
@@ -188,14 +212,24 @@ END_VAR
 	fbMessage.ipArguments.AddLReal(Velocity);
 	fbMessage.Send(0);
 	Execute := FALSE;
+
 END_IF
 
 IF fbAxisMoveAbsolute.Done  THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
 	fbMessage.Send(0);
-	MovementFinishedEventSent := TRUE;
+
 	
 END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Position" Id="{ff434356-d1e2-4881-8909-8666bf1f21d4}">
+      <Declaration><![CDATA[METHOD Position : LReal
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Position:= Axis.NcToPlc.ActPos;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{452ee707-d051-4151-ab20-88e260d22e2a}">
@@ -218,6 +252,24 @@ fbMessage.send(0);
 resetAxis := FALSE;
 END_IF
 ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetSpeed" Id="{50ebda3b-70f1-42c9-9731-437c5d2aad8f}">
+      <Declaration><![CDATA[METHOD SetSpeed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Status" Id="{f73b2d03-d3bf-443e-8d2d-9005fec7bb7e}">
+      <Declaration><![CDATA[METHOD PUBLIC Status : ST_AxisStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Status := Axis.Status;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="IDXMotor">
@@ -274,15 +326,26 @@ END_IF
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.MoveRelative">
+      <LineId Id="9" Count="3" />
       <LineId Id="5" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="23" Count="11" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="22" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.MoveTo">
       <LineId Id="9" Count="4" />
       <LineId Id="35" Count="0" />
-      <LineId Id="14" Count="5" />
-      <LineId Id="21" Count="1" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="15" Count="4" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="22" Count="0" />
       <LineId Id="44" Count="0" />
       <LineId Id="23" Count="4" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="IDXMotor.Position">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.Reset">
@@ -290,6 +353,12 @@ END_IF
       <LineId Id="16" Count="2" />
       <LineId Id="26" Count="0" />
       <LineId Id="19" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="IDXMotor.SetSpeed">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="IDXMotor.Status">
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="EverestMC" Id="{a3e9c92e-64fa-4e46-a3aa-714fb5bbcbd7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK EverestMC
+VAR_INPUT
+	//
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	Axis: AXIS_REF;
+	Enabled: BOOL := FALSE;
+	Override: LREAL:=100;
+	MotorError AT%I*	:WORD;
+	MotorErrorSent : WORD;
+	AxisErrorSent:UDINT;
+	NCError : WORD;
+	fbMessage : FB_TcMessage;
+	EnableEventSent:BOOL:= TRUE;
+	HomeEventSent:BOOL:=TRUE;
+	MovementFinishedEventSent:BOOL;
+    fbAxisMoveAbsolute: MC_MoveAbsolute;	
+	fbMcHome: MC_Home;
+	fbAxisPower: MC_Power;
+	fbReset: MC_Reset;
+	fbMoveRel : MC_MoveRelative;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Enable" Id="{7ad8bb3b-6b12-422c-9078-6bc6263f2138}">
+      <Declaration><![CDATA[METHOD Enable : BOOL
+VAR_INPUT
+	EnableMotor :BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[	fbAxisPower( // use in idx class
+    Axis:= Axis,
+    Enable:= EnableMotor,
+    Enable_Positive:= EnableMotor,
+    Enable_Negative:= EnableMotor,
+    Override:= Override,
+	Status=>Enable,
+	Error=>
+);
+
+IF EnableMotor = EnableEventSent THEN	
+	EnableEventSent := NOT EnableEventSent;
+IF EnableMotor THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_enabled,0);
+ELSE
+	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_disabled,0);
+END_IF
+fbMessage.Send(0);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Estop" Id="{035e129b-fd86-43a8-8068-42279faecb42}">
+      <Declaration><![CDATA[METHOD Estop : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Home" Id="{ff6a7707-04a2-4925-89cf-1f17c30273a4}">
+      <Declaration><![CDATA[METHOD PUBLIC Home : BOOL
+VAR_IN_OUT
+	Execute:BOOL;
+END_VAR
+VAR
+	HomingDone:BOOL;
+	HomingError:BOOL;
+	HomingErrorID:UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Homed" Id="{c997b53f-68dd-42d9-ade9-e7a024632056}">
+      <Declaration><![CDATA[METHOD PUBLIC Homed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveRelative" Id="{493795df-a0ca-47e4-90a1-99a456e23940}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveRelative : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MoveTo" Id="{4cd2771e-ffe3-4a96-9535-c052480de063}">
+      <Declaration><![CDATA[METHOD PUBLIC MoveTo : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{9478a509-1996-4742-b1cb-06b31e7be6ec}">
+      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="EverestMC">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Enable">
+      <LineId Id="24" Count="17" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Estop">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Home">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Homed">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.MoveRelative">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.MoveTo">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Reset">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

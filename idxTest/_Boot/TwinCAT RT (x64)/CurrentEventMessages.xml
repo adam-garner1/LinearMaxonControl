@@ -489,7 +489,7 @@
 		</Property>
 	</Source>
 	<Source>
-		<GUID>{2DE39888-6737-4C13-B5C9-FECFDAF701E5}</GUID>
+		<GUID>{FAF2DE53-3A40-4CE0-99B0-3CD522E168DC}</GUID>
 		<Name LcId="1033">M3</Name>
 		<Event>
 			<Id>1</Id>
@@ -554,6 +554,10 @@
 		<Event>
 			<Id>13</Id>
 			<Message LcId="1033">Move Failed {0}</Message>
+		</Event>
+		<Event>
+			<Id>14</Id>
+			<Message LcId="1033">Motor Move Command relative {0}mm at {1} mm/s sent</Message>
 		</Event>
 		<Detail>
 			<Name>Comment</Name>
