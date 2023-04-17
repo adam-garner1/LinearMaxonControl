@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="EverestMC" Id="{a3e9c92e-64fa-4e46-a3aa-714fb5bbcbd7}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK EverestMC
+    <Declaration><![CDATA[FUNCTION_BLOCK EverestMC implements I_Motor
 VAR_INPUT
 	//
 END_VAR
@@ -91,8 +91,13 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="MoveRelative" Id="{493795df-a0ca-47e4-90a1-99a456e23940}">
-      <Declaration><![CDATA[METHOD PUBLIC MoveRelative : BOOL
+      <Declaration><![CDATA[METHOD MoveRelative : BOOL
 VAR_INPUT
+	Distance: LREAL;
+	Velocity: LREAL;	
+END_VAR
+VAR_IN_OUT
+	Execute: BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -102,6 +107,41 @@ END_VAR
     <Method Name="MoveTo" Id="{4cd2771e-ffe3-4a96-9535-c052480de063}">
       <Declaration><![CDATA[METHOD PUBLIC MoveTo : BOOL
 VAR_INPUT
+	Position: LREAL;
+	Velocity: LREAL;	
+END_VAR
+VAR_IN_OUT
+		Execute: BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ 	fbAxisMoveAbsolute( // in idx class 
+    Axis:= Axis,
+    Execute:= Execute,
+    Position:= Position,
+    Velocity:= Velocity,);
+	
+	IF Execute THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.MotorMove,0);
+	fbMessage.ipArguments.Clear();
+	fbMessage.ipArguments.AddLReal(Position);
+	fbMessage.ipArguments.AddLReal(Velocity);
+	fbMessage.Send(0);
+	Execute := FALSE;
+
+END_IF
+
+IF fbAxisMoveAbsolute.Done  THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
+	fbMessage.Send(0);
+
+	
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Position" Id="{93992187-0b52-47e0-918d-28c0417601fd}">
+      <Declaration><![CDATA[METHOD Position : LREAL
+VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -109,12 +149,25 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{9478a509-1996-4742-b1cb-06b31e7be6ec}">
-      <Declaration><![CDATA[METHOD PUBLIC Reset : BOOL
-VAR_INPUT
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR_IN_OUT
+	ResetAxis:BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[fbReset(
+Axis:=Axis,
+Execute:=ResetAxis,
+Done =>Reset);
+
+IF resetAxis THEN
+//IDXControlByte1 := 16#80;// restop linear Motor
+//MotorResetBit := 16#80;
+fbMessage.CreateEx(TC_Events.LinearMotor.AxisReset,0);
+fbMessage.send(0);
+resetAxis := FALSE;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="EverestMC">
@@ -137,9 +190,14 @@ END_VAR
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.MoveTo">
+      <LineId Id="9" Count="20" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Position">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.Reset">
+      <LineId Id="14" Count="11" />
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

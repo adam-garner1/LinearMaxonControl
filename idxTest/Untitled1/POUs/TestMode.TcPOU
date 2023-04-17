@@ -64,41 +64,6 @@ END_IF
 END_IF
 
 DwellTimer(IN:=TimerON);
-
-
-
-
-
-
-
-(*IF TestingMode THEN // in test class uses idx class functions 
-	IF NOT TestingActive THEN// code runs at start 
-		bMove:=TRUE;
-		fTargetPosition:= TestPosA;
-		TestingActive := TRUE;
-	END_IF
-	
-
- IF fbAxisMoveAbsolute.Done THEN
-	 TimerON:=TRUE;
- END_IF
-
-IF TestingTime.Q THEN
-	TimerON:=FALSE;
-	bMove:=TRUE;
-	TestingFlag := NOT TestingFlag;
-	IF TestingFlag THEN// change targets 
-		fTargetPosition:= TestPosA;
-	ELSE 
-		fTargetPosition:= TestPosB;
-	END_IF
-END_IF
-ELSE 
-	TestingActive:= FALSE;
-	TimerON:=FALSE;
-	TestingFlag:=TRUE;
-END_IF
-TestingTime(IN:=TimerON);*)
 ]]></ST>
     </Implementation>
     <Method Name="EndTest" Id="{3f36bde4-a7b6-49a1-aaec-56010704c723}">
@@ -109,7 +74,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF End THEN
-	end:=FALSE;
+	End:=FALSE;
 	TestingActive:=FALSE;
 END_IF]]></ST>
       </Implementation>
@@ -171,8 +136,7 @@ RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velocity,Execute:=Execute);]]></ST>
       <LineId Id="124" Count="1" />
       <LineId Id="90" Count="0" />
       <LineId Id="118" Count="0" />
-      <LineId Id="52" Count="6" />
-      <LineId Id="11" Count="28" />
+      <LineId Id="52" Count="0" />
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="TestMode.EndTest">

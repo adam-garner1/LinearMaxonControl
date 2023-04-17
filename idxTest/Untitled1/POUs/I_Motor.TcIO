@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <Itf Name="I_Motor" Id="{41a3b8ea-4aa4-4ea1-9e9c-b48b251d7383}">
+    <Declaration><![CDATA[INTERFACE I_Motor
+]]></Declaration>
+    <Method Name="Enable" Id="{7226f6f2-7c0d-4c31-a13a-129c36037bba}">
+      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
+VAR_INPUT
+EnableMotor :BOOL;
+END_VAR
+
+]]></Declaration>
+    </Method>
+    <Method Name="Home" Id="{25d1b606-5e1a-4789-a435-dd9f283d7533}">
+      <Declaration><![CDATA[METHOD PUBLIC Home : BOOL
+VAR_IN_OUT
+	Execute:BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Homed" Id="{ffa9972c-d1da-4f57-a754-0c8214f97153}">
+      <Declaration><![CDATA[METHOD Homed : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveRelative" Id="{88a858c7-19be-4f41-840c-1193479973ab}">
+      <Declaration><![CDATA[METHOD MoveRelative : BOOL
+VAR_INPUT
+	Distance: LREAL;
+	Velocity: LREAL;	
+END_VAR
+VAR_IN_OUT
+	Execute: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="MoveTo" Id="{e841c0f3-db83-4521-8c30-0807a146adfc}">
+      <Declaration><![CDATA[METHOD MoveTo : BOOL
+VAR_INPUT
+	Position: LREAL;
+	Velocity: LREAL;	
+END_VAR
+VAR_IN_OUT
+		Execute: BOOL;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Position" Id="{64787ec2-5a71-4d06-a761-67b53eb6fa48}">
+      <Declaration><![CDATA[METHOD Position : LREAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Reset" Id="{84325c89-fd66-41f7-998f-9977417af6b4}">
+      <Declaration><![CDATA[METHOD Reset : BOOL
+VAR_IN_OUT
+	ResetAxis:BOOL;
+	//IDXControlByte1 :USINT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

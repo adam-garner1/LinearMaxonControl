@@ -3,7 +3,7 @@
   <POU Name="IDXMotor" Id="{2d0ab0a1-a5a3-4c64-bc51-ecb0c0b67505}" SpecialFunc="None">
     <Declaration><![CDATA[   // function to house all commmands to do with idx motor 
 
-FUNCTION_BLOCK IDXMotor
+FUNCTION_BLOCK IDXMotor IMPLEMENTS I_Motor
 VAR_INPUT
 	//
 END_VAR
@@ -11,7 +11,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	Axis: AXIS_REF;
-	Enabled: BOOL := FALSE;
+	//Enabled: BOOL := FALSE;
 	Override: LREAL:=100;
 	MotorError AT%I*	:WORD;
 	MotorErrorSent : WORD;
@@ -25,6 +25,8 @@ VAR
 	fbAxisPower: MC_Power;
 	fbReset: MC_Reset;
 	fbMoveRel : MC_MoveRelative;
+	MotorResetBit :REFERENCE TO USINT;
+	MQTTevents: REFERENCE TO FB_IotMqttClient;
 	
 END_VAR
 ]]></Declaration>
@@ -50,13 +52,19 @@ END_IF
 ]]></ST>
     </Implementation>
     <Method Name="Enable" Id="{6ca24d5a-5a8e-43ff-a8c3-908b75374a87}">
-      <Declaration><![CDATA[METHOD PUBLIC Enable : BOOL
+      <Declaration><![CDATA[
+METHOD PUBLIC Enable : BOOL
 VAR_INPUT
 EnableMotor :BOOL;
 END_VAR
 
 
-]]></Declaration>
+
+VAR
+	PayloadPub: STRING :='Enabled';
+	test: STRING;
+	testlen: UDINT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[	fbAxisPower( // use in idx class
     Axis:= Axis,
@@ -73,11 +81,18 @@ IF EnableMotor = EnableEventSent THEN
 	EnableEventSent := NOT EnableEventSent;
 IF EnableMotor THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_enabled,0);
+	fbMessage.RequestEventText(nLangId:=1033,sResult:=PayloadPub,nResultSize:=80);
+	// send mqtt 
+        MQTTevents.Publish(    sTopic:= MAIN.TopicPub, 
+                                pPayload:= ADR(test), nPayloadSize:= LEN2(ADR(PayloadPub))+1, 
+                                eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
 ELSE
 	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_disabled,0);
 END_IF
 fbMessage.Send(0);
-END_IF]]></ST>
+END_IF
+
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="Estop" Id="{ac352b5d-b443-47be-8d49-18781876fd67}">
@@ -94,11 +109,15 @@ END_VAR
 VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-	//AXIS_REF :REFERENCE TO AXIS_REF;
+	ResetBit : REFERENCE TO USINT ;
+	MQTTevent: REFERENCE TO FB_IotMqttClient;
+	
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[//Axis :=AXIS_REF;
+MQTTevents REF= MQTTevent;
+MotorResetBit REF= ResetBit;
 fbMessage.CreateEx(TC_Events.LinearMotor.PLC_restarted,0);
 	fbMessage.Send(0);]]></ST>
       </Implementation>
@@ -236,7 +255,7 @@ END_VAR
       <Declaration><![CDATA[METHOD Reset : BOOL
 VAR_IN_OUT
 	ResetAxis:BOOL;
-	IDXControlByte1 :USINT;
+	//IDXControlByte1 :USINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -246,7 +265,8 @@ Execute:=ResetAxis,
 Done =>Reset);
 
 IF resetAxis THEN
-IDXControlByte1 := 16#80;// restop linear Motor
+//IDXControlByte1 := 16#80;// restop linear Motor
+MotorResetBit := 16#80;
 fbMessage.CreateEx(TC_Events.LinearMotor.AxisReset,0);
 fbMessage.send(0);
 resetAxis := FALSE;
@@ -289,14 +309,23 @@ END_VAR
       <LineId Id="22" Count="1" />
       <LineId Id="21" Count="0" />
       <LineId Id="20" Count="0" />
-      <LineId Id="30" Count="7" />
+      <LineId Id="30" Count="3" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="34" Count="3" />
       <LineId Id="29" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="44" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.Estop">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.FB_init">
       <LineId Id="7" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="23" Count="0" />
       <LineId Id="15" Count="0" />
       <LineId Id="14" Count="0" />
     </LineIds>
@@ -350,7 +379,9 @@ END_VAR
     </LineIds>
     <LineIds Name="IDXMotor.Reset">
       <LineId Id="9" Count="5" />
-      <LineId Id="16" Count="2" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="17" Count="1" />
       <LineId Id="26" Count="0" />
       <LineId Id="19" Count="0" />
       <LineId Id="5" Count="0" />

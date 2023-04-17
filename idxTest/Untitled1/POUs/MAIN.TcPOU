@@ -5,8 +5,9 @@
 VAR
 	Linear: AXIS_REF;
 	fbTest : TestMode();
+	fbMqttClient : FB_IotMqttClient;
 		
-	fbIDX70 :IDXMotor();
+	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1, MQTTevent:= fbMqttClient);
 	fbEverest :EverestMC();
 	IdxEnable:BOOL;
 	EveEnable:BOOL;
@@ -18,7 +19,8 @@ VAR
 	Distance: LREAL;
 	JogStart: BOOL;
 	StartMove:BOOL;
-	fbMessage : FB_TcMessage;
+	StartEveMove:BOOL;
+	//fbMessage : FB_TcMessage;
 	Homed:BOOL;
 	Ready:BOOL;
 	Homing :BOOL;
@@ -30,18 +32,19 @@ VAR
 	EndTest :bool := False;
 	ResetTimer: TON :=(PT:=T#5S,IN:=FALSE);
 
-	(* fbMqttClient : FB_IotMqttClient;
+	 
 	SetParameter : BOOL :=TRUE;
 	mqttConnect : BOOL :=TRUE;
+	
 	(*publish settings*)
-	TopicPub   : STRING(255) := 'PLC';
+	TopicPub   : STRING(255) := 'PLC/Telemetry';
     PayloadPub : STRING(255);
 	MQTTi :UDINT;
 	
 
 	 (* received message *)
     Subscribed    : BOOL;
-    TopicSub      : STRING(255) := 'PLC/Telemetry';
+    TopicSub      : STRING(255) := 'PLC';
     {attribute 'TcEncoding':='UTF-8'}
     sTopicRcv      : STRING(255);
     {attribute 'TcEncoding':='UTF-8'}
@@ -50,22 +53,7 @@ VAR
     fbMessage      : FB_IotMqttMessage;
 	
 	fbMQTTtimer : TON :=(PT:=T#1S);
-	*)
 	
-	
-
-	
-	
-(*
-	TestPosA: REAL :=200;
-	TestPosB: REAL :=100;
-	MoveAbsDone: BOOL := TRUE;
-	TestingFlag: BOOL := FALSE;
-	TestingActive:BOOL :=FALSE;
-
-	TestingTime: TON:=(pt:=T#5S);
-	ResetConfirmation: BOOL;
-	timerON :BOOL := FALSE;*)
 
 	AxisStatus: ST_AxisStatus;
 END_VAR
@@ -76,12 +64,13 @@ END_VAR
 fbIDX70();// error checking 
 Ready:=fbIDX70.Enable(EnableMotor:= IdxEnable);
 fbEverest.Enable(EnableMotor:= EveEnable);
-fbIDX70.Reset(resetAxis:=resetAxis,IDXControlByte1:= idxCTRL1);// set to check for completeion
+fbIDX70.Reset(resetAxis:=resetAxis);
+fbEverest.Reset(resetAxis:=resetAxis);
 fbIDX70.MoveTo(Position:=MovementTarget,Velocity:=MovementVelocity,Execute:=StartMove);
 fbIDX70.MoveRelative(Distance:=Distance,Velocity:=MovementVelocity,Execute:=JogStart);
+fbEverest.MoveTo(Position:=MovementTarget,Velocity:=MovementVelocity,Execute:=StartEveMove);
 
-//fbIDX70.Status(Status=>AxisStatus);
-//AxisStatus := fbIDX70.Status();
+
 //autoreset motor 
 IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
 	ResetTimer(IN :=FALSE);
@@ -98,18 +87,50 @@ Estop :=  NOT idxinput.0;
 
 IF Estop THEN  //Estop check
 	fbIDX70.Estop();// needs implementing  as event and quick stop function
-	IdxEnable:=FALSE;	
+	IdxEnable:=FALSE;
+	EveEnable:=FALSE;	
 END_IF
 fbTest(TestingActive => TestingMode);
 fbTest.StartTest(
-			PositionA:=450,
-			PositionB:=50,
+			PositionA:=400,
+			PositionB:=250,
 			Velocity:=100,
 			Axis:=fbIDX70
 			,Dwell :=T#5S,
 			Execute:=StartTestMode);
 fbTest.EndTest(END := EndTest);			
 
+
+IF SetParameter THEN
+    SetParameter               := FALSE;
+    fbMqttClient.sHostName      := '150.204.240.229';
+    fbMqttClient.nHostPort      := 1883;
+//  fbMqttClient.sClientId      := 'MyTcMqttClient'; 
+    fbMqttClient.sTopicPrefix   := ''; 
+//  fbMqttClient.nKeepAlive     := 60; 
+	fbMqttClient.sUserName      := 'NRT';
+	fbMqttClient.sUserPassword  := 'NRTtest'; 
+//  fbMqttClient.stWill         := ; 
+//  fbMqttClient.stTLS          := ;
+    fbMqttClient.ipMessageQueue := fbMessageQueue;
+END_IF
+
+fbMqttClient.Execute(mqttConnect);
+
+IF fbMqttClient.bConnected THEN
+    IF NOT Subscribed THEN
+        Subscribed := fbMqttClient.Subscribe(sTopic:=TopicSub, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
+    END_IF
+    fbMQTTTimer(IN:=TRUE);
+    IF fbMQTTTimer.Q THEN // publish new payload every second
+        fbMQTTTimer(IN:=FALSE);
+        MQTTi := MQTTi + 1;
+        PayloadPub := CONCAT('test ', TO_STRING(fbIDX70.Position()));
+        fbMqttClient.Publish(    sTopic:= TopicPub, 
+                                pPayload:= ADR(PayloadPub), nPayloadSize:= LEN2(ADR(PayloadPub))+1, 
+                                eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
+    END_IF
+END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -119,10 +140,11 @@ fbTest.EndTest(END := EndTest);
       <LineId Id="620" Count="0" />
       <LineId Id="860" Count="0" />
       <LineId Id="714" Count="0" />
+      <LineId Id="1015" Count="0" />
       <LineId Id="793" Count="0" />
       <LineId Id="853" Count="0" />
+      <LineId Id="944" Count="0" />
       <LineId Id="939" Count="0" />
-      <LineId Id="722" Count="0" />
       <LineId Id="941" Count="0" />
       <LineId Id="721" Count="0" />
       <LineId Id="723" Count="0" />
@@ -136,10 +158,17 @@ fbTest.EndTest(END := EndTest);
       <LineId Id="347" Count="0" />
       <LineId Id="284" Count="0" />
       <LineId Id="696" Count="0" />
-      <LineId Id="285" Count="1" />
+      <LineId Id="285" Count="0" />
+      <LineId Id="1014" Count="0" />
+      <LineId Id="286" Count="0" />
       <LineId Id="927" Count="0" />
       <LineId Id="929" Count="7" />
       <LineId Id="196" Count="0" />
+      <LineId Id="1017" Count="0" />
+      <LineId Id="1021" Count="13" />
+      <LineId Id="1018" Count="1" />
+      <LineId Id="1035" Count="12" />
+      <LineId Id="1020" Count="0" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>

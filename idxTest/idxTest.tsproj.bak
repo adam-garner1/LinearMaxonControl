@@ -1681,14 +1681,14 @@ External Setpoint Generation:
 					<Name>Axis 2</Name>
 					<AxisPara>
 						<General UnitName="°"/>
-						<Dynamic Acceleration="5000" Deceleration="5000"/>
-						<Velo Maximum="20000"/>
+						<Dynamic Acceleration="3000" Deceleration="3000"/>
+						<Velo SlowManual="1000" FastManual="15000" Maximum="18000"/>
 						<PositionAreaControl Enable="false"/>
 						<TargetPosControl Enable="false"/>
-						<OtherSettings AllowMotionCmdToSlave="true"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="45" PulseDistanceNeg="45"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="19">
-						<EncPara ScaleFactorNumerator="0.01757" MaxCount="#xffffffff"/>
+						<EncPara ScaleFactorNumerator="0.072" MaxCount="#xffffffff"/>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1747,7 +1747,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="16">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00020000">
-							<Analog VeloReferenz="18000" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="15000" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1826,7 +1826,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{EC572C82-36E4-4BD3-A437-9949FD4836B1}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{035DDE47-9D2B-AFBC-1222-9916FAD360AE}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -1834,6 +1834,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.idxInput</Name>
 							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.idxState</Name>
+							<Type>WORD</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.Linear.NcToPlc</Name>
@@ -1853,10 +1857,6 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MAIN.fbEverest.MotorError</Name>
-							<Type>WORD</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.idxState</Name>
 							<Type>WORD</Type>
 						</Var>
 						<Var>
