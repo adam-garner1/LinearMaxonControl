@@ -76,12 +76,12 @@ END_VAR]]></Declaration>
 	Error=>
 );
 	
-	
+
 IF EnableMotor = EnableEventSent THEN	
 	EnableEventSent := NOT EnableEventSent;
 IF EnableMotor THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_enabled,0);
-	fbMessage.RequestEventText(nLangId:=1033,sResult:=PayloadPub,nResultSize:=80);
+	
 	// send mqtt 
         MQTTevents.Publish(    sTopic:= MAIN.TopicPub, 
                                 pPayload:= ADR(test), nPayloadSize:= LEN2(ADR(PayloadPub))+1, 
@@ -91,7 +91,7 @@ ELSE
 END_IF
 fbMessage.Send(0);
 END_IF
-
+fbMessage.RequestEventText(nLangId:=1033,sResult:=PayloadPub,nResultSize:=80);	
 ]]></ST>
       </Implementation>
     </Method>
