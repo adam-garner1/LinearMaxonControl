@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -56,35 +56,36 @@ VAR
 	
 
 	AxisStatus: ST_AxisStatus;
+	LinearAxisState: INT;
+	LinearCommandedPosition:LREAL;
+	LinearMove:BOOL;
+	LinearMovementSpeed:LREAL:=50;
+	LinearStatus :ST_AxisStatus;
+	linear_reset :ton (PT:=T#1S,IN:=FALSE);
+	
+
+	
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Linear.ReadStatus();
 
 fbIDX70();// error checking 
-Ready:=fbIDX70.Enable(EnableMotor:= IdxEnable);
-fbEverest.Enable(EnableMotor:= EveEnable);
-fbIDX70.Reset(resetAxis:=resetAxis);
-fbEverest.Reset(resetAxis:=resetAxis);
-fbIDX70.MoveTo(Position:=MovementTarget,Velocity:=MovementVelocity,Execute:=StartMove);
-fbIDX70.MoveRelative(Distance:=Distance,Velocity:=MovementVelocity,Execute:=JogStart);
-fbEverest.MoveTo(Position:=MovementTarget,Velocity:=MovementVelocity,Execute:=StartEveMove);
+
 
 
 //autoreset motor 
-IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
-	ResetTimer(IN :=FALSE);
-	resetAxis:=TRUE;	
-END_IF
-ResetTimer(IN:=TRUE);
+//IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
+//	ResetTimer(IN :=FALSE);
+//	resetAxis:=TRUE;	
+//END_IF
+//ResetTimer(IN:=TRUE);
 
 
-// Home Axis
-Homing := fbIDX70.Home(Execute:=Home);
-Homed :=fbIDX70.Homed();
+
 
 Estop :=  NOT idxinput.0; 
-
 IF Estop THEN  //Estop check
 	fbIDX70.Estop();// needs implementing  as event and quick stop function
 	IdxEnable:=FALSE;
@@ -131,18 +132,66 @@ IF fbMqttClient.bConnected THEN
                                 eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
     END_IF
 END_IF
+
+LinearStatus:= fbIDX70.Status();
+fbIDX70.Reset(resetAxis:=resetAxis);
+IF LinearStatus.Error THEN
+	LinearAxisState:=linearstates.Error;
+END_IF
+
+CASE(LinearAxisState) OF 
+	
+	LinearStates.initialising:
+		fbIDX70.Enable(EnableMotor:= IdxEnable);
+		IF  AxisStatus.Operational THEN
+			LinearAxisState:=LinearStates.Start_Homing;
+		END_IF
+	
+	LinearStates.Start_Homing:
+		IF LinearStatus.Homed THEN
+			LinearAxisState:=Linearstates.Idle;
+		ELSE
+			fbIDX70.Home(Execute:=Home);
+			LinearAxisState:=LinearStates.Homing;
+		END_IF
+
+	LinearStates.Homing:
+		IF LinearStatus.Homed THEN
+			LinearAxisState:=LinearStates.Idle;
+			LinearCommandedPosition:=MovementPositions.linearpos.deployed;
+		END_IF
+	
+	LinearStates.Idle:
+		IF ABS(LinearCommandedPosition-fbIDX70.Position())>0.1 THEN
+		LinearAxisState:=LinearStates.Moving;
+		LinearMove:=TRUE;
+		END_IF
+			
+	Linearstates.Moving:
+		fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
+		IF NOT LinearStatus.HasJob THEN
+			LinearAxisState:=LinearStates.Idle;
+		END_IF
+	
+	Linearstates.Error:
+		IF linear_reset.Q THEN
+			resetAxis:=TRUE;
+			linear_reset.IN:=FALSE;
+		END_IF
+		Linear_reset(IN :=TRUE);
+		IF LinearStatus.Error THEN
+			LinearAxisState:= LinearStates.initialising;
+		END_IF
+	
+END_CASE
+
+
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="715" Count="0" />
       <LineId Id="694" Count="0" />
-      <LineId Id="620" Count="0" />
-      <LineId Id="860" Count="0" />
-      <LineId Id="714" Count="0" />
-      <LineId Id="1015" Count="0" />
-      <LineId Id="793" Count="0" />
-      <LineId Id="853" Count="0" />
       <LineId Id="944" Count="0" />
       <LineId Id="939" Count="0" />
       <LineId Id="941" Count="0" />
@@ -151,11 +200,12 @@ END_IF
       <LineId Id="788" Count="0" />
       <LineId Id="726" Count="0" />
       <LineId Id="725" Count="0" />
-      <LineId Id="790" Count="1" />
-      <LineId Id="717" Count="3" />
-      <LineId Id="288" Count="0" />
+      <LineId Id="790" Count="0" />
+      <LineId Id="1172" Count="0" />
+      <LineId Id="1171" Count="0" />
+      <LineId Id="791" Count="0" />
+      <LineId Id="718" Count="0" />
       <LineId Id="287" Count="0" />
-      <LineId Id="347" Count="0" />
       <LineId Id="284" Count="0" />
       <LineId Id="696" Count="0" />
       <LineId Id="285" Count="0" />
@@ -169,6 +219,44 @@ END_IF
       <LineId Id="1018" Count="1" />
       <LineId Id="1035" Count="12" />
       <LineId Id="1020" Count="0" />
+      <LineId Id="1105" Count="0" />
+      <LineId Id="1162" Count="0" />
+      <LineId Id="1178" Count="3" />
+      <LineId Id="1106" Count="0" />
+      <LineId Id="1104" Count="0" />
+      <LineId Id="1110" Count="0" />
+      <LineId Id="1107" Count="0" />
+      <LineId Id="1130" Count="0" />
+      <LineId Id="1157" Count="2" />
+      <LineId Id="1114" Count="1" />
+      <LineId Id="1185" Count="1" />
+      <LineId Id="1188" Count="2" />
+      <LineId Id="1187" Count="0" />
+      <LineId Id="1134" Count="0" />
+      <LineId Id="1119" Count="0" />
+      <LineId Id="1136" Count="1" />
+      <LineId Id="1191" Count="0" />
+      <LineId Id="1138" Count="0" />
+      <LineId Id="1120" Count="1" />
+      <LineId Id="1141" Count="0" />
+      <LineId Id="1146" Count="0" />
+      <LineId Id="1160" Count="0" />
+      <LineId Id="1147" Count="0" />
+      <LineId Id="1122" Count="0" />
+      <LineId Id="1125" Count="0" />
+      <LineId Id="1151" Count="0" />
+      <LineId Id="1161" Count="0" />
+      <LineId Id="1154" Count="1" />
+      <LineId Id="1127" Count="1" />
+      <LineId Id="1167" Count="1" />
+      <LineId Id="1175" Count="0" />
+      <LineId Id="1169" Count="0" />
+      <LineId Id="1164" Count="0" />
+      <LineId Id="1182" Count="2" />
+      <LineId Id="1113" Count="0" />
+      <LineId Id="1108" Count="0" />
+      <LineId Id="1174" Count="0" />
+      <LineId Id="1173" Count="0" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>

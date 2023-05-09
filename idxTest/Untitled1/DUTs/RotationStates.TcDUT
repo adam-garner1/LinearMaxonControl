@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="RotationStates" Id="{7d15cd09-b50d-481a-988b-32329a59abdf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE RotationStates :
+(
+	initialising,
+	start_homing,
+	Homing,
+	Idle,
+	Start_move,
+	Moving,
+	Error
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

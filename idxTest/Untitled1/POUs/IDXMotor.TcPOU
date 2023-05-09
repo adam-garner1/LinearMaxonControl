@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="IDXMotor" Id="{2d0ab0a1-a5a3-4c64-bc51-ecb0c0b67505}" SpecialFunc="None">
     <Declaration><![CDATA[   // function to house all commmands to do with idx motor 
 
