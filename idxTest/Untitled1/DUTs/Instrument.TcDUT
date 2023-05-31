@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="Instrument" Id="{6f796ba7-fc5e-4ff1-a527-119668af3216}">
+    <Declaration><![CDATA[TYPE Instrument :
+STRUCT
+	Name		:STRING;
+	Rotation	:LREAL	:=1000;
+	Linear		:LREAL	:=0;
+	Enabled 	:BOOL	:=TRUE;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <DUT Name="LinearPositions" Id="{6f796ba7-fc5e-4ff1-a527-119668af3216}">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <DUT Name="LinearPositions" Id="{bf9f37c5-a2a3-4bef-8836-7f7f174e45ae}">
     <Declaration><![CDATA[TYPE LinearPositions :
 STRUCT
-	deployed	:LREAL:=500;
-	stowed		:LREAL:=100;
-	maintenance	:LREAL:=0;	
-
+	Deployed :LREAL:=100;
+	Stowed :LREAL:=500;
+	maintenance :LREAL:=0;
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

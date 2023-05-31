@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <DUT Name="LinearStates" Id="{92b77659-70d9-4b3c-bd1f-796ed907fd91}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
+{attribute 'to_string'}
 TYPE LinearStates :
 (
-	initialising,
+	Initialising,
 	Start_Homing,
 	Homing,
 	Idle,

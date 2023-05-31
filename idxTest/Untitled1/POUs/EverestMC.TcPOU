@@ -28,7 +28,23 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[Axis.ReadStatus();
+
+IF NOT (MotorError = MotorErrorSent) THEN// Creates Event 
+	MotorErrorSent:= MotorError;
+	fbMessage.CreateEx(TC_Events.LinearMotor.IDXmotorError,0);
+	fbMessage.ipArguments.Clear().AddDWord(MotorError);
+	fbMessage.Send(0);
+END_IF
+
+IF NOT (Axis.NcToPlc.ErrorCode = AxisErrorSent) THEN// Creates Event 
+	AxisErrorSent:= Axis.NcToPlc.ErrorCode;
+	fbMessage.CreateEx(TC_Events.LinearMotor.AxisError,0);
+	fbMessage.ipArguments.Clear().AddDWord(Axis.NcToPlc.ErrorCode);
+	fbMessage.Send(0);
+END_IF
+
+]]></ST>
     </Implementation>
     <Method Name="Enable" Id="{7ad8bb3b-6b12-422c-9078-6bc6263f2138}">
       <Declaration><![CDATA[METHOD Enable : BOOL
@@ -54,7 +70,7 @@ IF EnableMotor THEN
 ELSE
 	fbMessage.CreateEx(TC_Events.LinearMotor.Motor_disabled,0);
 END_IF
-fbMessage.Send(0);
+//fbMessage.Send(0);
 END_IF]]></ST>
       </Implementation>
     </Method>
@@ -78,7 +94,36 @@ VAR
 	HomingErrorID:UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[// try changing limits to no error mode then home 
+
+
+	fbMcHome(
+	Axis:=Axis,
+	Execute:=Execute,
+	Position:=510,
+	HomingMode:=MC_DefaultHoming,
+	Busy=>Home,
+	Done=>HomingDone,
+	Error=> HomingError,
+	ErrorID=> HomingErrorID
+);
+	
+IF Execute THEN
+	HomeEventSent:= FALSE;
+	fbMessage.CreateEx(TC_Events.LinearMotor.Homing,0);
+	//fbMessage.Send(0);
+	Execute:= FALSE;	
+END_IF
+IF HomingDone THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.HomingComplete,0);
+	//fbMessage.Send(0);
+END_IF
+
+IF HomingError THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.HomingFailed,0);
+	fbMessage.ipArguments.Clear().AddDWord(HomingErrorID);
+	//fbMessage.Send(0);
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Homed" Id="{c997b53f-68dd-42d9-ade9-e7a024632056}">
@@ -87,7 +132,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[Homed:=Axis.NcToPlc.StateDWord.1;]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveRelative" Id="{493795df-a0ca-47e4-90a1-99a456e23940}">
@@ -101,7 +146,26 @@ VAR_IN_OUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[	fbMoveRel( // in idx class 
+    Axis:= Axis,
+    Execute:= Execute,
+    Distance:= Distance,
+    Velocity:= Velocity,);
+	
+		IF Execute THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.RelativeMove,0);
+	fbMessage.ipArguments.Clear();
+	fbMessage.ipArguments.AddLReal(Distance);
+	fbMessage.ipArguments.AddLReal(Velocity);
+	//fbMessage.Send(0);
+	Execute := FALSE;
+END_IF
+
+IF fbMoveRel.Done  THEN
+	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
+	//fbMessage.Send(0);
+	
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="MoveTo" Id="{4cd2771e-ffe3-4a96-9535-c052480de063}">
@@ -126,14 +190,14 @@ END_VAR
 	fbMessage.ipArguments.Clear();
 	fbMessage.ipArguments.AddLReal(Position);
 	fbMessage.ipArguments.AddLReal(Velocity);
-	fbMessage.Send(0);
+	//fbMessage.Send(0);
 	Execute := FALSE;
 
 END_IF
 
 IF fbAxisMoveAbsolute.Done  THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
-	fbMessage.Send(0);
+	//fbMessage.Send(0);
 
 	
 END_IF]]></ST>
@@ -145,7 +209,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[]]></ST>
+        <ST><![CDATA[Position:= Axis.NcToPlc.ActPos;]]></ST>
       </Implementation>
     </Method>
     <Method Name="Reset" Id="{9478a509-1996-4742-b1cb-06b31e7be6ec}">
@@ -164,13 +228,24 @@ IF resetAxis THEN
 //IDXControlByte1 := 16#80;// restop linear Motor
 //MotorResetBit := 16#80;
 fbMessage.CreateEx(TC_Events.LinearMotor.AxisReset,0);
-fbMessage.send(0);
+//fbMessage.send(0);
 resetAxis := FALSE;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Status" Id="{c8dd27f2-b4b5-44a3-97d2-a6ab733a23e6}">
+      <Declaration><![CDATA[METHOD PUBLIC Status : ST_AxisStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Status := Axis.Status;]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="EverestMC">
+      <LineId Id="49" Count="1" />
+      <LineId Id="35" Count="13" />
       <LineId Id="9" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.Enable">
@@ -181,12 +256,14 @@ END_IF
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.Home">
+      <LineId Id="14" Count="28" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.Homed">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.MoveRelative">
+      <LineId Id="14" Count="18" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="EverestMC.MoveTo">
@@ -198,6 +275,9 @@ END_IF
     </LineIds>
     <LineIds Name="EverestMC.Reset">
       <LineId Id="14" Count="11" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="EverestMC.Status">
       <LineId Id="5" Count="0" />
     </LineIds>
   </POU>

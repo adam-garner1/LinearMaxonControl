@@ -1,77 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	Linear: AXIS_REF;
 	fbTest : TestMode();
-	fbMqttClient : FB_IotMqttClient;
 		
-	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1, MQTTevent:= fbMqttClient);
+	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
+	{attribute 'OPC.UA.DA' := '1'}
 	IdxEnable:BOOL;
 	EveEnable:BOOL;
-	idxState AT%I* :WORD;
 	idxInput AT%I*	:BYTE;
 	idxCTRL1 AT%I*:USINT;
-	MovementTarget:LREAL;
-	MovementVelocity:LREAL:=50;
-	Distance: LREAL;
-	JogStart: BOOL;
-	StartMove:BOOL;
-	StartEveMove:BOOL;
+//	Distance: LREAL;
+	//JogStart: BOOL;
+	//StartMove:BOOL;
+	//StartEveMove:BOOL;
 	//fbMessage : FB_TcMessage;
-	Homed:BOOL;
-	Ready:BOOL;
-	Homing :BOOL;
+	//Homed:BOOL;
+	//Ready:BOOL;
+	//Homing :BOOL;
 	Estop: BOOL;
-	Home :BOOL:=FALSE;
-	resetAxis :BOOL:=FALSE;
-	TestingMode: BOOL := FALSE;
-	StartTestMode:BOOL;
-	EndTest :bool := False;
+	RotationHome :BOOL:=FALSE;
+	LinearresetAxis :BOOL:=FALSE;
+	RotationresetAxis :BOOL:=FALSE;
+	//TestingMode: BOOL := FALSE;
+	//StartTestMode:BOOL;
+	//EndTest :bool := False;
 	ResetTimer: TON :=(PT:=T#5S,IN:=FALSE);
 
-	 
-	SetParameter : BOOL :=TRUE;
-	mqttConnect : BOOL :=TRUE;
-	
-	(*publish settings*)
-	TopicPub   : STRING(255) := 'PLC/Telemetry';
-    PayloadPub : STRING(255);
-	MQTTi :UDINT;
-	
 
-	 (* received message *)
-    Subscribed    : BOOL;
-    TopicSub      : STRING(255) := 'PLC';
-    {attribute 'TcEncoding':='UTF-8'}
-    sTopicRcv      : STRING(255);
-    {attribute 'TcEncoding':='UTF-8'}
-    sPayloadRcv    : STRING(255);
-    fbMessageQueue : FB_IotMqttMessageQueue;
-    fbMessage      : FB_IotMqttMessage;
-	
-	fbMQTTtimer : TON :=(PT:=T#1S);
-	
-
-	AxisStatus: ST_AxisStatus;
-	LinearAxisState: INT;
+	{attribute 'OPC.UA.DA' := '1'}
+	LinearAxisState: LinearStates; (*~ (OPC:1:linear axis status ) *)
+	{attribute 'OPC.UA.DA' := '1'}
 	LinearCommandedPosition:LREAL;
 	LinearMove:BOOL;
 	LinearMovementSpeed:LREAL:=50;
 	LinearStatus :ST_AxisStatus;
-	linear_reset :ton (PT:=T#1S,IN:=FALSE);
+	{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.Access' := '1'}
+{attribute 'OPC.UA.DA.Description' := 'Position of Linear Stage'}
+	LinearPosition  : LREAL;
+	linear_reset :TON:= (PT:=T#1S,IN:=FALSE);
+	Rotation_reset :TON:= (PT:=T#1S,IN:=FALSE);
+	
+	{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.StructuredType' := '1'}
+	linPositions1 :LinearPositions;
+		{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.StructuredType' := '0'}
+	linPositions2 :LinearPositions;
+	
 	
 
 	
 	
+	RotationStatus: ST_AxisStatus;
+	RotationPosition: LREAL;
+	LinearHome: BOOL;
+	RotationAxisState: RotationStates;
+	RotationCommandedPosition: LREAL:=50000;
+	RotationMovementSpeed: LREAL:=1000;
+	RotationMove: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Linear.ReadStatus();
 
-fbIDX70();// error checking 
+fbIDX70();// error checking
+fbEverest();
 
 
 
@@ -91,59 +88,25 @@ IF Estop THEN  //Estop check
 	IdxEnable:=FALSE;
 	EveEnable:=FALSE;	
 END_IF
-fbTest(TestingActive => TestingMode);
-fbTest.StartTest(
-			PositionA:=400,
-			PositionB:=250,
-			Velocity:=100,
-			Axis:=fbIDX70
-			,Dwell :=T#5S,
-			Execute:=StartTestMode);
-fbTest.EndTest(END := EndTest);			
-
-
-IF SetParameter THEN
-    SetParameter               := FALSE;
-    fbMqttClient.sHostName      := '150.204.240.229';
-    fbMqttClient.nHostPort      := 1883;
-//  fbMqttClient.sClientId      := 'MyTcMqttClient'; 
-    fbMqttClient.sTopicPrefix   := ''; 
-//  fbMqttClient.nKeepAlive     := 60; 
-	fbMqttClient.sUserName      := 'NRT';
-	fbMqttClient.sUserPassword  := 'NRTtest'; 
-//  fbMqttClient.stWill         := ; 
-//  fbMqttClient.stTLS          := ;
-    fbMqttClient.ipMessageQueue := fbMessageQueue;
-END_IF
-
-fbMqttClient.Execute(mqttConnect);
-
-IF fbMqttClient.bConnected THEN
-    IF NOT Subscribed THEN
-        Subscribed := fbMqttClient.Subscribe(sTopic:=TopicSub, eQoS:=TcIotMqttQos.AtMostOnceDelivery);
-    END_IF
-    fbMQTTTimer(IN:=TRUE);
-    IF fbMQTTTimer.Q THEN // publish new payload every second
-        fbMQTTTimer(IN:=FALSE);
-        MQTTi := MQTTi + 1;
-        PayloadPub := CONCAT('test ', TO_STRING(fbIDX70.Position()));
-        fbMqttClient.Publish(    sTopic:= TopicPub, 
-                                pPayload:= ADR(PayloadPub), nPayloadSize:= LEN2(ADR(PayloadPub))+1, 
-                                eQoS:= TcIotMqttQos.AtMostOnceDelivery, bRetain:= FALSE, bQueue:= FALSE );
-    END_IF
-END_IF
 
 LinearStatus:= fbIDX70.Status();
-fbIDX70.Reset(resetAxis:=resetAxis);
+fbIDX70.Enable(EnableMotor:= IdxEnable);
+fbIDX70.Reset(resetAxis:=LinearresetAxis);
+fbIDX70.Home(Execute:=LinearHome);
+LinearPosition := fbIDX70.Position();
+
 IF LinearStatus.Error THEN
 	LinearAxisState:=linearstates.Error;
+ELSIF NOT IdxEnable THEN
+		LinearAxisState:=linearstates.Initialising;
+
 END_IF
 
 CASE(LinearAxisState) OF 
 	
-	LinearStates.initialising:
-		fbIDX70.Enable(EnableMotor:= IdxEnable);
-		IF  AxisStatus.Operational THEN
+	LinearStates.Initialising:
+		
+		IF  LinearStatus.Operational THEN
 			LinearAxisState:=LinearStates.Start_Homing;
 		END_IF
 	
@@ -151,7 +114,7 @@ CASE(LinearAxisState) OF
 		IF LinearStatus.Homed THEN
 			LinearAxisState:=Linearstates.Idle;
 		ELSE
-			fbIDX70.Home(Execute:=Home);
+			LinearHome:=TRUE;
 			LinearAxisState:=LinearStates.Homing;
 		END_IF
 
@@ -162,20 +125,20 @@ CASE(LinearAxisState) OF
 		END_IF
 	
 	LinearStates.Idle:
-		IF ABS(LinearCommandedPosition-fbIDX70.Position())>0.1 THEN
-		LinearAxisState:=LinearStates.Moving;
-		LinearMove:=TRUE;
+		IF ABS(LinearCommandedPosition-LinearPosition)>0.1 THEN
+			LinearAxisState:=LinearStates.Moving;
+			LinearMove:=TRUE;
 		END_IF
+		fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
 			
 	Linearstates.Moving:
-		fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
 		IF NOT LinearStatus.HasJob THEN
-			LinearAxisState:=LinearStates.Idle;
+			LinearAxisState:=LinearStates.Idle; 
 		END_IF
 	
 	Linearstates.Error:
 		IF linear_reset.Q THEN
-			resetAxis:=TRUE;
+			LinearresetAxis:=TRUE;
 			linear_reset.IN:=FALSE;
 		END_IF
 		Linear_reset(IN :=TRUE);
@@ -186,12 +149,60 @@ CASE(LinearAxisState) OF
 END_CASE
 
 
-]]></ST>
+RotationStatus:= fbEverest.Status();
+fbEverest.Enable(EnableMotor:= EveEnable);
+fbEverest.Reset(resetAxis:=RotationresetAxis);
+fbEverest.Home(Execute:=RotationHome);
+RotationPosition := fbEverest.Position();
+
+IF RotationStatus.Error THEN
+	RotationAxisState:=Rotationstates.Error;
+ELSIF NOT EveEnable THEN
+		RotationAxisState:=Rotationstates.Initialising;
+END_IF
+
+
+CASE(RotationAxisState) OF 
+	
+	RotationStates.Initialising:
+		
+		IF  RotationStatus.Operational THEN
+			RotationAxisState:=RotationStates.Idle;
+		END_IF
+	
+	//RotationStates.Start_Homing:
+	//RotationStates.Homing:
+		
+	
+	RotationStates.Idle:
+		IF ABS(RotationCommandedPosition-fbEverest.Axis.NcToPlc.SetPos)>0.1 THEN
+			RotationAxisState:=RotationStates.Moving;
+			RotationMove:=TRUE;
+		END_IF
+		fbEverest.MoveTo(Position:=RotationCommandedPosition,Velocity:=RotationMovementSpeed,Execute:=RotationMove);
+			
+	RotationStates.Moving:
+		IF NOT RotationStatus.HasJob THEN
+			RotationAxisState:=	RotationStates.Idle;
+		END_IF
+	
+	RotationStates.Error:
+		IF Rotation_reset.Q THEN
+			RotationresetAxis:=TRUE;
+			Rotation_reset.IN:=FALSE;
+		END_IF
+		Rotation_reset(IN :=TRUE);
+		IF RotationStatus.Error THEN
+			RotationAxisState:= RotationStates.initialising;
+		END_IF
+	
+END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="715" Count="0" />
       <LineId Id="694" Count="0" />
+      <LineId Id="1417" Count="0" />
       <LineId Id="944" Count="0" />
       <LineId Id="939" Count="0" />
       <LineId Id="941" Count="0" />
@@ -211,17 +222,16 @@ END_CASE
       <LineId Id="285" Count="0" />
       <LineId Id="1014" Count="0" />
       <LineId Id="286" Count="0" />
-      <LineId Id="927" Count="0" />
-      <LineId Id="929" Count="7" />
-      <LineId Id="196" Count="0" />
-      <LineId Id="1017" Count="0" />
-      <LineId Id="1021" Count="13" />
-      <LineId Id="1018" Count="1" />
-      <LineId Id="1035" Count="12" />
-      <LineId Id="1020" Count="0" />
       <LineId Id="1105" Count="0" />
       <LineId Id="1162" Count="0" />
-      <LineId Id="1178" Count="3" />
+      <LineId Id="1258" Count="0" />
+      <LineId Id="1178" Count="0" />
+      <LineId Id="1329" Count="0" />
+      <LineId Id="1402" Count="0" />
+      <LineId Id="1262" Count="0" />
+      <LineId Id="1179" Count="1" />
+      <LineId Id="1259" Count="2" />
+      <LineId Id="1181" Count="0" />
       <LineId Id="1106" Count="0" />
       <LineId Id="1104" Count="0" />
       <LineId Id="1110" Count="0" />
@@ -242,9 +252,9 @@ END_CASE
       <LineId Id="1146" Count="0" />
       <LineId Id="1160" Count="0" />
       <LineId Id="1147" Count="0" />
+      <LineId Id="1404" Count="0" />
       <LineId Id="1122" Count="0" />
       <LineId Id="1125" Count="0" />
-      <LineId Id="1151" Count="0" />
       <LineId Id="1161" Count="0" />
       <LineId Id="1154" Count="1" />
       <LineId Id="1127" Count="1" />
@@ -256,7 +266,13 @@ END_CASE
       <LineId Id="1113" Count="0" />
       <LineId Id="1108" Count="0" />
       <LineId Id="1174" Count="0" />
+      <LineId Id="1418" Count="4" />
       <LineId Id="1173" Count="0" />
+      <LineId Id="1428" Count="4" />
+      <LineId Id="1427" Count="0" />
+      <LineId Id="1435" Count="10" />
+      <LineId Id="1453" Count="0" />
+      <LineId Id="1457" Count="23" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>

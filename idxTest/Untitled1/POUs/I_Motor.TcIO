@@ -60,5 +60,11 @@ VAR_IN_OUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="Status" Id="{a93bcf53-8466-4ede-8c9f-545c37192f6a}">
+      <Declaration><![CDATA[METHOD PUBLIC Status : ST_AxisStatus
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
   </Itf>
 </TcPlcObject>

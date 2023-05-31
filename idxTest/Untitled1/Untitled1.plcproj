@@ -17,6 +17,9 @@
     <LibraryReferences>{5cf966f5-97ef-4caa-a4de-9ba00d9bd708}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\Instrument.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\LinearPositions.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -30,9 +33,6 @@
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
-    <Compile Include="PlcTask.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\EverestMC.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -43,6 +43,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\TestMode.TcPOU">
