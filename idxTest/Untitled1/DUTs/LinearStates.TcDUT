@@ -14,7 +14,7 @@ TYPE LinearStates :
 	Moving,
 	Error
 );
-END_TYPE
+END_TYPE 
 ]]></Declaration>
   </DUT>
 </TcPlcObject>

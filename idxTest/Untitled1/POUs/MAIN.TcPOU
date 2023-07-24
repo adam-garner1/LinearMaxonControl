@@ -9,6 +9,7 @@ VAR
 	fbEverest :EverestMC();
 	{attribute 'OPC.UA.DA' := '1'}
 	IdxEnable:BOOL;
+	{attribute 'OPC.UA.DA' := '1'}
 	EveEnable:BOOL;
 	idxInput AT%I*	:BYTE;
 	idxCTRL1 AT%I*:USINT;
@@ -20,6 +21,8 @@ VAR
 	//Homed:BOOL;
 	//Ready:BOOL;
 	//Homing :BOOL;
+	{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.Access' := '1'}
 	Estop: BOOL;
 	RotationHome :BOOL:=FALSE;
 	LinearresetAxis :BOOL:=FALSE;
@@ -35,6 +38,7 @@ VAR
 	{attribute 'OPC.UA.DA' := '1'}
 	LinearCommandedPosition:LREAL;
 	LinearMove:BOOL;
+	{attribute 'OPC.UA.DA' := '1'}
 	LinearMovementSpeed:LREAL:=50;
 	LinearStatus :ST_AxisStatus;
 	{attribute 'OPC.UA.DA' := '1'}
@@ -56,11 +60,15 @@ VAR
 	
 	
 	RotationStatus: ST_AxisStatus;
+	{attribute 'OPC.UA.DA' := '1'}
 	RotationPosition: LREAL;
 	LinearHome: BOOL;
+	{attribute 'OPC.UA.DA' := '1'}
 	RotationAxisState: RotationStates;
+	{attribute 'OPC.UA.DA' := '1'}
 	RotationCommandedPosition: LREAL:=50000;
-	RotationMovementSpeed: LREAL:=1000;
+	{attribute 'OPC.UA.DA' := '1'}
+	RotationMovementSpeed: LREAL:=10000;
 	RotationMove: BOOL;
 END_VAR
 ]]></Declaration>
@@ -74,7 +82,7 @@ fbEverest();
 
 //autoreset motor 
 //IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
-//	ResetTimer(IN :=FALSE);
+//	ResetTimer(IN :=FALSE); 
 //	resetAxis:=TRUE;	
 //END_IF
 //ResetTimer(IN:=TRUE);
