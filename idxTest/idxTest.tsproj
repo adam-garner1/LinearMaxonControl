@@ -1687,17 +1687,21 @@ External Setpoint Generation:
 					</Vars>
 				</Axis>
 				<Axis Id="2" CreateSymbols="true" AxisType="1">
-					<Name>Axis 2</Name>
+					<Name>Rotation</Name>
 					<AxisPara>
 						<General UnitName="°"/>
-						<Dynamic Acceleration="3000" Deceleration="3000"/>
-						<Velo SlowManual="1000" FastManual="15000" Maximum="18000"/>
+						<Dynamic AccelerationMaximum="1500" DecelerationMaximum="1500" Acceleration="100" Deceleration="100" Jerk="100"/>
+						<Velo RefSearch="20" RefSync="5" SlowManual="10" FastManual="60" Fast="70" Maximum="80"/>
 						<PositionAreaControl Enable="false"/>
 						<TargetPosControl Enable="false"/>
-						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="45" PulseDistanceNeg="45"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="19">
-						<EncPara ScaleFactorNumerator="0.072" MaxCount="#xffffffff"/>
+						<EncPara ScaleFactorNumerator="0.001" MaxCount="#xffffffff">
+							<SoftEndMinControl Enable="true"/>
+							<SoftEndMaxControl Enable="true" Range="360"/>
+							<Inc RefSearchInverse="true" RefSyncInverse="false" RefPosition="2" RefMode="1" HomingSensorSource="1"/>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1756,7 +1760,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="16">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00020000">
-							<Analog VeloReferenz="15000" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="50" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1940,20 +1944,20 @@ External Setpoint Generation:
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="5.119.202.92.3.1" RemoteName="IDX70 (EtherCAT)" InfoImageId="3">
-				<Name>IDX70 (EtherCAT)</Name>
+			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.119.202.92.2.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="5">
+				<Name>Device 1 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc>Ethernet 4 (ASIX AX88179 USB 3.0 to Gigabit Etherne</DeviceDesc>
-						<DeviceName>\DEVICE\{0D642179-8689-4A84-90B8-C6825C094244}</DeviceName>
-						<DeviceData>806d971a83da</DeviceData>
+						<DeviceDesc>X001 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit) </DeviceDesc>
+						<DeviceName>\DEVICE\{CA3CA98C-EC21-4583-A10D-84220D125055}</DeviceName>
+						<DeviceData>00010577ca5d</DeviceData>
 					</Pnp>
 				</AddressInfo>
-				<Image Id="2" AddrType="9" ImageType="3">
+				<Image Id="4" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
-				<Box Id="1" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Drive 1 (IDX)</Name>
+				<Box Id="2" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Drive 2 (IDX)</Name>
 					<ImageId>1000</ImageId>
 					<EtherCAT SlaveType="2" PdiType="#x0680" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="45" FoeType="1" VendorId="#x000000fb" ProductCode="#x66500000" RevisionNo="#x01700000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" DownloadSlotCfg="true" PortPhys="17" MaxSlotCount="1" SlotPdoIncrement="1" Type="IDX70 EtherCAT" Desc="IDX" PortABoxInfo="#x00ffffff">
 						<SyncMan>001030002600010001000000300030003000001026010000</SyncMan>
@@ -1967,9 +1971,15 @@ External Setpoint Generation:
 						<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>02000300090000000700000003000000020009030000000000000000000000002060600001000000084f70206d6f646500</MBoxUserCmdData>
+						<MBoxUserCmdData>02000300090000000700000003000000010009030000000000000000000000002060600001000000084f70206d6f646500</MBoxUserCmdData>
 						<Pdo Name="CSP Inputs" Index="#x1a00" Flags="#x0080" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Error code" Index="#x603f">
+								<Type>UINT</Type>
+							</Entry>
+							<Entry Name="Digital inputs logic state" Index="#x3141" Sub="#x01">
 								<Type>UINT</Type>
 							</Entry>
 							<Entry Name="Position actual value" Index="#x6064">
@@ -1986,12 +1996,6 @@ External Setpoint Generation:
 							</Entry>
 							<Entry Name="Digital inputs" Index="#x60fd">
 								<Type>UDINT</Type>
-							</Entry>
-							<Entry Name="Digital inputs logic state" Index="#x3141" Sub="#x01">
-								<Type>UINT</Type>
-							</Entry>
-							<Entry Name="Error code" Index="#x603f">
-								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="CSP Outputs" Index="#x1600" InOut="1" Flags="#x0080" SyncMan="2">
@@ -2022,7 +2026,7 @@ External Setpoint Generation:
 							<ModuleIdent>2013265922</ModuleIdent>
 							<ModuleIdent>2030043138</ModuleIdent>
 							<ModuleIdent>2046820354</ModuleIdent>
-							<Module Id="#x03090002" Type="CSP Mode" Class="">
+							<Module Id="#x03090001" Type="CSP Mode" Class="">
 								<Name>Module 1 (CSP Mode)</Name>
 								<ImageId>405</ImageId>
 								<ModuleData>fb00000002000078000004000000000000000000000000000000000000000000</ModuleData>
@@ -2033,20 +2037,19 @@ External Setpoint Generation:
 						</Slot>
 					</EtherCAT>
 				</Box>
-				<Box Id="3" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Drive 3 (EVS-XCR-E)</Name>
+				<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Drive 4 (EVS-XCR-E)</Name>
 					<ImageId>1001</ImageId>
-					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x0000029c" ProductCode="#x03b31001" RevisionNo="#x00050009" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange1="2000" TimeoutStateChange2="5000" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EVS-XCR-E" Desc="EVS-XCR-E" PortABoxInfo="#x01000001">
+					<EtherCAT SlaveType="2" PdiType="#x0e08" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="1" FoeType="1" VendorId="#x0000029c" ProductCode="#x03b31001" RevisionNo="#x00050009" InfoDataAddr="true" InfoDataSoeDS401="true" TimeoutStateChange1="2000" TimeoutStateChange2="5000" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EVS-XCR-E" Desc="EVS-XCR-E" PortABoxInfo="#x01000002">
 						<SyncMan>001080002600010001000000220000018000001026010000</SyncMan>
 						<SyncMan>001480002200010002000000220000018000001422010000</SyncMan>
 						<SyncMan>00180b006400010003000000000000000b00001864010000</SyncMan>
-						<SyncMan>001c0b002000010004000000000000000b00001c20010000</SyncMan>
+						<SyncMan>001c0f002000010004000000000000000b00001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
 						<SwitchPortData>010000001602a8c000ffffff0102a8c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 						<BootStrapData>0010800000148000</BootStrapData>
-						<DcData>0003000000000000fdffffff0000000001000000010000000000000000000000</DcData>
 						<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>444353796e630000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000000000000fdffffff00000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<Pdo Name="TPDO 1 mapping parameter" Index="#x1a00" Flags="#x0200" SyncMan="3">
@@ -2067,6 +2070,9 @@ External Setpoint Generation:
 							<Entry Name="Operation mode display" Index="#x6061" Flags="#x00001000">
 								<Type>SINT</Type>
 								<Comment><![CDATA[object 0x6061:0]]></Comment>
+							</Entry>
+							<Entry Name="Digital inputs value" Index="#x2600">
+								<Type>UDINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="TPDO 2 mapping parameter" Index="#x1a01" Flags="#x0200">
@@ -2142,57 +2148,19 @@ External Setpoint Generation:
 				</Box>
 				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120"/>
 			</Device>
-			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.119.202.92.2.1" RemoteName="Device 1 (EtherCAT)" InfoImageId="5">
-				<Name>Device 1 (EtherCAT)</Name>
-				<AddressInfo>
-					<Pnp>
-						<DeviceDesc>X001 (TwinCAT-Intel PCI Ethernet Adapter (Gigabit) </DeviceDesc>
-						<DeviceName>\DEVICE\{CA3CA98C-EC21-4583-A10D-84220D125055}</DeviceName>
-						<DeviceData>00010577ca5d</DeviceData>
-					</Pnp>
-				</AddressInfo>
-				<Image Id="4" AddrType="9" ImageType="3">
-					<Name>Image</Name>
-				</Image>
-				<EtherCAT/>
-			</Device>
 		</Io>
 		<SymbolWatch>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl2</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState5</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl5</Variable>
 			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState8</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState1</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Outputs^Out^nCtrl1</Variable>
-			<Variable>TIID^IDX70 (EtherCAT)^Drive 1 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Error code</Variable>
-			<Variable>TIID^IDX70 (EtherCAT)^Drive 1 (IDX)^Module 1 (CSP Mode)^CSP Inputs^Digital inputs logic state</Variable>
+			<Variable>TINC^NC-Task 1 SAF^Axes^Rotation^Drive^Inputs^In^nState8</Variable>
 		</SymbolWatch>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030020"/>
-		<MappingInfo Identifier="{00000000-0030-0304-1000-040331000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{08502001-0020-0304-0020-500820000403}" Id="#x02030010" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{00000000-0040-0304-1000-040340000403}" Id="#x02030040"/>
+		<MappingInfo Identifier="{00000000-0050-0304-1000-040351000403}" Id="#x02030060"/>
+		<MappingInfo Identifier="{08502001-0040-0304-0020-500840000403}" Id="#x02030010" Watchdog="04000000040000000400000004000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="04000000040000000400000004000000"/>
-		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 2">
-			<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 3 (EVS-XCR-E)">
-				<Link VarA="Drive^Inputs^In^nState1" VarB="TPDO 1 mapping parameter^Status Word"/>
-				<Link VarA="Drive^Inputs^In^nState2" VarB="TPDO 1 mapping parameter^Status Word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
-				<Link VarA="Drive^Inputs^In^nState5" VarB="TPDO 1 mapping parameter^Operation mode display"/>
-				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="RPDO 1 mapping parameter^Control Word"/>
-				<Link VarA="Drive^Outputs^Out^nCtrl2" VarB="RPDO 1 mapping parameter^Control Word" Size="8" OffsB="8"/>
-				<Link VarA="Drive^Outputs^Out^nCtrl5" VarB="RPDO 1 mapping parameter^Operation mode"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="RPDO 1 mapping parameter^Position set-point"/>
-				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="RPDO 1 mapping parameter^Velocity set-point"/>
-				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="TPDO 1 mapping parameter^Actual position"/>
-				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="TPDO 1 mapping parameter^Actual velocity"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
-			</OwnerB>
-		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Linear">
-			<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 1 (IDX)">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 2 (IDX)">
 				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="Module 1 (CSP Mode)^CSP Inputs^Torque actual value"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword"/>
@@ -2213,19 +2181,37 @@ External Setpoint Generation:
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
 			</OwnerB>
 		</OwnerA>
+		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Rotation">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 4 (EVS-XCR-E)">
+				<Link VarA="Drive^Inputs^In^nState1" VarB="TPDO 1 mapping parameter^Status Word"/>
+				<Link VarA="Drive^Inputs^In^nState2" VarB="TPDO 1 mapping parameter^Status Word" Size="8" OffsB="8"/>
+				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Drive^Inputs^In^nState5" VarB="TPDO 1 mapping parameter^Operation mode display"/>
+				<Link VarA="Drive^Inputs^In^nState8" VarB="TPDO 1 mapping parameter^Digital inputs value"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="RPDO 1 mapping parameter^Control Word"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl2" VarB="RPDO 1 mapping parameter^Control Word" Size="8" OffsB="8"/>
+				<Link VarA="Drive^Outputs^Out^nCtrl5" VarB="RPDO 1 mapping parameter^Operation mode"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut1" VarB="RPDO 1 mapping parameter^Position set-point"/>
+				<Link VarA="Drive^Outputs^Out^nDataOut2" VarB="RPDO 1 mapping parameter^Velocity set-point"/>
+				<Link VarA="Enc^Inputs^In^nDataIn1" VarB="TPDO 1 mapping parameter^Actual position"/>
+				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="TPDO 1 mapping parameter^Actual velocity"/>
+				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
+			</OwnerB>
+		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
-			<OwnerB Name="TIID^IDX70 (EtherCAT)^Drive 1 (IDX)">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 2 (IDX)">
 				<Link VarA="PlcTask Inputs^MAIN.fbIDX70.MotorError" VarB="Module 1 (CSP Mode)^CSP Inputs^Error code"/>
 				<Link VarA="PlcTask Inputs^MAIN.idxInput" VarB="Module 1 (CSP Mode)^CSP Inputs^Digital inputs logic state"/>
 			</OwnerB>
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 2">
-				<Link VarA="PlcTask Inputs^MAIN.fbEverest.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbEverest.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
-			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
 				<Link VarA="PlcTask Inputs^MAIN.fbIDX70.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Inputs^MAIN.idxCTRL1" VarB="Drive^Outputs^Out^nCtrl1"/>
 				<Link VarA="PlcTask Outputs^MAIN.fbIDX70.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Rotation">
+				<Link VarA="PlcTask Inputs^MAIN.fbEverest.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MAIN.fbEverest.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>

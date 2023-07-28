@@ -100,7 +100,7 @@ END_VAR]]></Declaration>
 	fbMcHome(
 	Axis:=Axis,
 	Execute:=Execute,
-	Position:=510,
+	//Position:=510,
 	HomingMode:=MC_DefaultHoming,
 	Busy=>Home,
 	Done=>HomingDone,

@@ -66,9 +66,9 @@ VAR
 	{attribute 'OPC.UA.DA' := '1'}
 	RotationAxisState: RotationStates;
 	{attribute 'OPC.UA.DA' := '1'}
-	RotationCommandedPosition: LREAL:=50000;
+	RotationCommandedPosition: LREAL:=60;
 	{attribute 'OPC.UA.DA' := '1'}
-	RotationMovementSpeed: LREAL:=10000;
+	RotationMovementSpeed: LREAL:=20;
 	RotationMove: BOOL;
 END_VAR
 ]]></Declaration>
@@ -101,6 +101,7 @@ LinearStatus:= fbIDX70.Status();
 fbIDX70.Enable(EnableMotor:= IdxEnable);
 fbIDX70.Reset(resetAxis:=LinearresetAxis);
 fbIDX70.Home(Execute:=LinearHome);
+fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
 LinearPosition := fbIDX70.Position();
 
 IF LinearStatus.Error THEN
@@ -136,8 +137,10 @@ CASE(LinearAxisState) OF
 		IF ABS(LinearCommandedPosition-LinearPosition)>0.1 THEN
 			LinearAxisState:=LinearStates.Moving;
 			LinearMove:=TRUE;
+		ELSE
+			LinearMove:=FALSE;
 		END_IF
-		fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
+		
 			
 	Linearstates.Moving:
 		IF NOT LinearStatus.HasJob THEN
@@ -162,6 +165,7 @@ fbEverest.Enable(EnableMotor:= EveEnable);
 fbEverest.Reset(resetAxis:=RotationresetAxis);
 fbEverest.Home(Execute:=RotationHome);
 RotationPosition := fbEverest.Position();
+fbEverest.MoveTo(Position:=RotationCommandedPosition,Velocity:=RotationMovementSpeed,Execute:=RotationMove);
 
 IF RotationStatus.Error THEN
 	RotationAxisState:=Rotationstates.Error;
@@ -175,19 +179,33 @@ CASE(RotationAxisState) OF
 	RotationStates.Initialising:
 		
 		IF  RotationStatus.Operational THEN
-			RotationAxisState:=RotationStates.Idle;
+			RotationAxisState:=RotationStates.Start_Homing;
 		END_IF
 	
-	//RotationStates.Start_Homing:
-	//RotationStates.Homing:
+	RotationStates.Start_Homing:
+	IF RotationStatus.Homed THEN
+			RotationAxisState:=Rotationstates.Idle;
+		ELSE
+			RotationHome:=TRUE;
+			RotationAxisState:=RotationStates.Homing;
+		END_IF
+	
+
+	RotationStates.Homing:
+	IF RotationStatus.Homed THEN
+			RotationAxisState:=RotationStates.Idle;
+	END_IF
+			
 		
 	
 	RotationStates.Idle:
-		IF ABS(RotationCommandedPosition-fbEverest.Axis.NcToPlc.SetPos)>0.1 THEN
+		IF ABS(RotationCommandedPosition-fbEverest.Axis.NcToPlc.SetPos)>0.01 THEN
 			RotationAxisState:=RotationStates.Moving;
 			RotationMove:=TRUE;
+		ELSE 
+			RotationMove:=FALSE;
 		END_IF
-		fbEverest.MoveTo(Position:=RotationCommandedPosition,Velocity:=RotationMovementSpeed,Execute:=RotationMove);
+		
 			
 	RotationStates.Moving:
 		IF NOT RotationStatus.HasJob THEN
@@ -235,6 +253,7 @@ END_CASE]]></ST>
       <LineId Id="1258" Count="0" />
       <LineId Id="1178" Count="0" />
       <LineId Id="1329" Count="0" />
+      <LineId Id="1552" Count="0" />
       <LineId Id="1402" Count="0" />
       <LineId Id="1262" Count="0" />
       <LineId Id="1179" Count="1" />
@@ -259,6 +278,7 @@ END_CASE]]></ST>
       <LineId Id="1141" Count="0" />
       <LineId Id="1146" Count="0" />
       <LineId Id="1160" Count="0" />
+      <LineId Id="1554" Count="1" />
       <LineId Id="1147" Count="0" />
       <LineId Id="1404" Count="0" />
       <LineId Id="1122" Count="0" />
@@ -273,14 +293,22 @@ END_CASE]]></ST>
       <LineId Id="1182" Count="2" />
       <LineId Id="1113" Count="0" />
       <LineId Id="1108" Count="0" />
-      <LineId Id="1174" Count="0" />
+      <LineId Id="1551" Count="0" />
       <LineId Id="1418" Count="4" />
       <LineId Id="1173" Count="0" />
+      <LineId Id="1559" Count="0" />
       <LineId Id="1428" Count="4" />
       <LineId Id="1427" Count="0" />
       <LineId Id="1435" Count="10" />
+      <LineId Id="1563" Count="4" />
+      <LineId Id="1562" Count="0" />
       <LineId Id="1453" Count="0" />
-      <LineId Id="1457" Count="23" />
+      <LineId Id="1561" Count="0" />
+      <LineId Id="1560" Count="0" />
+      <LineId Id="1568" Count="3" />
+      <LineId Id="1457" Count="5" />
+      <LineId Id="1556" Count="1" />
+      <LineId Id="1463" Count="17" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>
