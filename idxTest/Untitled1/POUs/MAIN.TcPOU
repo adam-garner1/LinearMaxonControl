@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbTest : TestMode();
-		
+	idxEncoder AT%I*	:UINT;	
 	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
 	{attribute 'OPC.UA.DA' := '1'}
@@ -149,7 +149,7 @@ CASE(LinearAxisState) OF
 	
 	Linearstates.Error:
 		IF linear_reset.Q THEN
-			LinearresetAxis:=TRUE;
+			LinearresetAxis:=FALSE;
 			linear_reset.IN:=FALSE;
 		END_IF
 		Linear_reset(IN :=TRUE);
