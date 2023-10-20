@@ -2,9 +2,9 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{69DA01E7-C652-C46B-0222-7A50380E1C70}</SystemId>
-		<IssueTime>2023-08-01T09:59:00</IssueTime>
-		<ExpireTime>2023-08-09T00:00:00</ExpireTime>
-		<LicenseKey>e1e9976c75052363cdd730970496985ce6debd2f99b0377c340db1b6a1f38c0a98b8c31c3c2a2034dffced9c7f04c3f70bc1ec41a4287e4fdcfa753500e0b23604c12d382fe9958fdad4ccf90eb69de473b52357c161968ade14d8cef3102ec54d20d8a1bdf2e09df3fda27dec6ce04b7e4e49e6c9208712efeab2d4de3b356297a3ae0ab22b3e6ef4dbf7866a02f029269cb5a82bb0981a83b9fe64d6f4ed9800090f7a7ca81d520c6a915ce93961f0cd5f5a32cf315a8969c2020b5a0effcaa490deaafb60318bc9b6df97ac987290c10366fb36b82909e3dc03c07fe764a5b382aaf916640eebadd992ab45e706b8dd811f70df40d7c421347357e31563fe</LicenseKey>
+		<IssueTime>2023-10-11T09:46:00</IssueTime>
+		<ExpireTime>2023-10-19T00:00:00</ExpireTime>
+		<LicenseKey>1cd4b0a234575587bca35c4f02f8347d87782a76c71130c9ae296da12fb7ea4c16d0aedda2f26777ca42c8c387bbde30abead2f8cd12ffe9e20f0b6885e1798ef12a5b28a5158a75fa817e50884db331323cbe340f12182c4a2c29b396e506d7ba62556638935abe1cec1dd493ff0d659a88cbedc490c263d8c234fb2905c232b0270312792252a378cf99424b96259f1fd446dd1889e2a5d897525faf9ed1ef4b8c6f0819cd1061f9dcd942d48d46af0d3c66537ba20efd44bd331d9f82a0fef18aaf5d2ab395c51f7a376f2f19ac1fa2926b4969513ba924778c9d2a16d8b0c3b45bef00df41a08f11e38bd655ae7fd4fafd146c1cffad6e0c190bbfa878f0</LicenseKey>
 		<License>
 			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
 			<Name>TC3 NC PTP Axis</Name>
@@ -25,9 +25,14 @@
 			<OrderNo>TF6701</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{37E5160D-987B-4640-888D-0F97727B53E2}</LicenseId>
-			<Name>TC3 HMI Clients</Name>
-			<Instances>101</Instances>
+			<LicenseId>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</LicenseId>
+			<Name>TC3 HMI OPC UA</Name>
+			<OrderNo>TF2110</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{1601B55A-B68B-4C5B-9A42-31E9CA63F286}</LicenseId>
+			<Name>TC3 OPC-DA</Name>
+			<OrderNo>TF6120</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{A2091C4C-7D04-4202-B173-9984E7125BC0}</LicenseId>
@@ -35,14 +40,19 @@
 			<Instances>1</Instances>
 		</License>
 		<License>
+			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
+			<Name>TC3 Controller Toolbox</Name>
+			<OrderNo>TF4100</OrderNo>
+		</License>
+		<License>
 			<LicenseId>{796D380F-D49E-4C0C-A05F-500052FAC883}</LicenseId>
 			<Name>TC3 HMI Server</Name>
 			<OrderNo>TF2000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</LicenseId>
-			<Name>TC3 HMI OPC UA</Name>
-			<OrderNo>TF2110</OrderNo>
+			<LicenseId>{37E5160D-987B-4640-888D-0F97727B53E2}</LicenseId>
+			<Name>TC3 HMI Clients</Name>
+			<Instances>101</Instances>
 		</License>
 		<License>
 			<LicenseId>{927A7313-A412-4376-8911-4A8F60EC8651}</LicenseId>
@@ -53,16 +63,6 @@
 			<LicenseId>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</LicenseId>
 			<Name>TC3 OPC-UA</Name>
 			<OrderNo>TF6100</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
-			<Name>TC3 Controller Toolbox</Name>
-			<OrderNo>TF4100</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{1601B55A-B68B-4C5B-9A42-31E9CA63F286}</LicenseId>
-			<Name>TC3 OPC-DA</Name>
-			<OrderNo>TF6120</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

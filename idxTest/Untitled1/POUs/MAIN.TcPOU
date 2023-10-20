@@ -7,6 +7,32 @@ VAR
 	idxEncoder AT%I*	:UINT;	
 	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
+	LinearEncoder: AXIS_REF;
+	Force: AXIS_REF;
+	
+	Instruments :ARRAY[0..4] OF instrument ;
+	DemoMode: BOOL;
+	CurrentInstrument:INT;
+	Change_Inst :TON:= (PT:=T#10S,IN:=FALSE);
+	CurrentInstName:STRING;
+	
+	
+	BacklashComp : MC_BacklashCompensation;
+	BackEn :BOOL;
+	Backlashmm:LREAL;
+	BacklashDir:BOOL;
+	
+	ForceAvg : FB_CTRL_MOVING_AVERAGE;
+	ForceAvgArray: ARRAY[0..100] OF LREAL;
+	ForceAvgParas : ST_CTRL_MOVING_AVERAGE_PARAMS := (
+tCtrlCycleTime:= T#100MS,
+tTaskCycleTime:= T#10MS,
+nSamplesToFilter:=100,
+pWorkArray_ADR:= ADR(ForceAvgArray),
+nWorkArray_SIZEOF:= 800);
+
+
+	
 	{attribute 'OPC.UA.DA' := '1'}
 	IdxEnable:BOOL;
 	{attribute 'OPC.UA.DA' := '1'}
@@ -38,6 +64,7 @@ VAR
 	{attribute 'OPC.UA.DA' := '1'}
 	LinearCommandedPosition:LREAL;
 	LinearMove:BOOL;
+	LinearErrorACK:BOOL:=FALSE;
 	{attribute 'OPC.UA.DA' := '1'}
 	LinearMovementSpeed:LREAL:=50;
 	LinearStatus :ST_AxisStatus;
@@ -70,15 +97,46 @@ VAR
 	{attribute 'OPC.UA.DA' := '1'}
 	RotationMovementSpeed: LREAL:=20;
 	RotationMove: BOOL;
+	homeoutput: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Linear.ReadStatus();
-
+LinearEncoder.ReadStatus();
+Force.ReadStatus();
 fbIDX70();// error checking
 fbEverest();
+// AND IdxEnable AND EveEnable
+IF DemoMode  AND Change_Inst.Q  THEN
+	CurrentInstrument:= (CurrentInstrument+1) MOD 4;
+	Change_Inst(IN :=FALSE);
+	LinearCommandedPosition:= Instruments[CurrentInstrument].Linear;
+	RotationCommandedPosition:= Instruments[CurrentInstrument].Rotation;
+	CurrentInstName := Instruments[CurrentInstrument].Name;
+ELSIF  NOT DemoMode THEN
+	CurrentInstName :=' None Selected ';
+ELSE 
+	Change_Inst(IN :=TRUE);
+
+	
+END_IF
+
+ForceAvg(
+ Fin:= Force.NcToPlc.ActPos,
+stParams:= ForceAvgParas,
+eMode:= E_CTRL_MODE.eCTRL_MODE_ACTIVE);
+	
 
 
+
+BacklashComp(
+	Axis:= FbIDX70.Axis,
+	Enable := BackEn,
+	Backlash :=Backlashmm,
+	CompensationInPositiveDirection:=BacklashDir,
+	Ramp := 10,DisableMode:=1);
+	
+	
 
 //autoreset motor 
 //IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
@@ -97,44 +155,43 @@ IF Estop THEN  //Estop check
 	EveEnable:=FALSE;	
 END_IF
 
-LinearStatus:= fbIDX70.Status();
+
 fbIDX70.Enable(EnableMotor:= IdxEnable);
 fbIDX70.Reset(resetAxis:=LinearresetAxis);
-fbIDX70.Home(Execute:=LinearHome);
+homeoutput := fbIDX70.Home(Execute:=LinearHome);
 fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
 LinearPosition := fbIDX70.Position();
+LinearStatus:= fbIDX70.Status();
 
 IF LinearStatus.Error THEN
 	LinearAxisState:=linearstates.Error;
-ELSIF NOT IdxEnable THEN
+ELSIF NOT IdxEnable OR LinearAxisState = linearstates.Error THEN
 		LinearAxisState:=linearstates.Initialising;
-
+		
 END_IF
 
 CASE(LinearAxisState) OF 
 	
 	LinearStates.Initialising:
 		
-		IF  LinearStatus.Operational THEN
+		IF  LinearStatus.Operational AND LinearStatus.Homed THEN
+			LinearAxisState:=Linearstates.Idle;	
+		ELSIF LinearStatus.Operational THEN 
 			LinearAxisState:=LinearStates.Start_Homing;
 		END_IF
 	
 	LinearStates.Start_Homing:
-		IF LinearStatus.Homed THEN
-			LinearAxisState:=Linearstates.Idle;
-		ELSE
-			LinearHome:=TRUE;
-			LinearAxisState:=LinearStates.Homing;
-		END_IF
+		LinearHome:=TRUE;
+		LinearAxisState:=LinearStates.Homing;
 
 	LinearStates.Homing:
-		IF LinearStatus.Homed THEN
+		IF LinearStatus.Homed AND NOT homeoutput THEN
 			LinearAxisState:=LinearStates.Idle;
-			LinearCommandedPosition:=MovementPositions.linearpos.deployed;
+			//LinearCommandedPosition:=MovementPositions.linearpos.deployed;
 		END_IF
 	
 	LinearStates.Idle:
-		IF ABS(LinearCommandedPosition-LinearPosition)>0.1 THEN
+		IF ABS(LinearCommandedPosition-LinearPosition)>0.001  THEN
 			LinearAxisState:=LinearStates.Moving;
 			LinearMove:=TRUE;
 		ELSE
@@ -148,14 +205,12 @@ CASE(LinearAxisState) OF
 		END_IF
 	
 	Linearstates.Error:
-		IF linear_reset.Q THEN
-			LinearresetAxis:=FALSE;
-			linear_reset.IN:=FALSE;
-		END_IF
-		Linear_reset(IN :=TRUE);
-		IF LinearStatus.Error THEN
+		IF LinearErrorACK THEN
+			LinearresetAxis:=TRUE;
+			LinearErrorACK:=FALSE;
 			LinearAxisState:= LinearStates.initialising;
 		END_IF
+
 	
 END_CASE
 
@@ -227,10 +282,31 @@ END_CASE]]></ST>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="715" Count="0" />
+      <LineId Id="1799" Count="0" />
       <LineId Id="694" Count="0" />
       <LineId Id="1417" Count="0" />
+      <LineId Id="2084" Count="0" />
+      <LineId Id="2083" Count="0" />
+      <LineId Id="2089" Count="0" />
+      <LineId Id="2092" Count="0" />
+      <LineId Id="2095" Count="1" />
+      <LineId Id="2098" Count="0" />
+      <LineId Id="2101" Count="1" />
+      <LineId Id="2093" Count="1" />
+      <LineId Id="2100" Count="0" />
+      <LineId Id="2099" Count="0" />
+      <LineId Id="2086" Count="0" />
+      <LineId Id="1972" Count="1" />
+      <LineId Id="1976" Count="0" />
+      <LineId Id="1986" Count="1" />
+      <LineId Id="1977" Count="0" />
+      <LineId Id="1975" Count="0" />
+      <LineId Id="1974" Count="0" />
       <LineId Id="944" Count="0" />
       <LineId Id="939" Count="0" />
+      <LineId Id="1884" Count="4" />
+      <LineId Id="1883" Count="0" />
+      <LineId Id="1882" Count="0" />
       <LineId Id="941" Count="0" />
       <LineId Id="721" Count="0" />
       <LineId Id="723" Count="0" />
@@ -255,20 +331,22 @@ END_CASE]]></ST>
       <LineId Id="1329" Count="0" />
       <LineId Id="1552" Count="0" />
       <LineId Id="1402" Count="0" />
+      <LineId Id="1646" Count="0" />
       <LineId Id="1262" Count="0" />
       <LineId Id="1179" Count="1" />
-      <LineId Id="1259" Count="2" />
-      <LineId Id="1181" Count="0" />
+      <LineId Id="1259" Count="1" />
+      <LineId Id="1723" Count="0" />
+      <LineId Id="1720" Count="0" />
       <LineId Id="1106" Count="0" />
       <LineId Id="1104" Count="0" />
       <LineId Id="1110" Count="0" />
       <LineId Id="1107" Count="0" />
       <LineId Id="1130" Count="0" />
-      <LineId Id="1157" Count="2" />
+      <LineId Id="1157" Count="0" />
+      <LineId Id="1642" Count="1" />
+      <LineId Id="1158" Count="1" />
       <LineId Id="1114" Count="1" />
-      <LineId Id="1185" Count="1" />
-      <LineId Id="1188" Count="2" />
-      <LineId Id="1187" Count="0" />
+      <LineId Id="1189" Count="1" />
       <LineId Id="1134" Count="0" />
       <LineId Id="1119" Count="0" />
       <LineId Id="1136" Count="1" />
@@ -288,9 +366,9 @@ END_CASE]]></ST>
       <LineId Id="1127" Count="1" />
       <LineId Id="1167" Count="1" />
       <LineId Id="1175" Count="0" />
+      <LineId Id="1719" Count="0" />
       <LineId Id="1169" Count="0" />
-      <LineId Id="1164" Count="0" />
-      <LineId Id="1182" Count="2" />
+      <LineId Id="1184" Count="0" />
       <LineId Id="1113" Count="0" />
       <LineId Id="1108" Count="0" />
       <LineId Id="1551" Count="0" />

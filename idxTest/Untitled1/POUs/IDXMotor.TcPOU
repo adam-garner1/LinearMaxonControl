@@ -139,12 +139,15 @@ END_VAR]]></Declaration>
 	Error=> HomingError,
 	ErrorID=> HomingErrorID
 );
-	
+IF Home THEN
+	Execute:= FALSE;
+END_IF
+
 IF Execute THEN
 	HomeEventSent:= FALSE;
 	fbMessage.CreateEx(TC_Events.LinearMotor.Homing,0);
 	fbMessage.Send(0);
-	Execute:= FALSE;	
+	//Execute:= FALSE;	
 END_IF
 IF HomingDone THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.HomingComplete,0);
@@ -152,6 +155,7 @@ IF HomingDone THEN
 END_IF
 
 IF HomingError THEN
+	Execute:= FALSE;
 	fbMessage.CreateEx(TC_Events.LinearMotor.HomingFailed,0);
 	fbMessage.ipArguments.Clear().AddDWord(HomingErrorID);
 	fbMessage.Send(0);
@@ -224,12 +228,14 @@ END_VAR
 	fbMessage.ipArguments.AddLReal(Velocity);
 	fbMessage.Send(0);
 	Execute := FALSE;
+	
 
 END_IF
 
 IF fbAxisMoveAbsolute.Done  THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
 	fbMessage.Send(0);
+
 
 	
 END_IF]]></ST>
@@ -325,6 +331,7 @@ END_VAR
       <LineId Id="41" Count="0" />
       <LineId Id="40" Count="0" />
       <LineId Id="22" Count="0" />
+      <LineId Id="61" Count="2" />
       <LineId Id="14" Count="0" />
       <LineId Id="28" Count="0" />
       <LineId Id="15" Count="3" />
@@ -334,6 +341,7 @@ END_VAR
       <LineId Id="30" Count="0" />
       <LineId Id="37" Count="0" />
       <LineId Id="36" Count="0" />
+      <LineId Id="60" Count="0" />
       <LineId Id="47" Count="1" />
       <LineId Id="45" Count="0" />
       <LineId Id="44" Count="0" />
@@ -354,11 +362,14 @@ END_VAR
       <LineId Id="35" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="15" Count="4" />
+      <LineId Id="65" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="55" Count="0" />
       <LineId Id="22" Count="0" />
       <LineId Id="44" Count="0" />
-      <LineId Id="23" Count="4" />
+      <LineId Id="23" Count="2" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="26" Count="1" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.Position">
