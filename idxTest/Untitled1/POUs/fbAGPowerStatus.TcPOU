@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fbAGPowerStatus" Id="{f34fca19-7fe0-4a52-ae9d-677191ac12a6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbAGPowerStatus
+VAR
+	//PowerStatus :AGPowerStatus;
+	MotorPowerRaw AT%I* :INT;
+	MotorPowerV :REAL;
+	AGPowerRaw AT%I* :INT;
+	AGPowerV:REAL;
+	MotorPowerOk_1 AT%I* :BOOL;
+	MotorPowerOk_2 AT%I* :BOOL;
+	AGPowerOk_1 AT%I*:BOOL;
+	AGPowerOk_2 AT%I*:BOOL;
+	AllPSUOK :BOOL;
+	AGPSUOK :BOOL;
+	MOTORPSUOK:BOOL;
+	MotorPowerConversion:REAL :=128.4/65536.0 ;// 16 bit set to +-60 so 2^16/120 however extended range gives 7% more range 
+	AGPowerConversion:REAL :=64.2/65536.0;// set to +-30
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[MotorPowerV := MotorPowerRaw*MotorPowerConversion;
+AGPowerV := AGPowerRaw*AGPowerConversion;
+MotorPSUOK := MotorPowerOk_1 AND MotorPowerOk_2 ;
+AGPSUOK := AGPowerOk_1 AND AGPowerOk_2;
+AllPSUOK := AGPSUOK AND MOTORPSUOK;]]></ST>
+    </Implementation>
+    <LineIds Name="fbAGPowerStatus">
+      <LineId Id="9" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="27" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

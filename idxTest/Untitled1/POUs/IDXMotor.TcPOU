@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="IDXMotor" Id="{2d0ab0a1-a5a3-4c64-bc51-ecb0c0b67505}" SpecialFunc="None">
     <Declaration><![CDATA[   // function to house all commmands to do with idx motor 
 
@@ -9,7 +9,8 @@ VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
-VAR
+VAR	
+
 	Axis: AXIS_REF;
 	//Enabled: BOOL := FALSE;
 	Override: LREAL:=100;
@@ -210,16 +211,57 @@ VAR_INPUT
 	Position: LREAL;
 	Velocity: LREAL;	
 END_VAR
+
+VAR_OUTPUT
+	State: e_MCState;
+END_VAR
+
 VAR_IN_OUT
 		Execute: BOOL;
 END_VAR
+
+VAR
+	Done :BOOL;
+	Busy:BOOL;
+	Active:BOOL;// unknown what to do with this 
+	Error:BOOL;
+	CommandAborted: BOOL;
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[	fbAxisMoveAbsolute( // in idx class 
+        <ST><![CDATA[	fbAxisMoveAbsolute(  
     Axis:= Axis,
     Execute:= Execute,
     Position:= Position,
-    Velocity:= Velocity,);
+    Velocity:= Velocity,
+	Done=> Done,
+	Busy=>Busy,
+	Active=> Active,
+	Error=>Error,
+	CommandAborted=>CommandAborted);
+	
+IF Done THEN
+	State:= e_MCState.Done;
+END_IF
+
+IF Busy THEN
+	State:= e_MCState.Busy;
+END_IF
+
+IF CommandAborted THEN
+	State:= e_MCState.CommandAborted;
+END_IF
+
+IF Active THEN
+	State:= e_MCState.Active;
+END_IF
+IF NOT Done AND NOT Busy AND NOT Active THEN
+	State := e_MCState.Idle;
+END_IF
+
+IF Error THEN
+	State:= e_MCState.Error;
+END_IF
 	
 	IF Execute THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MotorMove,0);
@@ -359,6 +401,19 @@ END_VAR
     </LineIds>
     <LineIds Name="IDXMotor.MoveTo">
       <LineId Id="9" Count="4" />
+      <LineId Id="85" Count="3" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="97" Count="2" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="103" Count="2" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="107" Count="2" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="118" Count="2" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="121" Count="2" />
+      <LineId Id="111" Count="2" />
+      <LineId Id="110" Count="0" />
       <LineId Id="35" Count="0" />
       <LineId Id="54" Count="0" />
       <LineId Id="15" Count="4" />

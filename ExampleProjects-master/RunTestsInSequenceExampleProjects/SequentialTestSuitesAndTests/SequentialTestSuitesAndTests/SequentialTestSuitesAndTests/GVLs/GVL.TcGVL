@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="GVL" Id="{2ee23b30-e6fe-4c1b-b0ea-d35d6a0d8c22}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+// These variables only exist to test the TcUnit framework. You can ignore them.
+VAR_GLOBAL
+    nDiagnosticMessageDiagnosticCodeParserTest_WhenEmergencyErrorCodeExpectEmergencyErrorCode : ULINT;
+    nDiagnosticMessageDiagnosticCodeParserTest_WhenManufacturerSpecificExpectManufacturerSpecific : ULINT;
+    nDiagnosticMessageDiagnosticCodeParserTest_WhenProfileSpecificExpectProfileSpecific : ULINT;
+    nDiagnosticMessageDiagnosticCodeParserTest_WhenReservedForFutureUseExpectReservedForFutureUse : ULINT;
+
+    nDiagnosticMessageFlagsParserTest_WhenInfoMessageExpectInfoMessageGlobalTimestampAndZeroParameters : ULINT;
+    nDiagnosticMessageFlagsParserTest_WhenWarningMessageExpectWarningMessageLocalTimestampAndTwoParameters : ULINT;
+    nDiagnosticMessageFlagsParserTest_WhenErrorMessageExpectErrorMessageLocalTimestampAndFourParameters : ULINT;
+    nDiagnosticMessageFlagsParserTest_WhenReservedForFutureUseMessageExpectReservedForFutureUseMessageLocalTimestampAnd33Parameters : ULINT;
+
+    nDiagnosticMessageParserTest_TestWithEmergencyMessage : ULINT;
+    nDiagnosticMessageParserTest_TestWithManufacturerSpecificMessage : ULINT;
+    nDiagnosticMessageParserTest_TestWithUnspecifiedMessageMessage : ULINT;
+    nDiagnosticMessageParserTest_TestWithUnspecifiedMessageMessage_ParameterVariant : ULINT;
+
+    nDiagnosticMessageTextIdentityParserTest_WhenTextIdentityLowExpectTextIdentity0 : ULINT;
+    nDiagnosticMessageTextIdentityParserTest_WhenTextIdentityHighExpectTextIdentity65535 : ULINT;
+    nDiagnosticMessageTextIdentityParserTest_WhenTextIdentityMedExpectTextIdentity34500 : ULINT;
+
+    nDiagnosticMessageTimeStampParserTest_TestWithTimestampZeroTimeExpectCurrentTime : ULINT;
+    nDiagnosticMessageTimeStampParserTest_TestWithValidTimestampExpectSameTimestamp : ULINT;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

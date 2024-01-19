@@ -6,11 +6,11 @@
     <Node>
       <Title>YT Scope Project</Title>
       <Expanded>True</Expanded>
-      <FileName>C:\Source\idxTest\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
+      <FileName>C:\Users\Adam Garner\Source\TwinCAT Measurement Project1\YT Scope Project.tcscopex</FileName>
       <Children>
         <Node>
           <Title>DataPool</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
@@ -254,6 +254,18 @@
               <Children />
             </Node>
             <Node>
+              <Title>LinearMove</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
+              <Title>LinearMoveState</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children />
+            </Node>
+            <Node>
               <Title>LoopMode</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
@@ -467,34 +479,28 @@
         </Node>
         <Node>
           <Title>YT Chart (1)</Title>
-          <Expanded>True</Expanded>
+          <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group (4)</Title>
-              <Expanded>True</Expanded>
+              <Expanded>False</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
-                  <Title>LinearHome</Title>
+                  <Title>LinearMove (1)</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>homeoutput (1)</Title>
+                  <Title>LinearMoveState</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
                 </Node>
                 <Node>
-                  <Title>Homing (1)</Title>
-                  <Expanded>False</Expanded>
-                  <FileName></FileName>
-                  <Children />
-                </Node>
-                <Node>
-                  <Title>LinearAxisState</Title>
+                  <Title>HasJob</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />
@@ -505,18 +511,19 @@
               <Title>Axis Group</Title>
               <Expanded>False</Expanded>
               <FileName></FileName>
-              <Children />
-            </Node>
-            <Node>
-              <Title>Time Marker (1)</Title>
-              <Expanded>False</Expanded>
-              <FileName></FileName>
-              <Children />
+              <Children>
+                <Node>
+                  <Title>LinearAxisState</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
             </Node>
           </Children>
         </Node>
         <Node>
-          <Title>YT Chart</Title>
+          <Title>force chart</Title>
           <Expanded>False</Expanded>
           <FileName></FileName>
           <Children>
@@ -568,16 +575,36 @@
         </Node>
         <Node>
           <Title>YT Chart (2)</Title>
-          <Expanded>False</Expanded>
+          <Expanded>True</Expanded>
           <FileName></FileName>
           <Children>
             <Node>
               <Title>Axis Group (3)</Title>
-              <Expanded>False</Expanded>
+              <Expanded>True</Expanded>
               <FileName></FileName>
               <Children>
                 <Node>
                   <Title>LinearCommandedPosition</Title>
+                  <Expanded>False</Expanded>
+                  <FileName></FileName>
+                  <Children />
+                </Node>
+              </Children>
+            </Node>
+          </Children>
+        </Node>
+        <Node>
+          <Title>YT Chart (3)</Title>
+          <Expanded>False</Expanded>
+          <FileName></FileName>
+          <Children>
+            <Node>
+              <Title>Axis Group (5)</Title>
+              <Expanded>False</Expanded>
+              <FileName></FileName>
+              <Children>
+                <Node>
+                  <Title>LinearMove</Title>
                   <Expanded>False</Expanded>
                   <FileName></FileName>
                   <Children />

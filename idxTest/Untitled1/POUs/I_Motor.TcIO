@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_Motor" Id="{41a3b8ea-4aa4-4ea1-9e9c-b48b251d7383}">
     <Declaration><![CDATA[INTERFACE I_Motor
 ]]></Declaration>
@@ -41,6 +41,11 @@ VAR_INPUT
 	Position: LREAL;
 	Velocity: LREAL;	
 END_VAR
+
+VAR_OUTPUT
+	State :e_MCState;
+END_VAR
+
 VAR_IN_OUT
 		Execute: BOOL;
 END_VAR

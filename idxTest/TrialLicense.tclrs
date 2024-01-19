@@ -2,42 +2,30 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{69DA01E7-C652-C46B-0222-7A50380E1C70}</SystemId>
-		<IssueTime>2023-10-11T09:46:00</IssueTime>
-		<ExpireTime>2023-10-19T00:00:00</ExpireTime>
-		<LicenseKey>1cd4b0a234575587bca35c4f02f8347d87782a76c71130c9ae296da12fb7ea4c16d0aedda2f26777ca42c8c387bbde30abead2f8cd12ffe9e20f0b6885e1798ef12a5b28a5158a75fa817e50884db331323cbe340f12182c4a2c29b396e506d7ba62556638935abe1cec1dd493ff0d659a88cbedc490c263d8c234fb2905c232b0270312792252a378cf99424b96259f1fd446dd1889e2a5d897525faf9ed1ef4b8c6f0819cd1061f9dcd942d48d46af0d3c66537ba20efd44bd331d9f82a0fef18aaf5d2ab395c51f7a376f2f19ac1fa2926b4969513ba924778c9d2a16d8b0c3b45bef00df41a08f11e38bd655ae7fd4fafd146c1cffad6e0c190bbfa878f0</LicenseKey>
+		<IssueTime>2024-01-16T15:48:00</IssueTime>
+		<ExpireTime>2024-01-24T00:00:00</ExpireTime>
+		<LicenseKey>9465c0820c837fd3283e777070a31b880e72ab9af40179ecf910585b5aa9a2469e10953a6d1e9d41441c7ce9dcda682d253c621f9e12f6690a8d46c287104cae54be9fb1a92693dbba18359c3c3a1008fa25cafee3f4603f999f38506d576da678555df0194b026a4a569aa61029cbb956a16ea11c7eda440e025e6f9e78d7114d96a1f31ef4123b03192d2c72764d50231568c925b34cb5302e286f6412b6c15a645d06df10477debd8659ebbab05a3b53d48773a9576a3b8615b955d990c0cbb4bd00fc31311b6a9ed9c7c0f2570b8bd54a3a0874cf1b8d69e432f8f9f9b19bcedf4c0044b74bc235b5b32d1bbaf0191ef40032512770e824183ed1daf2331</LicenseKey>
 		<License>
-			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
-			<Name>TC3 NC PTP Axis</Name>
-			<Instances>10</Instances>
+			<LicenseId>{CC0BCBD5-3EA7-D7D4-4C71-A8B125F0DB72}</LicenseId>
+			<Name>TC3 OPC-UA Analytics Read</Name>
 		</License>
 		<License>
-			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
-			<Name>TC3 NC PTP</Name>
-			<OrderNo>TF5000</OrderNo>
+			<LicenseId>{C2B7B285-EBD7-72CF-843F-15F95A86FEEE}</LicenseId>
+			<Name>TC3 OPC-UA Analytics Write</Name>
+		</License>
+		<License>
+			<LicenseId>{A2091C4C-7D04-4202-B173-9984E7125BC0}</LicenseId>
+			<Name>TC3 HMI Targets</Name>
+			<Instances>1</Instances>
 		</License>
 		<License>
 			<LicenseId>{973BA0B1-AADD-41C1-B518-302802473922}</LicenseId>
 			<Name>TC3 IoT MQTT Protocol</Name>
 		</License>
 		<License>
-			<LicenseId>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</LicenseId>
-			<Name>TC3 IoT Communication (MQTT)</Name>
-			<OrderNo>TF6701</OrderNo>
-		</License>
-		<License>
 			<LicenseId>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</LicenseId>
 			<Name>TC3 HMI OPC UA</Name>
 			<OrderNo>TF2110</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{1601B55A-B68B-4C5B-9A42-31E9CA63F286}</LicenseId>
-			<Name>TC3 OPC-DA</Name>
-			<OrderNo>TF6120</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{A2091C4C-7D04-4202-B173-9984E7125BC0}</LicenseId>
-			<Name>TC3 HMI Targets</Name>
-			<Instances>1</Instances>
 		</License>
 		<License>
 			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
@@ -50,9 +38,24 @@
 			<OrderNo>TF2000</OrderNo>
 		</License>
 		<License>
+			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
+			<Name>TC3 NC PTP Axis</Name>
+			<Instances>10</Instances>
+		</License>
+		<License>
 			<LicenseId>{37E5160D-987B-4640-888D-0F97727B53E2}</LicenseId>
 			<Name>TC3 HMI Clients</Name>
 			<Instances>101</Instances>
+		</License>
+		<License>
+			<LicenseId>{1601B55A-B68B-4C5B-9A42-31E9CA63F286}</LicenseId>
+			<Name>TC3 OPC-DA</Name>
+			<OrderNo>TF6120</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
+			<Name>TC3 NC PTP</Name>
+			<OrderNo>TF5000</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{927A7313-A412-4376-8911-4A8F60EC8651}</LicenseId>
@@ -63,6 +66,11 @@
 			<LicenseId>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</LicenseId>
 			<Name>TC3 OPC-UA</Name>
 			<OrderNo>TF6100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{0ABFD2B0-EAE1-4DC7-AABE-03093B0786B7}</LicenseId>
+			<Name>TC3 IoT Communication (MQTT)</Name>
+			<OrderNo>TF6701</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

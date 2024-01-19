@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fbEthercatStateMachine" Id="{a8791b52-a045-4075-a09f-42bf13c3cfcd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbEthercatStateMachine
+VAR
+	InputState AT%I*	:UINT;	
+	EthercatError : e_EthercatError;
+	EtherCatState : e_EthercatState;
+	
+{attribute 'OPC.UA.DA' := '0'}	
+	State :UINT;
+		
+{attribute 'OPC.UA.DA' := '0'}
+	Error:UINT;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// table of states https://infosys.beckhoff.com/english.php?content=../content/1033/b110_ethercat_optioninterface/1984417163.html&id=
+// uint is 16 bit final 4 bit are state first 12 are error 
+State := InputState AND 16#000F;
+Error := InputState AND 16#FFF0;
+EthercatError:= UINT_TO_INT(Error);
+EtherCatState := UINT_TO_INT(State);]]></ST>
+    </Implementation>
+    <LineIds Name="fbEthercatStateMachine">
+      <LineId Id="9" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="20" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
