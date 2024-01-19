@@ -44,6 +44,7 @@ END_VAR
 
 VAR_OUTPUT
 	State :e_MCState;
+	Target : LREAL;
 END_VAR
 
 VAR_IN_OUT

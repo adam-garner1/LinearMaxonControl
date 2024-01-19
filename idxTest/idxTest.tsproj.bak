@@ -2693,7 +2693,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{A6FAFC5F-4D9B-F2CA-1ABD-C411E0AC649D}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{230BA7F7-7A38-3421-D2BD-3909D43D11F5}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2701,14 +2701,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.EstopInput</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDX70.MotorError</Name>
-							<Type>WORD</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.fbEverest.Axis.NcToPlc</Name>
@@ -2731,6 +2723,11 @@ External Setpoint Generation:
 							<Type>UINT</Type>
 						</Var>
 						<Var>
+							<Name>MAIN.fbAGPowerStatus.MotorPowerRaw</Name>
+							<Comment><![CDATA[PowerStatus :AGPowerStatus;]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.fbAGPowerStatus.AGPowerRaw</Name>
 							<Type>INT</Type>
 						</Var>
@@ -2751,11 +2748,6 @@ External Setpoint Generation:
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbAGPowerStatus.MotorPowerRaw</Name>
-							<Comment><![CDATA[PowerStatus :AGPowerStatus;]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.idxInput</Name>
 							<Type>BYTE</Type>
 						</Var>
@@ -2763,11 +2755,23 @@ External Setpoint Generation:
 							<Name>MAIN.idxCTRL1</Name>
 							<Type>USINT</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDX70.MotorError</Name>
+							<Type>WORD</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>MAIN.fbIDX70.Axis.PlcToNc</Name>
+							<Name>MAIN.LinearEncoder.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.Force.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -2775,11 +2779,7 @@ External Setpoint Generation:
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.LinearEncoder.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.Force.PlcToNc</Name>
+							<Name>MAIN.fbIDX70.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -4077,7 +4077,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>17827710</ModuleIdent>
 								<Module Id="#x03090004" Type="FSOE" Class="1918">
 									<Name>Module 1 (FSOE)</Name>
-									<ImageId>412</ImageId>
+									<ImageId>410</ImageId>
 									<ModuleData>020000007e07100100002c000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6656</PdoIndex>
 									<PdoIndex>5632</PdoIndex>
@@ -4089,7 +4089,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 								<ModuleIdent>691</ModuleIdent>
 								<Module Id="#x03090005" Type="FSLOGIC" Class="FSLOGIC">
 									<Name>Module 2 (FSLOGIC)</Name>
-									<ImageId>412</ImageId>
+									<ImageId>410</ImageId>
 									<ModuleData>02000000b3020000000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>7167</PdoIndex>
 									<PdoIndex>6143</PdoIndex>

@@ -26,8 +26,8 @@ VAR
 	fbAxisPower: MC_Power;
 	fbReset: MC_Reset;
 	fbMoveRel : MC_MoveRelative;
+	MovementTarget : Lreal;
 	MotorResetBit :REFERENCE TO USINT;
-	MQTTevents: REFERENCE TO FB_IotMqttClient;
 	
 END_VAR
 ]]></Declaration>
@@ -214,6 +214,8 @@ END_VAR
 
 VAR_OUTPUT
 	State: e_MCState;
+	Target : LREAL;
+	
 END_VAR
 
 VAR_IN_OUT
@@ -223,9 +225,10 @@ END_VAR
 VAR
 	Done :BOOL;
 	Busy:BOOL;
-	Active:BOOL;// unknown what to do with this 
+	Active:BOOL;
 	Error:BOOL;
-	CommandAborted: BOOL;
+	CommandAborted : BOOL;
+	
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -233,6 +236,7 @@ END_VAR
     Axis:= Axis,
     Execute:= Execute,
     Position:= Position,
+	BufferMode:= MC_BufferMode.MC_BlendingNext,
     Velocity:= Velocity,
 	Done=> Done,
 	Busy=>Busy,
@@ -264,15 +268,16 @@ IF Error THEN
 END_IF
 	
 	IF Execute THEN
+	MovementTarget := Position;
 	fbMessage.CreateEx(TC_Events.LinearMotor.MotorMove,0);
 	fbMessage.ipArguments.Clear();
 	fbMessage.ipArguments.AddLReal(Position);
 	fbMessage.ipArguments.AddLReal(Velocity);
 	fbMessage.Send(0);
-	Execute := FALSE;
-	
+	Execute := FALSE;	
+	END_IF
 
-END_IF
+Target:= MovementTarget;
 
 IF fbAxisMoveAbsolute.Done  THEN
 	fbMessage.CreateEx(TC_Events.LinearMotor.MoveComplete,0);
@@ -400,7 +405,9 @@ END_VAR
       <LineId Id="22" Count="0" />
     </LineIds>
     <LineIds Name="IDXMotor.MoveTo">
-      <LineId Id="9" Count="4" />
+      <LineId Id="9" Count="3" />
+      <LineId Id="155" Count="0" />
+      <LineId Id="13" Count="0" />
       <LineId Id="85" Count="3" />
       <LineId Id="114" Count="0" />
       <LineId Id="97" Count="2" />
@@ -415,12 +422,12 @@ END_VAR
       <LineId Id="111" Count="2" />
       <LineId Id="110" Count="0" />
       <LineId Id="35" Count="0" />
-      <LineId Id="54" Count="0" />
+      <LineId Id="148" Count="1" />
       <LineId Id="15" Count="4" />
       <LineId Id="65" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="55" Count="0" />
       <LineId Id="22" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="153" Count="0" />
       <LineId Id="44" Count="0" />
       <LineId Id="23" Count="2" />
       <LineId Id="64" Count="0" />

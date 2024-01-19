@@ -88,6 +88,7 @@ FBLinearEncHome :MC_Home;
 	LinearAxisState: LinearStates; (*~ (OPC:1:linear axis status ) *)
 	{attribute 'OPC.UA.DA' := '1'}
 	LinearCommandedPosition:LREAL;
+	LinearMovementTarget:LREAL;
 	LinearMove:BOOL;
 	LinearMoveState: e_MCState;
 	{attribute 'OPC.UA.DA' := '1'}
@@ -246,7 +247,8 @@ fbIDX70.MoveTo(
 					Position:=LinearCommandedPosition,
 					Velocity:=LinearMovementSpeed,
 					Execute:=LinearMove,
-					State=> LinearMoveState);
+					State=> LinearMoveState,
+Target=> LinearMovementTarget);
 
 IF LinearStatus.Error THEN
 	LinearAxisState:=linearstates.Error;
@@ -283,14 +285,26 @@ CASE(LinearAxisState) OF
 		END_IF
 		
 	LinearStates.Start_Move:
-			IF LinearMoveState = e_MCState.idle THEN
+			IF (LinearMoveState = e_MCState.idle) THEN
 			LinearMove:=TRUE;
 			
 		ELSIF  LinearMoveState = e_MCState.Active THEN
 			LinearAxisState := LinearStates.Moving;
-		END_IF;		
+		END_IF;
+		
+		IF NOT (LinearMovementTarget = LinearCommandedPosition) AND NOT (LinearMoveState = e_MCState.Busy) THEN 
+			// new position sent  mid command 
+			// doesnt fully work as second function block whould be needed for a blended move 
+			// could implement a stop function here and restart needs thinking about 
+			LinearMove:=TRUE;
+		END_IF
 		
 	Linearstates.Moving:
+		IF NOT (LinearMovementTarget = LinearCommandedPosition) THEN 
+			// new position sent 
+			LinearAxisState:=LinearStates.Start_Move;
+		END_IF
+		
 		IF LinearMoveState = e_MCState.Done THEN
 			LinearAxisState:=LinearStates.Idle; 
 		END_IF
@@ -439,6 +453,7 @@ END_CASE]]></ST>
       <LineId Id="1646" Count="0" />
       <LineId Id="2664" Count="3" />
       <LineId Id="2663" Count="0" />
+      <LineId Id="2842" Count="0" />
       <LineId Id="1262" Count="0" />
       <LineId Id="1179" Count="1" />
       <LineId Id="1259" Count="1" />
@@ -468,8 +483,17 @@ END_CASE]]></ST>
       <LineId Id="1122" Count="0" />
       <LineId Id="2677" Count="4" />
       <LineId Id="2676" Count="0" />
+      <LineId Id="2836" Count="0" />
+      <LineId Id="2838" Count="1" />
+      <LineId Id="2843" Count="1" />
+      <LineId Id="2840" Count="0" />
+      <LineId Id="2837" Count="0" />
       <LineId Id="2640" Count="0" />
       <LineId Id="1125" Count="0" />
+      <LineId Id="2831" Count="1" />
+      <LineId Id="2834" Count="0" />
+      <LineId Id="2833" Count="0" />
+      <LineId Id="2835" Count="0" />
       <LineId Id="1161" Count="0" />
       <LineId Id="1154" Count="1" />
       <LineId Id="1127" Count="1" />
