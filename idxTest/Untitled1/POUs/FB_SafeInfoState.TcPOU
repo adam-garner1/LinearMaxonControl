@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_SafeInfoState" Id="{7b354806-906f-4406-9f13-596985335ebb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SafeInfoState
+VAR
+	State AT%I* :USINT;
+	Diag AT%I* :UINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SafeInfoState">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

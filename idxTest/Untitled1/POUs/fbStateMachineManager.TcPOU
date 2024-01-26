@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fbStateMachineManager" Id="{5bddbf09-ce21-4c19-8a42-73489dba9a4a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbStateMachineManager
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	EthercatStateMachine : ARRAY[0..2] OF fbEthercatStateMachine[
+									(EtherCatAddr:= '5.119.202.92.1.1',nSlaveAddr:=1001),
+									(EtherCatAddr:= '5.119.202.92.1.1',nSlaveAddr:=1009),
+									(EtherCatAddr:= '5.119.202.92.1.1',nSlaveAddr:=1006)];
+									
+	ModuleCount AT%I* : UINT;
+	EtherCatStates: ARRAY[0..2] OF st_EthercatState;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FOR ModuleCount:= 0 TO 2 BY 1 DO 
+EtherCatStateMachine[ModuleCount]();
+EtherCatStateMachine[ModuleCount].GetState(State:= EtherCatStates[ModuleCount]);
+EtherCatStates[ModuleCount].ModuleNumber:= UINT_TO_INT(ModuleCount);
+END_FOR]]></ST>
+    </Implementation>
+    <LineIds Name="fbStateMachineManager">
+      <LineId Id="9" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="13" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="TestMode" Id="{cc215add-2cee-463a-89db-a55b22aac16a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC TestMode
 VAR_INPUT
@@ -94,16 +94,17 @@ END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[ IF Execute THEN
 TestingActive :=TRUE;
-END_IF
-
-
 TestPosA := PositionA;
 TestPosB := PositionB;
 Velo:= Velocity;
 DwellTimer.PT := dwell;
 RefAxis REF= Axis;
 // error if not enabled 
-RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velocity,Execute:=Execute);]]></ST>
+RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velocity,Execute:=Execute);
+END_IF
+
+
+]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="TestMode">
@@ -148,14 +149,10 @@ RefAxis.MoveTo(Position:= TestPosA,Velocity:=Velocity,Execute:=Execute);]]></ST>
     <LineIds Name="TestMode.StartTest">
       <LineId Id="21" Count="0" />
       <LineId Id="20" Count="0" />
+      <LineId Id="40" Count="5" />
+      <LineId Id="39" Count="0" />
       <LineId Id="23" Count="1" />
       <LineId Id="22" Count="0" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="19" Count="0" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="12" Count="0" />
       <LineId Id="11" Count="0" />
     </LineIds>
   </POU>

@@ -4,8 +4,10 @@
     <Declaration><![CDATA[FUNCTION_BLOCK fbAGPowerStatus
 VAR
 	//PowerStatus :AGPowerStatus;
+	{attribute 'OPC.UA.DA' := '0'}
 	MotorPowerRaw AT%I* :INT;
 	MotorPowerV :REAL;
+	{attribute 'OPC.UA.DA' := '0'}
 	AGPowerRaw AT%I* :INT;
 	AGPowerV:REAL;
 	MotorPowerOk_1 AT%I* :BOOL;
@@ -15,7 +17,9 @@ VAR
 	AllPSUOK :BOOL;
 	AGPSUOK :BOOL;
 	MOTORPSUOK:BOOL;
+	{attribute 'OPC.UA.DA' := '0'}
 	MotorPowerConversion:REAL :=128.4/65536.0 ;// 16 bit set to +-60 so 2^16/120 however extended range gives 7% more range 
+	{attribute 'OPC.UA.DA' := '0'}
 	AGPowerConversion:REAL :=64.2/65536.0;// set to +-30
 END_VAR
 ]]></Declaration>

@@ -4,8 +4,8 @@
     <Declaration><![CDATA[FUNCTION_BLOCK fbEthercatStateMachine
 VAR
 	InputState AT%I*	:UINT;	
-	EthercatError : e_EthercatError;
-	EtherCatState : e_EthercatState;
+	WcState AT%I* :BOOL;
+	InternalEtherCatState : st_EthercatState;
 	
 {attribute 'OPC.UA.DA' := '0'}	
 	State :UINT;
@@ -20,15 +20,52 @@ END_VAR
 // uint is 16 bit final 4 bit are state first 12 are error 
 State := InputState AND 16#000F;
 Error := InputState AND 16#FFF0;
-EthercatError:= UINT_TO_INT(Error);
-EtherCatState := UINT_TO_INT(State);]]></ST>
+InternalEtherCatState.State:= UINT_TO_INT(State);
+InternalEtherCatState.Error := UINT_TO_INT(Error);
+InternalEtherCatState.DataInvalid := WcState;
+
+]]></ST>
     </Implementation>
+    <Method Name="FB_init" Id="{434a7edc-5ca9-4055-89dc-dc1a286dc610}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+	EtherCatAddr : T_AmsNetID;
+	nSlaveAddr : UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InternalEtherCatState.nSlaveAddr:= nSlaveAddr;
+InternalEtherCatState.EtherCatAddr := EtherCatAddr;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetState" Id="{ce06c045-a69b-4b8e-a860-2028ae9368bf}">
+      <Declaration><![CDATA[METHOD GetState : BOOL
+VAR_IN_OUT
+	State : st_EthercatState;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[State := InternalEtherCatState;]]></ST>
+      </Implementation>
+    </Method>
     <LineIds Name="fbEthercatStateMachine">
       <LineId Id="9" Count="0" />
       <LineId Id="16" Count="0" />
       <LineId Id="18" Count="1" />
-      <LineId Id="17" Count="0" />
-      <LineId Id="20" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="39" Count="0" />
+    </LineIds>
+    <LineIds Name="fbEthercatStateMachine.FB_init">
+      <LineId Id="7" Count="0" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+    <LineIds Name="fbEthercatStateMachine.GetState">
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

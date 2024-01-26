@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="st_EthercatState" Id="{358f12e4-2b8d-4df6-b6d4-2bfb3b2be46d}">
+    <Declaration><![CDATA[TYPE st_EthercatState :
+STRUCT
+	State :e_EthercatState;
+	Error :e_EthercatError;
+	DataInvalid : BOOL;
+	ModuleName: STRING;
+	ModuleNumber:  INT;
+	EtherCatAddr : T_AmsNetID;
+	nSlaveAddr : UINT;
+	
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

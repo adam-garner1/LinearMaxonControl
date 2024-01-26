@@ -4,6 +4,13 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbTest : TestMode();
+	S_RunFromPLC AT%Q* :BOOL :=TRUE;
+	S_ErrorAckPLC AT%Q* :BOOL;
+	S_Running AT%I* :BOOL;
+	S_AGEStop AT%I* :BOOL;
+	AGEstopInfoStatus : FB_SafeInfoState;
+	
+	Chn2Slaves AT%I* :INT;
 
 	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
@@ -21,7 +28,9 @@ VAR
 	fbAGPowerStatus : fbAGPowerStatus;
 	{attribute 'OPC.UA.DA' := '1'}
 	{attribute 'OPC.UA.DA.Access' := '1'}
-	LinearMotorState : fbEthercatStateMachine;
+	
+	
+
 	
 	{attribute 'OPC.UA.DA' := '1'}
 	{attribute 'OPC.UA.DA.Access' := '1'}
@@ -30,6 +39,7 @@ VAR
 	UPSStatusValid:BOOL;
 	
 	Instruments :ARRAY[0..4] OF instrument ;
+	{attribute 'OPC.UA.DA' := '1'}
 	DemoMode: BOOL;
 	CurrentInstrument:INT;
 	Change_Inst :TON:= (PT:=T#10S,IN:=FALSE);
@@ -72,9 +82,9 @@ nWorkArray_SIZEOF:= 800);
 	RotationHome :BOOL:=FALSE;
 	LinearresetAxis :BOOL:=FALSE;
 	RotationresetAxis :BOOL:=FALSE;
-	//TestingMode: BOOL := FALSE;
-	//StartTestMode:BOOL;
-	//EndTest :bool := False;
+	RoboticMode:BOOL;
+	RoboticModePosA :REAL :=100;
+	RoboticModePosB :REAL :=400;
 	ResetTimer: TON :=(PT:=T#5S,IN:=FALSE);
 	
 LinearEncHome:BOOL;
@@ -148,6 +158,8 @@ COEString:ARRAY [0..100] of BYTE;
 	MotorPowerV :REAL;
 	AGPowerV:REAL;
 	
+EtherCatStates: fbStateMachineManager;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -157,13 +169,15 @@ Force.ReadStatus();
 fbIDX70();// error checking
 fbEverest();
 fbAGPowerStatus();
-LinearMotorState();
+EtherCatStates();
+
+
 
 // AND IdxEnable AND EveEnable
 IF DemoMode  AND Change_Inst.Q  THEN
 	CurrentInstrument:= (CurrentInstrument+1) MOD 4;
 	Change_Inst(IN :=FALSE);
-	LinearCommandedPosition:= Instruments[CurrentInstrument].Linear;
+	LinearCommandedPosition:= (CurrentInstrument*75);
 	RotationCommandedPosition:= Instruments[CurrentInstrument].Rotation;
 	CurrentInstName := Instruments[CurrentInstrument].Name;
 ELSIF  NOT DemoMode THEN
@@ -229,7 +243,7 @@ IF NOT fbCoERead.Busy THEN
     fbCoERead(Execute := Execute, Axis := fbIDX70.Axis);
 END_IF
 
-Estop :=  NOT EstopInput; 
+Estop :=  NOT S_AGEStop; 
 IF Estop THEN  //Estop check
 	fbIDX70.Estop();// needs implementing  as event and quick stop function
 	IdxEnable:=FALSE;
@@ -391,8 +405,10 @@ END_CASE]]></ST>
       <LineId Id="694" Count="0" />
       <LineId Id="1417" Count="0" />
       <LineId Id="2634" Count="0" />
-      <LineId Id="2638" Count="0" />
-      <LineId Id="2203" Count="0" />
+      <LineId Id="3154" Count="0" />
+      <LineId Id="2994" Count="0" />
+      <LineId Id="3000" Count="0" />
+      <LineId Id="2995" Count="0" />
       <LineId Id="2084" Count="0" />
       <LineId Id="2083" Count="0" />
       <LineId Id="2089" Count="0" />
