@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<safetyApplication Crc="17289282" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="e01ae805-7446-4f69-90db-5be525a3c3cd" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
+<safetyApplication Crc="3911195127" xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.4.0.0" Id="e01ae805-7446-4f69-90db-5be525a3c3cd" name="" mapState="false" mapDiag="false" groupOrderId="0" passificationAllowed="false" temporaryDeactivationAllowed="false" permamentDeactivationAllowed="false" xmlid="0" analogFBOutputReplacementValues="Zero" verifyAnalogFBInputsIfStart="false" userFbId="00000000-0000-0000-0000-000000000000" xmlns="http://schemas.microsoft.com/dsltools/SafetyApplicationLanguage">
   <networks>
     <safetyApplicationHasNetworks Id="f85af346-2b73-4ad2-85b9-89d5e2f54a30">
       <Network Id="053e484a-49d7-46da-902b-eaaf84015350" name="Network1" networkName="Network1" intId="1" networkOrderId="0">
         <functionBlocks>
           <networkHasFunctionBlocks Id="d2b0e3dd-ce0a-4dbb-9634-fc1e7f2e7062">
-            <fBEstop Id="26fd069a-a433-48bc-be00-d6b89936626c" name="FBEstop1" instanceName="FBEstop1" orderOfExecution="1" mapState="true" mapDiag="true" functionName="safeEstop" safeInputsAfterDiscError="false">
+            <fBEstop Id="26fd069a-a433-48bc-be00-d6b89936626c" name="FBEstop1" instanceName="FBEstop1" orderOfExecution="1" mapState="true" mapDiag="true" functionName="safeEstop" safeInputsAfterDiscError="true">
               <inPorts>
                 <functioBlockHasInPorts Id="e7391ef6-5a0b-471c-99d6-9462d72ff7e6">
                   <inPort Id="92548320-554c-4cb7-88a2-cc0937123a03" name="Restart" portName="Restart" portNum="2" objectIndex="0" varId="1" filter="3" portDataType="1" maxDeviation="0" resetTime="0" />
@@ -195,8 +195,11 @@
           <variableHasTargetUsages Id="7f62152c-a440-4c0b-bd84-eb55f714fa89">
             <variableUsages Id="e8d89a62-66b2-44eb-b561-3d7776ba44f3">
               <usages>
-                <variableUsagesHasUsages Id="05585d19-4730-478e-a10f-7c539fc4f6b3">
-                  <aliasDeviceIoUsage Id="385b0571-ef88-4411-a5d0-de4eb25b5983" sdsId="4" channelId="1" functionId="1879113985" />
+                <variableUsagesHasUsages Id="ab703a06-d2e3-499c-b622-adf0d6f66fa0">
+                  <aliasDeviceIoUsage Id="03fb8d73-0c25-4555-b2df-3173bcee781c" sdsId="7" channelId="1" functionId="1131179972" />
+                </variableUsagesHasUsages>
+                <variableUsagesHasUsages Id="e9591646-4263-4d99-90fb-7f93445a4bc5">
+                  <aliasDeviceIoUsage Id="62b53a5d-f641-4289-80b9-5b3852baeb9a" sdsId="4" channelId="1" functionId="1879113985" />
                 </variableUsagesHasUsages>
               </usages>
             </variableUsages>
