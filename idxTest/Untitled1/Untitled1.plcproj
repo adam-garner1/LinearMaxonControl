@@ -20,6 +20,12 @@
     <Compile Include="DUTs\AGPowerStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\e_SafetyDiag.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\e_SafetyState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\e_EthercatError.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -44,6 +50,9 @@
     <Compile Include="DUTs\st_EthercatState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\st_SafetyStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GVLs\MovementPositions.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -55,6 +64,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\fbEthercatStateMachine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\fbSafetyStateAndDiagDecode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\fbStateMachineManager.TcPOU">

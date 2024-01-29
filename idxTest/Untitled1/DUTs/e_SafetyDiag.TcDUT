@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="e_SafetyDiag" Id="{72c237cc-0d91-4425-9afe-40ac3e02ae76}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+
+
+TYPE e_SafetyDiag :
+(
+	InvalidCommand := 2#01,
+	UnknownCommand := 2#10,
+	InvalidConnectionID := 2#11,
+	InvalidCRC := 2#100,
+	WatchdogElapsed := 2#101,
+	InvalidFSoEAddr := 2#110,
+	InvalidData := 2#111,
+	InvalidCommsParameterLength := 2#1000,
+	InvalidCommsParameters := 2#1001,
+	InvalidUserParametersLength := 2#1010,
+	InvalidUserParameters := 2#1011,
+	FSoEMasterReset := 2#1100,
+	ModuleErrorOnSlaveComErrorActive := 2#1101,
+	ModuleErrorOnSlaveErrAckActive := 2#1110,
+	SlaveNotStartedOrUnexpectedErrorArgument :=2#1111
+	
+)Uint;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

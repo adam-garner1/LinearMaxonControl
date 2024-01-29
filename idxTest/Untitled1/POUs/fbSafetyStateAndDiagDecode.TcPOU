@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fbSafetyStateAndDiagDecode" Id="{1bf99c34-53fa-417e-98cb-86241aef3980}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK fbSafetyStateAndDiagDecode
+VAR_IN_OUT
+		SafetyStatus :st_SafetyStatus;
+END_VAR
+VAR_INPUT 
+		State :USINT;
+		Diag  :USINT;
+END_VAR
+
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SafetyStatus.RawDiagCode:= Diag;
+SafetyStatus.RawStateCode:=State;
+SafetyStatus.State:=State;
+SafetyStatus.FSoEMasterFailSafeActive:=Diag.7;
+SafetyStatus.StartUp:= Diag.6;
+SafetyStatus.FSoESlaveFailSafeActive:=Diag.5;
+SafetyStatus.FSoESlaveError:=Diag.4;
+SafetyStatus.Diagnosis:= SHL(Diag,4);
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="fbSafetyStateAndDiagDecode">
+      <LineId Id="9" Count="0" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="21" Count="3" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="20" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

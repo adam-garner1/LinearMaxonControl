@@ -2837,7 +2837,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{854567E0-0A04-AC80-B82B-634D0C497B26}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{641BCC83-8987-AB3D-F942-0541A3529773}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2857,14 +2857,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.EstopInput</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.AGEstopInfoStatus.State</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.AGEstopInfoStatus.Diag</Name>
-							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
@@ -2950,6 +2942,22 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.EtherCatStates.ModuleCount</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGEstopInfoStatus.State</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGEstopInfoStatus.Diag</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGOutputModuleStatus.State</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGOutputModuleStatus.Diag</Name>
+							<Type>USINT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -4588,7 +4596,7 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{00000000-0050-0304-1000-040352000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{08502001-0050-0304-0020-500850000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
-		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030070" Watchdog="04000000040000000400000004000000"/>
+		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030080" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^Device 1 (EtherCAT)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 8 (EP1957-0022)">
 				<Link VarA="Term 10 (EK1100-0008)^Term 17 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 TxPDO"/>
@@ -4657,7 +4665,8 @@ External Setpoint Generation:
 		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 8 (EP1957-0022)">
-				<Link VarA="PlcTask Inputs^MAIN.S_AGEStop" VarB="StandardInputs^TwinSafeGroup1.1 Digital Output (Standard)_1_7"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGOutputModuleStatus.Diag" VarB="Connection Info Data^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGOutputModuleStatus.State" VarB="Connection Info Data^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 Info Data^State"/>
 				<Link VarA="PlcTask Outputs^MAIN.S_ErrorAckPLC" VarB="StandardOutputs^TwinSafeGroup1.ErrorAcknowledgement_1"/>
 				<Link VarA="PlcTask Outputs^MAIN.S_RunFromPLC" VarB="StandardOutputs^TwinSafeGroup1.Run_2"/>
 			</OwnerB>

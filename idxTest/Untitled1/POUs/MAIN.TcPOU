@@ -9,6 +9,7 @@ VAR
 	S_Running AT%I* :BOOL;
 	S_AGEStop AT%I* :BOOL;
 	AGEstopInfoStatus : FB_SafeInfoState;
+	AGOutputModuleStatus : FB_SafeInfoState;
 	
 	Chn2Slaves AT%I* :INT;
 
@@ -170,7 +171,7 @@ fbIDX70();// error checking
 fbEverest();
 fbAGPowerStatus();
 EtherCatStates();
-
+AGOutputModuleStatus();
 
 
 // AND IdxEnable AND EveEnable

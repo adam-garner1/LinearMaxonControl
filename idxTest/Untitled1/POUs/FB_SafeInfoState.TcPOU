@@ -4,11 +4,13 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_SafeInfoState
 VAR
 	State AT%I* :USINT;
-	Diag AT%I* :UINT;
+	Diag AT%I* :USINT;
+	Status :st_SafetyStatus;
+	SafetyDecode : fbSafetyStateAndDiagDecode;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[SafetyDecode(State:=State,Diag:=Diag,SafetyStatus:=Status);]]></ST>
     </Implementation>
     <LineIds Name="FB_SafeInfoState">
       <LineId Id="9" Count="0" />

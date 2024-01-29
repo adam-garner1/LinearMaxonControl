@@ -1894,7 +1894,7 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
 			<BitSize>7</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -1903,7 +1903,7 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000006}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..5] OF BIT</Name>
 			<BitSize>6</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -2161,9 +2161,6 @@ External Setpoint Generation:
 		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1007">424de6000000000000007600000028000000100000000e000000010004000000000070000000741200007412000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00fffffffffffffffffffffffffffffffffffffffffffffff8ffffffffffff88ee788fffffff8eeeee77777788eeeeeeee777777eeeeee88ee7777eeeee8fff8ee7eeeeeeefff8eeeeeeeee8fffff8eeeeee88ffffffffff8e8fffffffffffffffffffffffffffffffffffffffffffffff</ImageData>
-		<ImageData Id="1008">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1009">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff008066008099008066008099008066ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffff00000000ffff000000008099ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff008066ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff008099ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffff00000000ffff000000008066ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffffff000000ffffff0000008099ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff00ffff00ffff00ffff00ffff008066ff00ffff00ffff00ffff00ffff00ff66009999006666009999006666009999006600ffff00000000ffff000000008099ff00ffff00ffff00ffff00ffff00ff99006666009999006666009999006666009900ffff0000ff00ffff0000ff008066ff00ffff00ffff00ffff00ffff00ff66009999006666009999006666009999006600ffff00ffff00ffff00ffff008099ff00ffff00ffff00ffff00ffff00ff99006666009999006666009999006666009900ffff00000000ffff000000008066ff00ffff00ffff00ffff00ffff00ff66009999006666009999006666009999006600ffff00ffff00ffff00ffff008099ff00ffff00ffff00ffff00ffff00ff99006666009999006666009999006666009900ffff00800000ffff008000008066ff00ffff00ffff00ffff00ffff00ff66009999006666009999006666009999006600ffff00ffff00ffff00ffff008099ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1010">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ff00bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c080808000bfff00bfff00bfff00bfff00bfffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ff00bfffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{D8B6A896-0EE1-4248-87C7-F8B27146F912}" TargetNetId="5.119.202.92.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
@@ -2837,7 +2834,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{854567E0-0A04-AC80-B82B-634D0C497B26}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{28BEA16C-E8B6-5A50-3426-41A86A1BBD8E}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -2864,7 +2861,15 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MAIN.AGEstopInfoStatus.Diag</Name>
-							<Type>UINT</Type>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGOutputModuleStatus.State</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGOutputModuleStatus.Diag</Name>
+							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
@@ -4361,7 +4366,9 @@ External Setpoint Generation:
 						<CoeProfile ProfileNo="402"/>
 					</EtherCAT>
 				</Box>
-				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120"/>
+				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="2" MaxSwitchFrames="120" MaxSwitchMACs="100">
+					<Redundancy Mode="2" PreviousPort="16777238"/>
+				</EtherCAT>
 			</Device>
 			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="5.119.202.92.3.1" RemoteName="Device 2 (EtherCAT)" InfoImageId="6">
 				<Name>Device 2 (EtherCAT)</Name>
@@ -4401,179 +4408,9 @@ External Setpoint Generation:
 				<Image Id="3" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
-				<Box Id="1" BoxType="9099">
-					<Name>Term 1 (EK1200)</Name>
-					<ImageId>1008</ImageId>
-					<EtherCAT PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04b02c52" RevisionNo="#x00001388" InfoDataState="false" PortPhys="49" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1200-5000 EtherCAT Power supply (2A E-Bus)" Desc="EK1200" PortABoxInfo="#x00ffffff"/>
-					<Box Id="3" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 3 (EL1918)</Name>
-						<ImageId>1009</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x077e3052" RevisionNo="#x00110000" InfoDataAddr="true" RepeatSupport="true" TimeoutStateChange1="5000" TimeoutMailbox2="10000" TComSupport="true" PortPhys="51" DebugMemory="8" SafetyLogicSupported="true" MaxSlotCount="2" Type="EL1918, 8Ch. Safety Input 24V, TwinSAFE" Desc="EL1918" PortABoxInfo="#x01000001">
-							<SyncMan>001000012600010001000000000100010001001026010000</SyncMan>
-							<SyncMan>001100012200010002000000000100010001001122010000</SyncMan>
-							<SyncMan>001208002400010003000000000000000800001224010000</SyncMan>
-							<SyncMan>001d09002000010004000000000000000900001d20010000</SyncMan>
-							<SyncMan>002e00002400000003000000000000000000002e24000000</SyncMan>
-							<SyncMan>002f00002000000004000000000000000000002f20000000</SyncMan>
-							<Fmmu>0000000000000000001200020100000001000000060000000200000000000000</Fmmu>
-							<Fmmu>0000000000000000001d00010100000002000000060000000300000000000000</Fmmu>
-							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-							<Fmmu>0000000000000000000000020000000001000000060000000400010000000000</Fmmu>
-							<Fmmu>0000000000000000000000010000000002000000060000000500010000000000</Fmmu>
-							<BootStrapData>0010f400f410f400</BootStrapData>
-							<SuName></SuName>
-							<SuName></SuName>
-							<SuTask>#x00000000</SuTask>
-							<SuTask>#x00000000</SuTask>
-							<MBoxUserCmdData>004003000a0000001f000000030010000000000000000000000000000000000020f31005020000000100456e61626c6520446961674d65737361676520617320656d657267656e637900</MBoxUserCmdData>
-							<Pdo Name="FSoE Inputs" Index="#x1a00" Flags="#x0091" SyncMan="3">
-								<Entry Name="FSOE__FSoE Command" Index="#x6080" Sub="#x01" Flags="#x00008020">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 1.Input" Index="#x6001" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 1.Module Fault" Index="#x6002" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 2.Input" Index="#x6011" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 2.Module Fault" Index="#x6012" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 3.Input" Index="#x6021" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 3.Module Fault" Index="#x6022" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 4.Input" Index="#x6031" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 4.Module Fault" Index="#x6032" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 5.Input" Index="#x6041" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 5.Module Fault" Index="#x6042" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 6.Input" Index="#x6051" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 6.Module Fault" Index="#x6052" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 7.Input" Index="#x6061" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 7.Module Fault" Index="#x6062" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 8.Input" Index="#x6071" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 8.Module Fault" Index="#x6072" Sub="#x01" Flags="#x00008020">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSoE CRC 000" Index="#x6080" Sub="#x03" Flags="#x00008020">
-									<Type>UINT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSoE Connection ID" Index="#x6080" Sub="#x02" Flags="#x00008020">
-									<Type>UINT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="FSoE Outputs" Index="#x1600" InOut="1" Flags="#x0091" SyncMan="2">
-								<Entry Name="FSOE__FSoE Command" Index="#x7080" Sub="#x01">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 1.ErrAck" Index="#x7002" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 2.ErrAck" Index="#x7012" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 3.ErrAck" Index="#x7022" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 4.ErrAck" Index="#x7032" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 5.ErrAck" Index="#x7042" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 6.ErrAck" Index="#x7052" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 7.ErrAck" Index="#x7062" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSIN Module 8.ErrAck" Index="#x7072" Sub="#x01">
-									<Type>BIT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSoE CRC 000" Index="#x7080" Sub="#x03">
-									<Type>UINT</Type>
-								</Entry>
-								<Entry Name="FSOE__FSoE Connection ID" Index="#x7080" Sub="#x02">
-									<Type>UINT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="FSLOGIC Inputs" Index="#x1bff" Flags="#x0091" SyncMan="3">
-								<Entry Name="Safe Logic State" Index="#xf100" Sub="#x01">
-									<Type>USINT</Type>
-								</Entry>
-								<Entry Name="Cycle Counter" Index="#xf100" Sub="#x02">
-									<Type>USINT</Type>
-								</Entry>
-							</Pdo>
-							<Pdo Name="FSLOGIC Outputs" Index="#x17ff" InOut="1" Flags="#x0091" SyncMan="2">
-								<Entry>
-									<Type GUID="{18071995-0000-0000-0000-002000000010}">ARRAY [0..1] OF BYTE</Type>
-								</Entry>
-							</Pdo>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="12522377"/>
-							<CoeProfile ProfileNo="45290377"/>
-							<Slot Name="FSOE-Slot">
-								<SlotData>0000000001000400000000000000000000000000000000000000000000000000</SlotData>
-								<ModuleIdent>17827710</ModuleIdent>
-								<Module Id="#x03090001" Type="FSOE" Class="1918">
-									<Name>Module 1 (FSOE)</Name>
-									<ImageId>414</ImageId>
-									<ModuleData>020000007e07100100002c000000000000000000000000000000000000000000</ModuleData>
-									<PdoIndex>6656</PdoIndex>
-									<PdoIndex>5632</PdoIndex>
-									<CoeProfile ProfileNo="#x00bf1389"/>
-								</Module>
-							</Slot>
-							<Slot Name="FSLOGIC">
-								<SlotData>0000010001000400000000000000000000000000000000000000000000000000</SlotData>
-								<ModuleIdent>691</ModuleIdent>
-								<Module Id="#x03090002" Type="FSLOGIC" Class="FSLOGIC">
-									<Name>Module 2 (FSLOGIC)</Name>
-									<ImageId>414</ImageId>
-									<ModuleData>02000000b3020000000004000000000000000000000000000000000000000000</ModuleData>
-									<PdoIndex>7167</PdoIndex>
-									<PdoIndex>6143</PdoIndex>
-								</Module>
-							</Slot>
-						</EtherCAT>
-					</Box>
-					<Box Id="5" BoxType="9099">
-						<Name>Term 5 (EK1110)</Name>
-						<ImageId>1010</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04562c52" RevisionNo="#x00110000" PortPhys="19" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1110 EtherCAT extension" Desc="EK1110" PortABoxInfo="#x01000003"/>
-					</Box>
-				</Box>
-				<EtherCAT/>
+				<EtherCAT>
+					<Redundancy Mode="2"/>
+				</EtherCAT>
 			</Device>
 		</Io>
 		<SymbolWatch>
@@ -4588,15 +4425,16 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{00000000-0050-0304-1000-040352000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{08502001-0050-0304-0020-500850000403}" Id="#x02030030" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
+		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030080" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^Device 1 (EtherCAT)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 8 (EP1957-0022)">
-				<Link VarA="Term 10 (EK1100-0008)^Term 17 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 TxPDO"/>
+				<Link VarA="Term 10 (EK1100-0008)^Term 12 (EL1904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^TwinSafeGroup1.Term 12 (EL1904) - Module 1 (FSOES)_3 TxPDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 10 (EK1100-0008)^Term 12 (EL1904)">
-				<Link VarA="Box 8 (EP1957-0022)^ConnectionInputs^TwinSafeGroup1.Term 12 (EL1904) - Module 1 (FSOES)_3 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Box 8 (EP1957-0022)^ConnectionOutputs^TwinSafeGroup1.Term 12 (EL1904) - Module 1 (FSOES)_3 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 10 (EK1100-0008)^Term 17 (EL2904)">
+				<Link VarA="Box 8 (EP1957-0022)^ConnectionInputs^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 TxPDO" VarB="Module 1 (FSOES)^RxPDO^FSOE"/>
 				<Link VarA="Box 8 (EP1957-0022)^ConnectionOutputs^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 		</OwnerA>
@@ -4610,7 +4448,7 @@ External Setpoint Generation:
 				<Link VarA="Drive^Inputs^In^nState1" VarB="CSP Inputs^Statusword"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="CSP Inputs^Statusword" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcStateIn"/>
 				<Link VarA="Drive^Inputs^In^nState5" VarB="CSP Inputs^Mode of operation display"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="CSP Outputs^Controlword"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl2" VarB="CSP Outputs^Controlword" Size="8" OffsB="8"/>
@@ -4621,7 +4459,7 @@ External Setpoint Generation:
 				<Link VarA="Enc^Inputs^In^nDataIn7" VarB="CSP Inputs^Velocity actual value"/>
 				<Link VarA="Enc^Inputs^In^nDcInputTime" VarB="InfoData^DcInputShift"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcStateIn"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Linear Encoder">
@@ -4646,7 +4484,7 @@ External Setpoint Generation:
 				<Link VarA="Enc^Inputs^In^nState2" VarB="ENC Status compact^Status^TxPDO State" Size="1" OffsA="6"/>
 				<Link VarA="Enc^Inputs^In^nState2" VarB="ENC Status compact^Status^TxPDO Toggle" Size="1" OffsA="7"/>
 				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcStateIn"/>
 				<Link VarA="Enc^Outputs^Out^nCtrl1" VarB="ENC Control compact^Control^Enable latch C"/>
 				<Link VarA="Enc^Outputs^Out^nCtrl1" VarB="ENC Control compact^Control^Enable latch extern on negative edge" Size="1" OffsA="3"/>
 				<Link VarA="Enc^Outputs^Out^nCtrl1" VarB="ENC Control compact^Control^Enable latch extern on positive edge" Size="1" OffsA="1"/>
@@ -4655,6 +4493,12 @@ External Setpoint Generation:
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 8 (EP1957-0022)">
+				<Link VarA="PlcTask Inputs^MAIN.AGOutputModuleStatus.Diag" VarB="Connection Info Data^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGOutputModuleStatus.State" VarB="Connection Info Data^TwinSafeGroup1.Term 17 (EL2904) - Module 1 (FSOES)_4 Info Data^State"/>
+				<Link VarA="PlcTask Outputs^MAIN.S_ErrorAckPLC" VarB="StandardOutputs^TwinSafeGroup1.ErrorAcknowledgement_1"/>
+				<Link VarA="PlcTask Outputs^MAIN.S_RunFromPLC" VarB="StandardOutputs^TwinSafeGroup1.Run_2"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Drive 9 (IDX)">
 				<Link VarA="PlcTask Inputs^MAIN.EtherCatStates.EthercatStateMachine[0].InputState" VarB="InfoData^State"/>
 			</OwnerB>
@@ -4671,9 +4515,6 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Inputs^MAIN.EtherCatStates.EthercatStateMachine[2].WcState" VarB="WcState^WcState"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.AGPowerRaw" VarB="AI Standard Ch.1^Value"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.MotorPowerRaw" VarB="AI Standard Channel 2^Value"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EtherCAT)">
-				<Link VarA="PlcTask Inputs^MAIN.Chn2Slaves" VarB="Inputs^SlaveCount"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Force">
 				<Link VarA="PlcTask Inputs^MAIN.Force.NcToPlc" VarB="Outputs^ToPlc"/>
