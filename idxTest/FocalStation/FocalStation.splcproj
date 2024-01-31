@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Crc="4070094155" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Crc="967330507" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
@@ -15,8 +15,8 @@
     <Worker>Adam Garner</Worker>
     <IntProjName>FocalStation</IntProjName>
     <IsNewCreated>false</IsNewCreated>
-    <SPlcProjVersion>1.7.0.0</SPlcProjVersion>
-    <NextSdsId>14</NextSdsId>
+    <SPlcProjVersion>1.8.0.0</SPlcProjVersion>
+    <NextSdsId>23</NextSdsId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -26,8 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="TwinSafeGroup1\Alias Devices\1 Digital Output %28Standard%29_1.sds" />
-    <None Include="TwinSafeGroup1\Alias Devices\EP1957, 8 Ch_ Safety Input, 4 Ch_ Safety Output_1.sds" />
-    <None Include="TwinSafeGroup1\Alias Devices\Term 12 %28EL1904%29 - Module 1 %28FSOES%29.sds" />
+    <None Include="TwinSafeGroup1\Alias Devices\Term 13 %28EL1918%29 - Module 1 %28FSOE%29.sds" />
     <None Include="TwinSafeGroup1\Alias Devices\Term 17 %28EL2904%29 - Module 1 %28FSOES%29.sds" />
     <None Include="TwinSafeGroup1\TwinSafeGroup1.sal" />
     <None Include="TwinSafeGroup1\TwinSafeGroup1.sal.diagram">

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="fSafetyStateAndDiagDecode" Id="{d0f0b506-1d92-426e-b992-d840e7f57d90}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION fSafetyStateAndDiagDecode : st_SafetyStatus
+VAR_INPUT
+			State :USINT;
+			Diag  :USINT;
+		
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fSafetyStateAndDiagDecode.RawDiagCode:= Diag;
+fSafetyStateAndDiagDecode.RawStateCode:=State;
+fSafetyStateAndDiagDecode.State:=State;
+fSafetyStateAndDiagDecode.FSoEMasterFailSafeActive:=Diag.7;
+fSafetyStateAndDiagDecode.StartUp:= Diag.6;
+fSafetyStateAndDiagDecode.FSoESlaveFailSafeActive:=Diag.5;
+fSafetyStateAndDiagDecode.FSoESlaveError:=Diag.4;
+fSafetyStateAndDiagDecode.Diagnosis:= SHL(Diag,4);]]></ST>
+    </Implementation>
+    <LineIds Name="fSafetyStateAndDiagDecode">
+      <LineId Id="7" Count="0" />
+      <LineId Id="20" Count="5" />
+      <LineId Id="16" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

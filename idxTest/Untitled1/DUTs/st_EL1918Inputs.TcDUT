@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="st_EL1918Inputs" Id="{a5345cc0-d866-48d9-bd64-3442c345fd22}">
+    <Declaration><![CDATA[TYPE st_EL1918Inputs :
+STRUCT
+	Input1 :BIT;
+	Input1Err :BIT;
+	Input2 :BIT;
+	Input2Err :BIT;
+	Input3 :BIT;
+	Input3Err :BIT;
+	Input4 :BIT;
+	Input4Err :BIT;
+	Input5 :BIT;
+	Input5Err :BIT;
+	Input6 :BIT;
+	Input6Err :BIT;
+	Input7 :BIT;
+	Input7Err :BIT;
+	Input8 :BIT;
+	Input8Err :BIT;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

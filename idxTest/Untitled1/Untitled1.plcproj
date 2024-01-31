@@ -47,7 +47,19 @@
     <Compile Include="DUTs\LinearStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\st_EL1918Inputs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\st_EL2904Outputs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\st_EthercatState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_SafeEL1918Status.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\st_SafeEL2904Status.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\st_SafetyStatus.TcDUT">
@@ -85,6 +97,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\fSafetyStateAndDiagDecode.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\TestMode.TcPOU">

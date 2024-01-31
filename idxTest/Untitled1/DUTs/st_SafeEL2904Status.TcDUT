@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <DUT Name="st_SafeEL2904Status" Id="{261fbe64-6891-40ce-b842-791dccab1e4f}">
+    <Declaration><![CDATA[TYPE st_SafeEL2904Status :
+STRUCT
+	State AT%I* :USINT;
+	Diag AT%I* :USINT;
+	Status :st_SafetyStatus;
+	Outputs AT%I* :st_EL2904Outputs;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

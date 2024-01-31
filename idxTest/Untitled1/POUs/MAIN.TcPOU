@@ -8,8 +8,9 @@ VAR
 	S_ErrorAckPLC AT%Q* :BOOL;
 	S_Running AT%I* :BOOL;
 	S_AGEStop AT%I* :BOOL;
-	AGEstopInfoStatus : FB_SafeInfoState;
-	AGOutputModuleStatus : FB_SafeInfoState;
+	
+	SafetyAGInputsModule : ST_SafeEL1918Status;
+	SafetyAGOutputsModule : st_SafeEL2904Status;
 	
 	Chn2Slaves AT%I* :INT;
 
@@ -171,8 +172,9 @@ fbIDX70();// error checking
 fbEverest();
 fbAGPowerStatus();
 EtherCatStates();
-AGOutputModuleStatus();
 
+SafetyAGInputsModule.Status := fSafetyStateAndDiagDecode(State := SafetyAGInputsModule.State, Diag := SafetyAGInputsModule.Diag);
+SafetyAGOutputsModule.Status:= fSafetyStateAndDiagDecode(State := SafetyAGOutputsModule.State, Diag := SafetyAGOutputsModule.Diag);
 
 // AND IdxEnable AND EveEnable
 IF DemoMode  AND Change_Inst.Q  THEN
@@ -407,7 +409,8 @@ END_CASE]]></ST>
       <LineId Id="1417" Count="0" />
       <LineId Id="2634" Count="0" />
       <LineId Id="3154" Count="0" />
-      <LineId Id="2994" Count="0" />
+      <LineId Id="3320" Count="0" />
+      <LineId Id="3318" Count="0" />
       <LineId Id="3000" Count="0" />
       <LineId Id="2995" Count="0" />
       <LineId Id="2084" Count="0" />
