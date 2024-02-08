@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TargetSystemConfig Crc="1618656496" Version="1.5">
+<TargetSystemConfig Crc="1449270564" Version="1.5">
   <TargetSystemType>HSafetyPLC</TargetSystemType>
   <TargetSystemSubType>EL1918</TargetSystemSubType>
   <IsExternalDevice>false</IsExternalDevice>
-  <TargetSystemObjectId>50462733</TargetSystemObjectId>
-  <TargetSystemObjectName>Term 13 (EL1918)</TargetSystemObjectName>
-  <SoftwareVersion>02 (V01.08)     </SoftwareVersion>
-  <SerialNumber>4055789</SerialNumber>
-  <ProjectCRC>21853</ProjectCRC>
+  <TargetSystemObjectId>50462726</TargetSystemObjectId>
+  <TargetSystemObjectName>Term 6 (EL1918)</TargetSystemObjectName>
+  <SoftwareVersion />
+  <SerialNumber />
+  <ProjectCRC>24232</ProjectCRC>
   <MapProjectCRC>true</MapProjectCRC>
   <MapSerialNumber>true</MapSerialNumber>
   <VersionNumber>1</VersionNumber>
-  <FSOEAddress>13</FSOEAddress>
-  <DipSwitch>13</DipSwitch>
-  <AmsNetID>5.119.202.92.2.1</AmsNetID>
-  <AmsPort>1007</AmsPort>
+  <FSOEAddress>1</FSOEAddress>
+  <DipSwitch />
+  <AmsNetID>5.119.202.92.3.1</AmsNetID>
+  <AmsPort>1001</AmsPort>
   <ConnectionInfoDataConfigOld>false</ConnectionInfoDataConfigOld>
   <TakeOverSafetyAliasDeviceNamesInProcessImage>true</TakeOverSafetyAliasDeviceNamesInProcessImage>
   <TakeOverStandardAliasDeviceNamesInProcessImage>true</TakeOverStandardAliasDeviceNamesInProcessImage>

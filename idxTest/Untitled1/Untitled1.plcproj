@@ -113,6 +113,9 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="SafetyMonitoring">
+      <DefaultResolution>SafetyMonitoring, * (Ljmu)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_ControllerToolbox">
       <DefaultResolution>Tc2_ControllerToolbox, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_ControllerToolbox</Namespace>
@@ -127,6 +130,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_MC2_Drive">
       <DefaultResolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2_Drive</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_NC">
       <DefaultResolution>Tc2_NC, * (Beckhoff Automation GmbH)</DefaultResolution>
