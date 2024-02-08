@@ -10,12 +10,14 @@ VAR
 	AGSafeInputs : FB_EL1918Monitor;
 	AGSafeOutputs : FB_EL2904Monitor;
 	AGEstop: FB_SafetyEstopMonitor;
+	OffMountEstop :FB_SafetyEstopMonitor;
+
 	
 	
 	
 
 	
-	Chn2Slaves AT%I* :INT;
+
 
 	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
@@ -172,6 +174,7 @@ END_VAR
 AGSafeInputs();
 AGSafeOutputs();
 AGEstop();
+OffMountEstop();
 
 
 
@@ -257,7 +260,7 @@ IF NOT fbCoERead.Busy THEN
     fbCoERead(Execute := Execute, Axis := fbIDX70.Axis);
 END_IF
 
-Estop :=  AGEstop.GetEstopState(); 
+Estop :=  NOT EstopInput; 
 IF Estop THEN  //Estop check
 	fbIDX70.Estop();// needs implementing  as event and quick stop function
 	IdxEnable:=FALSE;
@@ -416,6 +419,7 @@ END_CASE]]></ST>
       <LineId Id="3495" Count="0" />
       <LineId Id="3502" Count="1" />
       <LineId Id="3496" Count="0" />
+      <LineId Id="3675" Count="0" />
       <LineId Id="3504" Count="0" />
       <LineId Id="3497" Count="4" />
       <LineId Id="2" Count="0" />
