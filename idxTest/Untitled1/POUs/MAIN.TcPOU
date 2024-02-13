@@ -147,7 +147,7 @@ FBLinearEncHome :MC_Home;
 	RotationMove: BOOL;
 	homeoutput: BOOL;
 	
-	fbCoERead         : FB_CoERead;
+	fbCoEWrite        : FB_CoEWrite;
 	NetId             : T_AmsNetID := ''; 
    Index          : WORD:= 16#10F3;(*CoE object index*)
    SubIndex       : BYTE:=16#01;(*CoE sub index*)
@@ -156,7 +156,7 @@ FBLinearEncHome :MC_Home;
    Execute        : BOOL;(*Function block execution is triggered by a rising edge at this input.*)
    Timeout        : TIME := DEFAULT_ADS_TIMEOUT;(*States the time before the function is cancelled.*)
    CompleteAccess : BOOL:= FALSE;(*Function block reads the complete object with all sub index*)
-   COEData:INT;
+   COEData:UINT;
 COEString:ARRAY [0..100] of BYTE;
 	COEError: BOOL;
 	
@@ -242,22 +242,22 @@ GetUPSStatus(sNetId:='',
 //ResetTimer(IN:=TRUE);
 
 
-fbCoERead(
+fbCoEWrite(
     NetId          := NetId, 
     Index          := Index, 
     SubIndex       := SubIndex, 
-    pDstBuf        := ADR(COEString), 
-    BufLen         := SIZEOF(COEString), 
+    pSrcBuf        := ADR(COEData), 
+    BufLen         := SIZEOF(COEData), 
     Execute        := Execute, 
     Timeout        := Timeout, 
     CompleteAccess := CompleteAccess, 
-    Axis           := fbIDX70.Axis
+    Axis           := fbEverest.Axis
 );
 
-IF NOT fbCoERead.Busy THEN
-    COEError        :=fbCoERead.Error;
+IF NOT fbCoEWrite.Busy THEN
+    COEError        :=fbCoEWrite.Error;
     Execute      := FALSE;
-    fbCoERead(Execute := Execute, Axis := fbIDX70.Axis);
+    fbCoEWrite(Execute := Execute, Axis := fbEverest.Axis);
 END_IF
 
 Estop :=  NOT EstopInput; 

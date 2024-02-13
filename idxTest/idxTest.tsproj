@@ -2205,7 +2205,7 @@ External Setpoint Generation:
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000005}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..4] OF BIT</Name>
 			<BitSize>5</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -2491,7 +2491,7 @@ External Setpoint Generation:
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
+			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
 			<BitSize>7</BitSize>
 			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
 			<ArrayInfo>
@@ -2804,18 +2804,18 @@ External Setpoint Generation:
 					<AxisPara>
 						<General UnitName="°"/>
 						<Dynamic AccelerationMaximum="1500" DecelerationMaximum="1500" Acceleration="100" Deceleration="100" Jerk="100"/>
-						<Velo RefSearch="20" RefSync="5" SlowManual="10" FastManual="60" Fast="70" Maximum="80"/>
+						<Velo RefSearch="20" RefSync="4" SlowManual="10" FastManual="60" Fast="70" Maximum="90"/>
 						<PositionAreaControl Range="1"/>
-						<MotionControl Enable="true" Range="0.01"/>
+						<MotionControl Range="0.01"/>
 						<TargetPosControl Range="0.1" Time="0.1"/>
 						<PEHControl Enable="true"/>
 						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="19">
 						<EncPara ScaleFactorNumerator="0.001" MaxCount="#xffffffff">
-							<SoftEndMinControl Enable="true" Range="-20"/>
-							<SoftEndMaxControl Enable="true" Range="380"/>
-							<Inc RefSearchInverse="true" RefPosition="2" HomingSensorSource="1"/>
+							<SoftEndMinControl Enable="true" Range="-165"/>
+							<SoftEndMaxControl Enable="true" Range="165"/>
+							<Inc RefSearchInverse="true" RefSyncInverse="false" RefMode="1" HomingSensorSource="1"/>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2875,7 +2875,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="16">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00020000">
-							<Analog VeloReferenz="50" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="80" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -3269,7 +3269,7 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{67EE0ECF-611D-1814-CB39-055105050139}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{8B2E4DBD-B0B5-27BD-AFD6-796228237B88}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3316,6 +3316,14 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MAIN.AGEstop.Diagnostic</Name>
+							<Type GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring">ST_EstopFBDiag</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.OffMountEstop.RawState</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.OffMountEstop.Diagnostic</Name>
 							<Type GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring">ST_EstopFBDiag</Type>
 						</Var>
 						<Var>
@@ -3403,14 +3411,6 @@ External Setpoint Generation:
 							<Name>MAIN.EtherCatStates.ModuleCount</Name>
 							<Type>UINT</Type>
 						</Var>
-						<Var>
-							<Name>MAIN.OffMountEstop.RawState</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.OffMountEstop.Diagnostic</Name>
-							<Type GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring">ST_EstopFBDiag</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -3424,6 +3424,11 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MAIN.AGEstop.L_Restart</Name>
+							<Comment><![CDATA[ bool to reset FB link to function block Restart]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.OffMountEstop.L_Restart</Name>
 							<Comment><![CDATA[ bool to reset FB link to function block Restart]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -3442,11 +3447,6 @@ External Setpoint Generation:
 						<Var>
 							<Name>MAIN.Force.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.OffMountEstop.L_Restart</Name>
-							<Comment><![CDATA[ bool to reset FB link to function block Restart]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<UnrestoredVarLinks ImportTime="2023-02-02T14:27:13">
@@ -3635,7 +3635,7 @@ External Setpoint Generation:
 								</Entry>
 							</Pdo>
 							<Pdo Name="StandardInputs" Index="#x1bf0" Flags="#x2011" SyncMan="3">
-								<Entry Name="TwinSafeGroup1.EstopToPLC_7" Index="#x7000" Sub="#x01" Flags="#x00008000">
+								<Entry Name="TwinSafeGroup1.EstopToPLC_7" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
 								</Entry>
 								<Entry Name="TwinSafeGroup1.Standard Out Var 1_30" Index="#x7000" Sub="#x02">
@@ -3660,10 +3660,10 @@ External Setpoint Generation:
 								</Entry>
 							</Pdo>
 							<Pdo Name="Function Block Info Data" Index="#x1bf8" Flags="#x2011" SyncMan="3">
-								<Entry Name="TwinSafeGroup1.Network1.AGBoxEstop Info Data" Index="#x7000" Sub="#x01" Flags="#x00008000">
+								<Entry Name="TwinSafeGroup1.Network1.AGBoxEstop Info Data" Index="#x7000" Sub="#x01">
 									<Type GUID="{2B008623-51EE-EF6A-ACDE-0017707F5BB8}">INFODATA_FB_3</Type>
 								</Entry>
-								<Entry Name="TwinSafeGroup1.Network1.OffMountEstop Info Data" Index="#x7000" Sub="#x02" Flags="#x00008000">
+								<Entry Name="TwinSafeGroup1.Network1.OffMountEstop Info Data" Index="#x7000" Sub="#x02">
 									<Type GUID="{2B008623-51EE-EF6A-ACDE-0017707F5BB8}">INFODATA_FB_3</Type>
 								</Entry>
 							</Pdo>
@@ -3719,7 +3719,7 @@ External Setpoint Generation:
 								<ModuleIdent>691</ModuleIdent>
 								<Module Id="#x03090009" Type="FSLOGIC" Class="FSLOGIC">
 									<Name>Module 2 (FSLOGIC)</Name>
-									<ImageId>409</ImageId>
+									<ImageId>406</ImageId>
 									<ModuleData>02000000b3020000000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>7167</PdoIndex>
 									<PdoIndex>6143</PdoIndex>
@@ -3798,7 +3798,7 @@ External Setpoint Generation:
 							<ModuleIdent>2046820354</ModuleIdent>
 							<Module Id="#x0309000a" Type="CSP Mode" Class="">
 								<Name>Module 1 (CSP Mode)</Name>
-								<ImageId>416</ImageId>
+								<ImageId>408</ImageId>
 								<ModuleData>fb00000002000078000004000000000000000000000000000000000000000000</ModuleData>
 								<PdoIndex>6656</PdoIndex>
 								<PdoIndex>5632</PdoIndex>
@@ -4086,7 +4086,7 @@ External Setpoint Generation:
 							<ModuleIdent>526245</ModuleIdent>
 							<Module Id="#x0309000b" Type="FSOE" Class="1957">
 								<Name>Module 1 (FSOE)</Name>
-								<ImageId>406</ImageId>
+								<ImageId>410</ImageId>
 								<ModuleData>02000000a507080000002c000000000000000000000000000000000000000000</ModuleData>
 								<PdoIndex>6656</PdoIndex>
 								<PdoIndex>5632</PdoIndex>
@@ -4098,7 +4098,7 @@ External Setpoint Generation:
 							<ModuleIdent>201</ModuleIdent>
 							<Module Id="#x0309000c" Type="FSOUT" Class="FSOUT">
 								<Name>Module 2 (FSOUT)</Name>
-								<ImageId>406</ImageId>
+								<ImageId>410</ImageId>
 								<ModuleData>02000000c9000000000004000000000000000000000000000000000000000000</ModuleData>
 								<PdoIndex>6142</PdoIndex>
 							</Module>
@@ -4108,7 +4108,7 @@ External Setpoint Generation:
 							<ModuleIdent>1950</ModuleIdent>
 							<Module Id="#x0309000f" Type="DEVICEIO" Class="DEVICEIO">
 								<Name>Module 3 (DEVICEIO)</Name>
-								<ImageId>406</ImageId>
+								<ImageId>410</ImageId>
 								<ModuleData>020000009e070000000004000000000000000000000000000000000000000000</ModuleData>
 								<PdoIndex>7166</PdoIndex>
 							</Module>
@@ -4118,7 +4118,7 @@ External Setpoint Generation:
 							<ModuleIdent>691</ModuleIdent>
 							<Module Id="#x03090010" Type="FSLOGIC" Class="FSLOGIC">
 								<Name>Module 4 (FSLOGIC)</Name>
-								<ImageId>406</ImageId>
+								<ImageId>410</ImageId>
 								<ModuleData>02000000b3020000000004000000000000000000000000000000000000000000</ModuleData>
 								<PdoIndex>7167</PdoIndex>
 								<PdoIndex>6143</PdoIndex>
@@ -4580,7 +4580,7 @@ External Setpoint Generation:
 								<ModuleIdent>17827710</ModuleIdent>
 								<Module Id="#x03090011" Type="FSOE" Class="1918">
 									<Name>Module 1 (FSOE)</Name>
-									<ImageId>409</ImageId>
+									<ImageId>406</ImageId>
 									<ModuleData>020000007e07100100002c000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>6656</PdoIndex>
 									<PdoIndex>5632</PdoIndex>
@@ -4592,7 +4592,7 @@ External Setpoint Generation:
 								<ModuleIdent>691</ModuleIdent>
 								<Module Id="#x03090012" Type="FSLOGIC" Class="FSLOGIC">
 									<Name>Module 2 (FSLOGIC)</Name>
-									<ImageId>409</ImageId>
+									<ImageId>406</ImageId>
 									<ModuleData>02000000b3020000000004000000000000000000000000000000000000000000</ModuleData>
 									<PdoIndex>7167</PdoIndex>
 									<PdoIndex>6143</PdoIndex>
@@ -5105,11 +5105,11 @@ Bit1: Value smaller than Limit2]]></Comment>
 						<SyncMan>001080002600010001000000220000018000001026010000</SyncMan>
 						<SyncMan>001480002200010002000000220000018000001422010000</SyncMan>
 						<SyncMan>00180b006400010003000000000000000b00001864010000</SyncMan>
-						<SyncMan>001c0b002000010004000000000000000b00001c20010000</SyncMan>
+						<SyncMan>001c11002000010004000000000000000b00001c20010000</SyncMan>
 						<Fmmu>0000000000000000001800020100000001000000000000000000000000000000</Fmmu>
 						<Fmmu>0000000000000000001c00010100000002000000000000000000000000000000</Fmmu>
 						<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-						<SwitchPortData>00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+						<SwitchPortData>010000001603a8c000ffffff0103a8c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 						<BootStrapData>0010800000148000</BootStrapData>
 						<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>444353796e630000000000000000000044432d53796e6368726f6e00000000000000000000000000000000000000000000000000fdffffff00000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
@@ -5131,6 +5131,12 @@ Bit1: Value smaller than Limit2]]></Comment>
 							<Entry Name="Operation mode display" Index="#x6061" Flags="#x00001000">
 								<Type>SINT</Type>
 								<Comment><![CDATA[object 0x6061:0]]></Comment>
+							</Entry>
+							<Entry Name="Digital inputs value" Index="#x2600">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="STO Status" Index="#x251a">
+								<Type>UINT</Type>
 							</Entry>
 						</Pdo>
 						<Pdo Name="TPDO 2 mapping parameter" Index="#x1a01" Flags="#x0200">
@@ -5210,8 +5216,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 			</Device>
 		</Io>
 		<SymbolWatch>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Linear^Drive^Inputs^In^nState8</Variable>
-			<Variable>TINC^NC-Task 1 SAF^Axes^Rotation^Drive^Inputs^In^nState8</Variable>
+			<Variable>TIID^Device 2 (EtherCAT)^Drive 29 (EVS-XCR-E)^TPDO 1 mapping parameter^Digital inputs value</Variable>
 		</SymbolWatch>
 	</Project>
 	<Mappings>
@@ -5223,11 +5228,13 @@ Bit1: Value smaller than Limit2]]></Comment>
 		<OwnerA Name="TIID^Device 2 (EtherCAT)">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 24 (EL1918)">
 				<Link VarA="Term 4 (EK1200)^Term 6 (EL1918)^ConnectionInputs^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 TxPDO" VarB="Module 1 (FSOE)^FSoE Outputs^FSOE"/>
+				<Link VarA="Term 4 (EK1200)^Term 6 (EL1918)^ConnectionOutputs^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 RxPDO" VarB="Module 1 (FSOE)^FSoE Inputs^FSOE"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 26 (EL2904)">
+				<Link VarA="Term 4 (EK1200)^Term 6 (EL1918)^ConnectionOutputs^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 RxPDO" VarB="Module 1 (FSOES)^TxPDO^FSOE"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
-				<Link VarA="Term 21 (EK1100-0008)^Term 24 (EL1918)^Module 1 (FSOE)^FSoE Inputs^FSOE" VarB="ConnectionOutputs^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 RxPDO"/>
 				<Link VarA="Term 21 (EK1100-0008)^Term 26 (EL2904)^Module 1 (FSOES)^RxPDO^FSOE" VarB="ConnectionInputs^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 TxPDO"/>
-				<Link VarA="Term 21 (EK1100-0008)^Term 26 (EL2904)^Module 1 (FSOES)^TxPDO^FSOE" VarB="ConnectionOutputs^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 RxPDO"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Linear">
@@ -5290,6 +5297,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
 				<Link VarA="Drive^Inputs^In^nState4" VarB="WcState^WcStateIn"/>
 				<Link VarA="Drive^Inputs^In^nState5" VarB="TPDO 1 mapping parameter^Operation mode display"/>
+				<Link VarA="Drive^Inputs^In^nState8" VarB="TPDO 1 mapping parameter^Digital inputs value"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl1" VarB="RPDO 1 mapping parameter^Control Word"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl2" VarB="RPDO 1 mapping parameter^Control Word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Outputs^Out^nCtrl5" VarB="RPDO 1 mapping parameter^Operation mode"/>
