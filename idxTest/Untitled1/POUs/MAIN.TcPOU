@@ -2,28 +2,41 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
+VAR CONSTANT 
+	SafetyModuleArraySize :UINT:=1;
+	EstopArraySize :UINT := 1;
+END_VAR
 VAR
+	
+	LinearMotor :FB_Motion(AxisNameIn := 'LinearMotor');
+	
 
-	
-	
 	SafetySystem : FB_SafetySystemMonitor;
-	AGSafeInputs : FB_EL1918Monitor;
-	AGSafeOutputs : FB_EL2904Monitor;
-	AGEstop: FB_SafetyEstopMonitor;
-	OffMountEstop :FB_SafetyEstopMonitor;
+	AGSafeInputs : FB_EL1918Monitor(Namein:='AGSafeInputs',ElectricalRefin:='K7',Addressin:=1008);
+	AGSafeOutputs : FB_EL2904Monitor(NameIn:='AGSafeOutputs',ElectricalRefIn:='K8',AddressIn:=1010);
+	AGEstop: FB_SafetyEstopMonitor(NameIn:='A&G Box');
 
-	
-	
-	
+	OffMountEstop :FB_SafetyEstopMonitor(NameIn:='Off Mount');
 
+	fbDigitalInputMonitor : FB_EthercatModuleMonitor(NameIn:='AGDigitalInput',ElectricalRefIn:='K2',AddressIn:=1009);
+	fbLinearMotorMonitor : FB_EthercatModuleMonitor(NameIn:='AGLinearMotorInput',ElectricalRefIn:='M2',AddressIn:=1003);
+	fbSafetyMasterMonitor : FB_EthercatModuleMonitor(NameIn:='SafetyMaster',ElectricalRefIn:='K1',AddressIn:=1001);
 	
-
+		{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.Access' := '1'}
+	{attribute 'OPC.UA.DA.StructuredType' := '0'}
+	SafetyModuleStatus : ARRAY[0..SafetyModuleArraySize] OF ST_SafetyModule;
+	fbsafetyModuleCollector :FB_SafetyModuleCollector;
+	{attribute 'OPC.UA.DA' := '1'}
+	{attribute 'OPC.UA.DA.Access' := '1'}
+	{attribute 'OPC.UA.DA.StructuredType' := '0'}
+	EstopArray : ARRAY [0..EstopArraySize] OF ST_EstopFB;
+	fbEstopFBCollector : FB_EstopFBCollector;
 
 	fbIDX70 :IDXMotor(ResetBit:=idxCTRL1);
 	fbEverest :EverestMC();
 	LinearEncoder: AXIS_REF;
 	Force: AXIS_REF;
-	EstopInput AT%I*	:Bool;	
 	
 	//PowerStatus: AGPowerStatus;
 	GetUPSStatus : FB_GetUPSStatus;
@@ -33,10 +46,6 @@ VAR
 	{attribute 'OPC.UA.DA.Access' := '1'}
 	{attribute 'OPC.UA.DA.StructuredType' := '0'}
 	fbAGPowerStatus : fbAGPowerStatus;
-	{attribute 'OPC.UA.DA' := '1'}
-	{attribute 'OPC.UA.DA.Access' := '1'}
-	
-	
 
 	
 	{attribute 'OPC.UA.DA' := '1'}
@@ -145,7 +154,7 @@ FBLinearEncHome :MC_Home;
 	{attribute 'OPC.UA.DA' := '1'}
 	RotationMovementSpeed: LREAL:=20;
 	RotationMove: BOOL;
-	homeoutput: BOOL;
+	HomingBusy: BOOL;
 	
 	fbCoEWrite        : FB_CoEWrite;
 	NetId             : T_AmsNetID := ''; 
@@ -164,19 +173,49 @@ COEString:ARRAY [0..100] of BYTE;
 	AGPowerRaw:INT;
 	MotorPowerV :REAL;
 	AGPowerV:REAL;
-	
-EtherCatStates: fbStateMachineManager;
-	
+
+
+
+	RotationErrorACK: BOOL;
+	SafetyMasterStatus: ST_ethercatStatus;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SafetySystem();
+      <ST><![CDATA[//standard module monitoring 
+fbDigitalInputMonitor();
+fbLinearMotorMonitor();
+fbSafetyMasterMonitor();
+fbSafetyMasterMonitor.GetEthercatStatus(stEthercatStatusOut=>SafetyMasterStatus);
+
+SafetySystem.SetMasterStatus(StEthercatStatusIn:=SafetyMasterStatus);
+SafetySystem();
+Estop := SafetySystem.GetGlobalEstopStatus(); // true means system running 
+//SafetyModules 
 AGSafeInputs();
+fbsafetyModuleCollector.GetSafetyStatus(StModuleArrayInOut:= SafetyModuleStatus,
+ 										ModuleArraySizeIn:=SafetyModuleArraySize,
+										SafetyModuleRefIn:= AGSafeInputs,
+										ModuleIndexIn:=0);
 AGSafeOutputs();
+fbsafetyModuleCollector.GetSafetyStatus(StModuleArrayInOut:= SafetyModuleStatus,
+ 										ModuleArraySizeIn:=SafetyModuleArraySize,
+										SafetyModuleRefIn:= AGSafeOutputs,
+										ModuleIndexIn:=1);
+ //EstopGroups 
 AGEstop();
 OffMountEstop();
-
-
+fbEstopFBCollector.GetEstopData(SafetyEstopRefIn:= AGEstop,
+								stEstopArrayInOut:= EstopArray,
+								EstopArraySizeIn:= EstopArraySize,
+								EstopIndexIn:=0);
+fbEstopFBCollector.GetEstopData(SafetyEstopRefIn:= OffMountEstop,
+								stEstopArrayInOut:= EstopArray,
+								EstopArraySizeIn:= EstopArraySize,
+								EstopIndexIn:=1);
+fbEstopFBCollector.MasterDataValid(DataValidIn:= SafetyMasterStatus.DataValid);
+// DataCollectors 
+fbsafetyModuleCollector(stModuleArrayInOut:= SafetyModuleStatus, ModuleArraySizeIn:=SafetyModuleArraySize);
+fbEstopFBCollector(stEstopArrayInOut:= EstopArray, EstopArraySizeIn:= EstopArraySize);
 
 
 
@@ -185,9 +224,10 @@ OffMountEstop();
 LinearEncoder.ReadStatus();
 Force.ReadStatus();
 fbIDX70();// error checking
+LinearMotor();
 fbEverest();
 fbAGPowerStatus();
-EtherCatStates();
+
 
 
 // AND IdxEnable AND EveEnable
@@ -195,7 +235,7 @@ IF DemoMode  AND Change_Inst.Q  THEN
 	CurrentInstrument:= (CurrentInstrument+1) MOD 4;
 	Change_Inst(IN :=FALSE);
 	LinearCommandedPosition:= (CurrentInstrument*75);
-	RotationCommandedPosition:= Instruments[CurrentInstrument].Rotation;
+	RotationCommandedPosition:= (CurrentInstrument*60)-120;
 	CurrentInstName := Instruments[CurrentInstrument].Name;
 ELSIF  NOT DemoMode THEN
 	CurrentInstName :=' None Selected ';
@@ -234,12 +274,7 @@ GetUPSStatus(sNetId:='',
 	stStatus=> UPSStatus);
 	
 
-//autoreset motor 
-//IF fbIDX70.MotorError =33154 AND ResetTimer.Q THEN
-//	ResetTimer(IN :=FALSE); 
-//	resetAxis:=TRUE;	
-//END_IF
-//ResetTimer(IN:=TRUE);
+
 
 
 fbCoEWrite(
@@ -260,26 +295,37 @@ IF NOT fbCoEWrite.Busy THEN
     fbCoEWrite(Execute := Execute, Axis := fbEverest.Axis);
 END_IF
 
-Estop :=  NOT EstopInput; 
-IF Estop THEN  //Estop check
+// Estop is active low 
+IF NOT Estop THEN  //Estop check
 	fbIDX70.Estop();// needs implementing  as event and quick stop function
 	IdxEnable:=FALSE;
 	EveEnable:=FALSE;	
 END_IF
+LinearMotor.Estop(Execute:= NOT Estop );
 
 
 fbIDX70.Enable(EnableMotor:= IdxEnable);
+LinearMotor.Enable(Execute:= IdxEnable);
 fbIDX70.Reset(resetAxis:=LinearresetAxis);
-homeoutput := fbIDX70.Home(Execute:=LinearHome);
-//fbIDX70.MoveTo(Position:=LinearCommandedPosition,Velocity:=LinearMovementSpeed,Execute:=LinearMove);
-LinearPosition := fbIDX70.Position();
-LinearStatus:= fbIDX70.Status();
-fbIDX70.MoveTo(
-					Position:=LinearCommandedPosition,
-					Velocity:=LinearMovementSpeed,
-					Execute:=LinearMove,
-					State=> LinearMoveState,
-Target=> LinearMovementTarget);
+LinearMotor.Reset(Execute := LinearresetAxis);
+//HomingBusy := fbIDX70.Home(Execute:=LinearHome);
+HomingBusy:= LinearMotor.Home(Execute:= LinearHome,HomePositionIn:= 510.0);
+//LinearPosition := fbIDX70.Position();
+LinearMotor.GetCurrentPosition(PositionOut=> LinearPosition);
+//LinearStatus:= fbIDX70.Status();
+LinearMotor.GetStatus(AxisOut=> LinearStatus);
+//fbIDX70.MoveTo(
+//					Position:=LinearCommandedPosition,
+//					Velocity:=LinearMovementSpeed,
+//					Execute:=LinearMove,
+//					State=> LinearMoveState,
+//Target=> LinearMovementTarget);
+
+LinearMotor.MoveTo(
+	Execute:= LinearMove,
+	TargetPositionIn:= LinearCommandedPosition,
+	VelocityIn := LinearMovementSpeed,
+	eStateOut=> LinearMoveState);
 
 IF LinearStatus.Error THEN
 	LinearAxisState:=linearstates.Error;
@@ -303,7 +349,7 @@ CASE(LinearAxisState) OF
 		LinearAxisState:=LinearStates.Homing;
 
 	LinearStates.Homing:
-		IF LinearStatus.Homed AND NOT homeoutput THEN
+		IF LinearStatus.Homed AND NOT HomingBusy THEN
 			LinearAxisState:=LinearStates.Idle;
 			//LinearCommandedPosition:=MovementPositions.linearpos.deployed;
 		END_IF
@@ -312,29 +358,14 @@ CASE(LinearAxisState) OF
 		IF ABS(LinearCommandedPosition-LinearPosition)>0.005  THEN
 			LinearAxisState:=LinearStates.Start_Move;
 		ELSE
-			//LinearMove:=FALSE;
+			LinearMove:=FALSE;
 		END_IF
 		
 	LinearStates.Start_Move:
-			IF (LinearMoveState = e_MCState.idle) THEN
 			LinearMove:=TRUE;
-			
-		ELSIF  LinearMoveState = e_MCState.Active THEN
-			LinearAxisState := LinearStates.Moving;
-		END_IF;
-		
-		IF NOT (LinearMovementTarget = LinearCommandedPosition) AND NOT (LinearMoveState = e_MCState.Busy) THEN 
-			// new position sent  mid command 
-			// doesnt fully work as second function block whould be needed for a blended move 
-			// could implement a stop function here and restart needs thinking about 
-			LinearMove:=TRUE;
-		END_IF
-		
+			LinearAxisState:=LinearStates.Moving; 
+				
 	Linearstates.Moving:
-		IF NOT (LinearMovementTarget = LinearCommandedPosition) THEN 
-			// new position sent 
-			LinearAxisState:=LinearStates.Start_Move;
-		END_IF
 		
 		IF LinearMoveState = e_MCState.Done THEN
 			LinearAxisState:=LinearStates.Idle; 
@@ -404,160 +435,27 @@ CASE(RotationAxisState) OF
 		END_IF
 	
 	RotationStates.Error:
-		IF Rotation_reset.Q THEN
+		IF RotationErrorACK THEN
 			RotationresetAxis:=TRUE;
-			Rotation_reset.IN:=FALSE;
+			RotationErrorACK:=FALSE;
 		END_IF
-		Rotation_reset(IN :=TRUE);
-		IF RotationStatus.Error THEN
-			RotationAxisState:= RotationStates.initialising;
-		END_IF
+		
 	
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3495" Count="0" />
-      <LineId Id="3502" Count="1" />
-      <LineId Id="3496" Count="0" />
-      <LineId Id="3675" Count="0" />
-      <LineId Id="3504" Count="0" />
-      <LineId Id="3497" Count="4" />
-      <LineId Id="2" Count="0" />
-      <LineId Id="715" Count="0" />
-      <LineId Id="1799" Count="0" />
-      <LineId Id="694" Count="0" />
-      <LineId Id="1417" Count="0" />
-      <LineId Id="2634" Count="0" />
-      <LineId Id="3154" Count="0" />
-      <LineId Id="3000" Count="0" />
-      <LineId Id="2995" Count="0" />
-      <LineId Id="2084" Count="0" />
-      <LineId Id="2083" Count="0" />
-      <LineId Id="2089" Count="0" />
-      <LineId Id="2092" Count="0" />
-      <LineId Id="2095" Count="1" />
-      <LineId Id="2098" Count="0" />
-      <LineId Id="2101" Count="1" />
-      <LineId Id="2093" Count="1" />
-      <LineId Id="2100" Count="0" />
-      <LineId Id="2099" Count="0" />
-      <LineId Id="2627" Count="1" />
-      <LineId Id="2086" Count="0" />
-      <LineId Id="1972" Count="1" />
-      <LineId Id="1976" Count="0" />
-      <LineId Id="1986" Count="1" />
-      <LineId Id="1977" Count="0" />
-      <LineId Id="1975" Count="0" />
-      <LineId Id="2324" Count="4" />
-      <LineId Id="1974" Count="0" />
-      <LineId Id="944" Count="0" />
-      <LineId Id="939" Count="0" />
-      <LineId Id="1884" Count="4" />
-      <LineId Id="1883" Count="0" />
-      <LineId Id="1882" Count="0" />
-      <LineId Id="2205" Count="0" />
-      <LineId Id="2207" Count="0" />
-      <LineId Id="2206" Count="0" />
-      <LineId Id="2211" Count="0" />
-      <LineId Id="2204" Count="0" />
-      <LineId Id="941" Count="0" />
-      <LineId Id="721" Count="0" />
-      <LineId Id="723" Count="0" />
-      <LineId Id="788" Count="0" />
-      <LineId Id="726" Count="0" />
-      <LineId Id="725" Count="0" />
-      <LineId Id="790" Count="0" />
-      <LineId Id="2441" Count="0" />
-      <LineId Id="1172" Count="0" />
-      <LineId Id="2469" Count="9" />
-      <LineId Id="1171" Count="0" />
-      <LineId Id="2480" Count="2" />
-      <LineId Id="2485" Count="1" />
-      <LineId Id="791" Count="0" />
-      <LineId Id="718" Count="0" />
-      <LineId Id="287" Count="0" />
-      <LineId Id="284" Count="0" />
-      <LineId Id="696" Count="0" />
-      <LineId Id="285" Count="0" />
-      <LineId Id="1014" Count="0" />
-      <LineId Id="286" Count="0" />
-      <LineId Id="1105" Count="0" />
-      <LineId Id="1162" Count="0" />
-      <LineId Id="1258" Count="0" />
-      <LineId Id="1178" Count="0" />
-      <LineId Id="1329" Count="0" />
-      <LineId Id="1552" Count="0" />
-      <LineId Id="1402" Count="0" />
-      <LineId Id="1646" Count="0" />
-      <LineId Id="2664" Count="3" />
-      <LineId Id="2663" Count="0" />
-      <LineId Id="2842" Count="0" />
-      <LineId Id="1262" Count="0" />
-      <LineId Id="1179" Count="1" />
-      <LineId Id="1259" Count="1" />
-      <LineId Id="1723" Count="0" />
-      <LineId Id="1720" Count="0" />
-      <LineId Id="1106" Count="0" />
-      <LineId Id="1104" Count="0" />
-      <LineId Id="1110" Count="0" />
-      <LineId Id="1107" Count="0" />
-      <LineId Id="1130" Count="0" />
-      <LineId Id="1157" Count="0" />
-      <LineId Id="1642" Count="1" />
-      <LineId Id="1158" Count="1" />
-      <LineId Id="1114" Count="1" />
-      <LineId Id="1189" Count="1" />
-      <LineId Id="1134" Count="0" />
-      <LineId Id="1119" Count="0" />
-      <LineId Id="1136" Count="1" />
-      <LineId Id="1191" Count="0" />
-      <LineId Id="1138" Count="0" />
-      <LineId Id="1120" Count="1" />
-      <LineId Id="1141" Count="0" />
-      <LineId Id="1146" Count="0" />
-      <LineId Id="1554" Count="1" />
-      <LineId Id="1147" Count="0" />
-      <LineId Id="1404" Count="0" />
-      <LineId Id="1122" Count="0" />
-      <LineId Id="2677" Count="4" />
-      <LineId Id="2676" Count="0" />
-      <LineId Id="2836" Count="0" />
-      <LineId Id="2838" Count="1" />
-      <LineId Id="2843" Count="1" />
-      <LineId Id="2840" Count="0" />
-      <LineId Id="2837" Count="0" />
-      <LineId Id="2640" Count="0" />
-      <LineId Id="1125" Count="0" />
-      <LineId Id="2831" Count="1" />
-      <LineId Id="2834" Count="0" />
-      <LineId Id="2833" Count="0" />
-      <LineId Id="2835" Count="0" />
-      <LineId Id="1161" Count="0" />
-      <LineId Id="1154" Count="1" />
-      <LineId Id="1127" Count="1" />
-      <LineId Id="1167" Count="1" />
-      <LineId Id="1175" Count="0" />
-      <LineId Id="1719" Count="0" />
-      <LineId Id="1169" Count="0" />
-      <LineId Id="1184" Count="0" />
-      <LineId Id="1113" Count="0" />
-      <LineId Id="1108" Count="0" />
-      <LineId Id="1551" Count="0" />
-      <LineId Id="1418" Count="4" />
-      <LineId Id="1173" Count="0" />
-      <LineId Id="1559" Count="0" />
-      <LineId Id="1428" Count="4" />
-      <LineId Id="1427" Count="0" />
-      <LineId Id="1435" Count="10" />
-      <LineId Id="1563" Count="4" />
-      <LineId Id="1562" Count="0" />
-      <LineId Id="1453" Count="0" />
-      <LineId Id="1561" Count="0" />
-      <LineId Id="1560" Count="0" />
-      <LineId Id="1568" Count="3" />
-      <LineId Id="1457" Count="5" />
-      <LineId Id="1556" Count="1" />
-      <LineId Id="1463" Count="17" />
+      <LineId Id="4283" Count="42" />
+      <LineId Id="4559" Count="0" />
+      <LineId Id="4326" Count="84" />
+      <LineId Id="4412" Count="9" />
+      <LineId Id="4558" Count="0" />
+      <LineId Id="4553" Count="4" />
+      <LineId Id="4422" Count="35" />
+      <LineId Id="4459" Count="0" />
+      <LineId Id="4552" Count="0" />
+      <LineId Id="4460" Count="0" />
+      <LineId Id="4472" Count="0" />
+      <LineId Id="4477" Count="74" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>

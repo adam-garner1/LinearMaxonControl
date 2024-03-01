@@ -1406,289 +1406,6 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{8404559F-036C-F81D-21AE-5688A9639A99}" Namespace="SafetyMonitoring" AutoDeleteType="true">e_SafetyGroupState</Name>
-			<BitSize>8</BitSize>
-			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
-			<EnumInfo>
-				<Text><![CDATA[Unknown]]></Text>
-				<Enum>0</Enum>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Run]]></Text>
-				<Enum>1</Enum>
-				<Comment><![CDATA[Input RUN=1, no error in the group, and all connections have started up without error]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Stop]]></Text>
-				<Enum>2</Enum>
-				<Comment><![CDATA[Input RUN = 0 ]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Error]]></Text>
-				<Enum>4</Enum>
-				<Comment><![CDATA[Group is in error, see Diagnostic information ]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Reset]]></Text>
-				<Enum>5</Enum>
-				<Comment><![CDATA[After a group error has occurred, all errors have been rectified and the Err Ack signal is 1 ]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Start]]></Text>
-				<Enum>6</Enum>
-				<Comment><![CDATA[ The group remains in this state as long as not all connections have started up after the start of the group (RUN=1) ]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[StopError]]></Text>
-				<Enum>7</Enum>
-				<Comment><![CDATA[ When the group is started or initialized, it assumes the STOPERROR status if the TwinSAFE connections are assigned to the group. ]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[Deactive]]></Text>
-				<Enum>16</Enum>
-				<Comment><![CDATA[Group was deactivated via customizing]]></Comment>
-			</EnumInfo>
-			<EnumInfo>
-				<Text><![CDATA[WaitComError]]></Text>
-				<Enum>17</Enum>
-				<Comment><![CDATA[ This state is set when the customizing function "Passivate" is selected and the system waits for ComError of the group]]></Comment>
-			</EnumInfo>
-			<Properties>
-				<Property>
-					<Name>qualified_only</Name>
-				</Property>
-			</Properties>
-		</DataType>
-		<DataType>
-			<Name GUID="{7B5B4FB5-DD55-6A48-4AFF-F48BCD280BAD}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EL1918Inputs</Name>
-			<Comment><![CDATA[ bit structure showing raw input state of a EL1918 module (8 channel safe inputs) should be mapped to the IO module ]]></Comment>
-			<BitSize>16</BitSize>
-			<SubItem>
-				<Name>Input1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input1Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input2Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input3Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input4Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input5</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input5Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input6</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input6Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input7</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input7Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input8</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Input8Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{6DAB7FDB-830C-0988-EBF7-B791CCBEB372}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EL2904Outputs</Name>
-			<BitSize>8</BitSize>
-			<SubItem>
-				<Name>Output1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Output2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Output3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>Output4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EstopFBDiag</Name>
-			<BitSize>16</BitSize>
-			<SubItem>
-				<Name>DiscrepancyErrInputGroup1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscrepancyErrInputGroup2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscrepancyErrInputGroup3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscrepancyErrInputGroup4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>EDM1Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>EDM2Err</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscErrInputGroup1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscErrInputGroup2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscErrInputGroup3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>DiscErrInputGroup4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_3</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_5</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>NA_6</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
 			<Name GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC" TcBaseType="true">NCTOPLC_AXIS_REF</Name>
 			<BitSize>2048</BitSize>
 			<SubItem>
@@ -2015,6 +1732,355 @@ External Setpoint Generation:
 					<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}"></Type>
 				</Relation>
 			</Relations>
+		</DataType>
+		<DataType>
+			<Name GUID="{EB6EEDB7-F4A4-1D0E-9849-FB02905DC4EC}" Namespace="SafetyMonitoring" AutoDeleteType="true">e_SafetyGroupState</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[InvalidState]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Run]]></Text>
+				<Enum>1</Enum>
+				<Comment><![CDATA[Input RUN=1, no error in the group, and all connections have started up without error]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Stop]]></Text>
+				<Enum>2</Enum>
+				<Comment><![CDATA[Input RUN = 0 ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Error]]></Text>
+				<Enum>4</Enum>
+				<Comment><![CDATA[Group is in error, see Diagnostic information ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Reset]]></Text>
+				<Enum>5</Enum>
+				<Comment><![CDATA[After a group error has occurred, all errors have been rectified and the Err Ack signal is 1 ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Start]]></Text>
+				<Enum>6</Enum>
+				<Comment><![CDATA[ The group remains in this state as long as not all connections have started up after the start of the group (RUN=1) ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[StopError]]></Text>
+				<Enum>7</Enum>
+				<Comment><![CDATA[ When the group is started or initialized, it assumes the STOPERROR status if the TwinSAFE connections are assigned to the group. ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[Deactive]]></Text>
+				<Enum>16</Enum>
+				<Comment><![CDATA[Group was deactivated via customizing]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[WaitComError]]></Text>
+				<Enum>17</Enum>
+				<Comment><![CDATA[ This state is set when the customizing function "Passivate" is selected and the system waits for ComError of the group]]></Comment>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>qualified_only</Name>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
+			<Name GUID="{D679BD9B-3F41-2DF2-7462-CA71E6B6C08E}" Namespace="SafetyMonitoring" AutoDeleteType="true">e_SafetyGroupDiagnosis</Name>
+			<BitSize>8</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000002}">USINT</BaseType>
+			<EnumInfo>
+				<Text><![CDATA[NoError]]></Text>
+				<Enum>0</Enum>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[FBError]]></Text>
+				<Enum>1</Enum>
+				<Comment><![CDATA[at least one FB is in ERROR state ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ComError]]></Text>
+				<Enum>2</Enum>
+				<Comment><![CDATA[ at least one connection is faulty ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[ModuleError]]></Text>
+				<Enum>3</Enum>
+				<Comment><![CDATA[the input ModuleFault is 1 ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[CmpError]]></Text>
+				<Enum>4</Enum>
+				<Comment><![CDATA[On startup, at least one analog FB input deviates from the last saved value (Power-On Analog Value Check Error) ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[DeativateError]]></Text>
+				<Enum>5</Enum>
+				<Comment><![CDATA[The timeout has elapsed while waiting for the COM error in "passivate" mode of a manual control unit ]]></Comment>
+			</EnumInfo>
+			<EnumInfo>
+				<Text><![CDATA[RestartError]]></Text>
+				<Enum>6</Enum>
+				<Comment><![CDATA[The TwinSAFE logic program was restarted because the EtherCAT connection was restarted or a user logged in without 
+reloading the TwinSAFE logic program (or parts of it).]]></Comment>
+			</EnumInfo>
+			<Properties>
+				<Property>
+					<Name>qualified_only</Name>
+				</Property>
+			</Properties>
+		</DataType>
+		<DataType>
+			<Name GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_WcStateStandard</Name>
+			<BitSize>8</BitSize>
+			<SubItem>
+				<Name>WcState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ 0 is datavalid]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+				<Default>
+					<Bool>true</Bool>
+				</Default>
+			</SubItem>
+			<SubItem>
+				<Name>InputToggle</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<Comment><![CDATA[ toggles approx ever 1s ]]></Comment>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{7B5B4FB5-DD55-6A48-4AFF-F48BCD280BAD}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EL1918Inputs</Name>
+			<Comment><![CDATA[ bit structure showing raw input state of a EL1918 module (8 channel safe inputs) should be mapped to the IO module ]]></Comment>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>Input1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input1Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input2Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input3Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input4Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input5</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input5Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input6</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input6Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input7</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input7Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input8</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Input8Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{6DAB7FDB-830C-0988-EBF7-B791CCBEB372}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EL2904Outputs</Name>
+			<BitSize>8</BitSize>
+			<SubItem>
+				<Name>Output1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Output2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Output3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>Output4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring" AutoDeleteType="true">ST_EstopFBDiag</Name>
+			<BitSize>16</BitSize>
+			<SubItem>
+				<Name>DiscrepancyErrInputGroup1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>0</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscrepancyErrInputGroup2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>1</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscrepancyErrInputGroup3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>2</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscrepancyErrInputGroup4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>3</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>EDM1Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>4</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>EDM2Err</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>5</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>6</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>7</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscErrInputGroup1</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscErrInputGroup2</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>9</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscErrInputGroup3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>10</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DiscErrInputGroup4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>11</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_3</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>12</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_4</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>13</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_5</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>14</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>NA_6</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
+				<BitSize>1</BitSize>
+				<BitOffs>15</BitOffs>
+			</SubItem>
 		</DataType>
 		<DataType>
 			<Name GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC" TcBaseType="true">PLCTONC_AXIS_REF</Name>
@@ -2807,7 +2873,7 @@ External Setpoint Generation:
 						<Velo RefSearch="20" RefSync="4" SlowManual="10" FastManual="60" Fast="70" Maximum="90"/>
 						<PositionAreaControl Range="1"/>
 						<MotionControl Range="0.01"/>
-						<TargetPosControl Range="0.1" Time="0.1"/>
+						<TargetPosControl Range="0.1" Time="0.5"/>
 						<PEHControl Enable="true"/>
 						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
 					</AxisPara>
@@ -3269,41 +3335,72 @@ External Setpoint Generation:
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{8B2E4DBD-B0B5-27BD-AFD6-796228237B88}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{B35726A9-2FC0-6044-F04E-484D48AF7F0A}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
-							<Name>MAIN.EstopInput</Name>
+							<Name>MAIN.LinearMotor.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SafetySystem.eSafetyGroupState</Name>
+							<Comment><![CDATA[ link to State]]></Comment>
+							<Type GUID="{EB6EEDB7-F4A4-1D0E-9849-FB02905DC4EC}" Namespace="SafetyMonitoring">e_SafetyGroupState</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SafetySystem.eSafetyGroupDiagnosis</Name>
+							<Comment><![CDATA[ link to Diag]]></Comment>
+							<Type GUID="{D679BD9B-3F41-2DF2-7462-CA71E6B6C08E}" Namespace="SafetyMonitoring">e_SafetyGroupDiagnosis</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.SafetySystem.GlobalEstopStatus</Name>
+							<Comment><![CDATA[ true is system Running false is system Activated(tripped)]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SafetySystem.State</Name>
-							<Type GUID="{8404559F-036C-F81D-21AE-5688A9639A99}" Namespace="SafetyMonitoring">e_SafetyGroupState</Type>
+							<Name>MAIN.AGSafeInputs.InputState</Name>
+							<Comment><![CDATA[ link to ethercat state in process image ]]></Comment>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.SafetySystem.Diagnosis</Name>
-							<Type GUID="{8404559F-036C-F81D-21AE-5688A9639A99}" Namespace="SafetyMonitoring">e_SafetyGroupState</Type>
+							<Name>MAIN.AGSafeInputs.InputWcState</Name>
+							<Comment><![CDATA[ structure including wc state and input toggle to be linked to process image ]]></Comment>
+							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGSafeInputs.L_State</Name>
+							<Name>MAIN.AGSafeInputs.SafetyState</Name>
+							<Comment><![CDATA[ should be linked to the modules state in the Safety Master Process image ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGSafeInputs.L_Diagnosis</Name>
+							<Name>MAIN.AGSafeInputs.SafetyDiagnosis</Name>
+							<Comment><![CDATA[ should be linked to diag in in the Safety Master Process image ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGSafeInputs.L_Inputs</Name>
+							<Name>MAIN.AGSafeInputs.ModuleInputs</Name>
 							<Type GUID="{7B5B4FB5-DD55-6A48-4AFF-F48BCD280BAD}" Namespace="SafetyMonitoring">ST_EL1918Inputs</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGSafeOutputs.State</Name>
+							<Name>MAIN.AGSafeOutputs.InputState</Name>
+							<Comment><![CDATA[ link to ethercat state in process image ]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGSafeOutputs.InputWcState</Name>
+							<Comment><![CDATA[ structure including wc state and input toggle to be linked to process image ]]></Comment>
+							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.AGSafeOutputs.SafetyState</Name>
+							<Comment><![CDATA[ should be linked to the modules state in the Safety Master Process image ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGSafeOutputs.Diag</Name>
+							<Name>MAIN.AGSafeOutputs.SafetyDiagnosis</Name>
+							<Comment><![CDATA[ should be linked to diag in in the Safety Master Process image ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
@@ -3311,20 +3408,54 @@ External Setpoint Generation:
 							<Type GUID="{6DAB7FDB-830C-0988-EBF7-B791CCBEB372}" Namespace="SafetyMonitoring">ST_EL2904Outputs</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGEstop.RawState</Name>
+							<Name>MAIN.AGEstop.EstopFBStateIn</Name>
+							<Comment><![CDATA[ map to state of this fb found under the master in IO ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGEstop.Diagnostic</Name>
+							<Name>MAIN.AGEstop.bitStEstopFBDiag</Name>
+							<Comment><![CDATA[ map to diag for the fb ]]></Comment>
 							<Type GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring">ST_EstopFBDiag</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.OffMountEstop.RawState</Name>
+							<Name>MAIN.OffMountEstop.EstopFBStateIn</Name>
+							<Comment><![CDATA[ map to state of this fb found under the master in IO ]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.OffMountEstop.Diagnostic</Name>
+							<Name>MAIN.OffMountEstop.bitStEstopFBDiag</Name>
+							<Comment><![CDATA[ map to diag for the fb ]]></Comment>
 							<Type GUID="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" Namespace="SafetyMonitoring">ST_EstopFBDiag</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbDigitalInputMonitor.InputState</Name>
+							<Comment><![CDATA[ link to ethercat state in process image ]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbDigitalInputMonitor.InputWcState</Name>
+							<Comment><![CDATA[ structure including wc state and input toggle to be linked to process image ]]></Comment>
+							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbLinearMotorMonitor.InputState</Name>
+							<Comment><![CDATA[ link to ethercat state in process image ]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbLinearMotorMonitor.InputWcState</Name>
+							<Comment><![CDATA[ structure including wc state and input toggle to be linked to process image ]]></Comment>
+							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSafetyMasterMonitor.InputState</Name>
+							<Comment><![CDATA[ link to ethercat state in process image ]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbSafetyMasterMonitor.InputWcState</Name>
+							<Comment><![CDATA[ structure including wc state and input toggle to be linked to process image ]]></Comment>
+							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
@@ -3383,53 +3514,31 @@ External Setpoint Generation:
 							<Name>MAIN.idxCTRL1</Name>
 							<Type>USINT</Type>
 						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[0].InputState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[0].WcState</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[1].InputState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[1].WcState</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[2].InputState</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.EthercatStateMachine[2].WcState</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.EtherCatStates.ModuleCount</Name>
-							<Type>UINT</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
 						<Var>
+							<Name>MAIN.LinearMotor.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
 							<Name>MAIN.SafetySystem.Run</Name>
+							<Comment><![CDATA[ link to safety group Run ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>MAIN.SafetySystem.ErrAck</Name>
+							<Comment><![CDATA[ link to safety group ErrAck ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.AGEstop.L_Restart</Name>
-							<Comment><![CDATA[ bool to reset FB link to function block Restart]]></Comment>
+							<Name>MAIN.AGEstop.Restart</Name>
+							<Comment><![CDATA[ bool to reset FB link to function block Restart not Tested ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.OffMountEstop.L_Restart</Name>
-							<Comment><![CDATA[ bool to reset FB link to function block Restart]]></Comment>
+							<Name>MAIN.OffMountEstop.Restart</Name>
+							<Comment><![CDATA[ bool to reset FB link to function block Restart not Tested ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -3514,6 +3623,71 @@ External Setpoint Generation:
 							<OwnerB Name="TIID^Device 1 (EtherCAT)^Box 4 (EP1957-0022)">
 								<Link VarA="MAIN.TwinSafeErrorAckPLC" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="StandardOutputs^Standard In Var 1" Size="1" RestoreInfo="ANotFound"/>
 								<Link VarA="MAIN.TwinSafeRunFromPLC" TypeA="BOOL" InOutA="1" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="StandardOutputs^Standard In Var 2" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-16T15:55:48">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
+								<Link VarA="MAIN.AGSafeInputs.L_Diagnosis" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.L_State" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.L_Diagnosis" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.L_State" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^State" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-16T16:18:46">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
+								<Link VarA="MAIN.SafetySystem.Diagnosis" TypeA="SafetyMonitoring.e_SafetyGroupState" InOutA="0" GuidA="{EB6EEDB7-F4A4-1D0E-9849-FB02905DC4EC}" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^Diag" RestoreInfo="TypeMismatch" OldTypeA="SafetyMonitoring.e_SafetyGroupState" OldGuidA="{EB6EEDB7-F4A4-1D0E-9849-FB02905DC4EC}" NewTypeA="SafetyMonitoring.e_SafetyGroupDiagnosis" NewGuidA="{D679BD9B-3F41-2DF2-7462-CA71E6B6C08E}"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-26T11:26:36">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 24 (EL1918)">
+								<Link VarA="MAIN.AGSafeInputs.fbEthercatModuleMonitor.InputState" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="InfoData^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.fbEthercatModuleMonitor.InputWcState^InputToggle" TypeA="BIT" InOutA="0" ParentTypeA="ST_WcStateStandard" GuidA="{18071995-0000-0000-0000-000000000010}" VarB="WcState^InputToggle" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.fbEthercatModuleMonitor.InputWcState^WcState" TypeA="BIT" InOutA="0" ParentTypeA="ST_WcStateStandard" GuidA="{18071995-0000-0000-0000-000000000010}" VarB="WcState^WcStateIn" RestoreInfo="ANotFound"/>
+							</OwnerB>
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 26 (EL2904)">
+								<Link VarA="MAIN.AGSafeOutputs.fbEthercatModuleMonitor.InputState" TypeA="UINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000005}" VarB="InfoData^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.fbEthercatModuleMonitor.InputWcState^InputToggle" TypeA="BIT" InOutA="0" ParentTypeA="ST_WcStateStandard" GuidA="{18071995-0000-0000-0000-000000000010}" VarB="WcState^InputToggle" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.fbEthercatModuleMonitor.InputWcState^WcState" TypeA="BIT" InOutA="0" ParentTypeA="ST_WcStateStandard" GuidA="{18071995-0000-0000-0000-000000000010}" VarB="WcState^WcStateIn" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-27T09:51:53">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
+								<Link VarA="MAIN.EstopInput" TypeA="BOOL" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000030}" VarB="StandardInputs^TwinSafeGroup1.EstopToPLC_7" Size="1" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-27T17:09:49">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
+								<Link VarA="MAIN.AGEstop.Diagnostic" TypeA="SafetyMonitoring.ST_EstopFBDiag" InOutA="0" GuidA="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGEstop.RawState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.L_Inputs" TypeA="SafetyMonitoring.ST_EL1918Inputs" InOutA="0" GuidA="{7B5B4FB5-DD55-6A48-4AFF-F48BCD280BAD}" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data" Size="16" OffsB="16" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.L_SafetyDiagnosis" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeInputs.L_SafetyState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.L_SafetyDiagnosis" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGSafeOutputs.L_SafetyState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.OffMountEstop.Diagnostic" TypeA="SafetyMonitoring.ST_EstopFBDiag" InOutA="0" GuidA="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.OffMountEstop.RawState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.SafetySystem.Diagnosis" TypeA="SafetyMonitoring.e_SafetyGroupDiagnosis" InOutA="0" GuidA="{D679BD9B-3F41-2DF2-7462-CA71E6B6C08E}" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.SafetySystem.State" TypeA="SafetyMonitoring.e_SafetyGroupState" InOutA="0" GuidA="{EB6EEDB7-F4A4-1D0E-9849-FB02905DC4EC}" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^State" RestoreInfo="ANotFound"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2024-02-28T14:53:30">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
+								<Link VarA="MAIN.AGEstop.InputEstopState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.AGEstop.bitStEstopDiagnostic" TypeA="SafetyMonitoring.ST_EstopFBDiag" InOutA="0" GuidA="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^Diag" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.OffMountEstop.InputEstopState" TypeA="USINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000002}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^State" RestoreInfo="ANotFound"/>
+								<Link VarA="MAIN.OffMountEstop.bitStEstopDiagnostic" TypeA="SafetyMonitoring.ST_EstopFBDiag" InOutA="0" GuidA="{B8CC05D6-7EDA-BB2F-AEAB-26638C2E3564}" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^Diag" RestoreInfo="ANotFound"/>
 							</OwnerB>
 						</OwnerA>
 					</UnrestoredVarLinks>
@@ -5223,6 +5397,8 @@ Bit1: Value smaller than Limit2]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{00000000-0030-0304-1000-040330000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0060-0304-1000-040362000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{08502001-0030-0304-0020-500830000403}" Id="#x02030070" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{08502001-0060-0304-0020-500860000403}" Id="#x02030060" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
 		<OwnerA Name="TIID^Device 2 (EtherCAT)">
@@ -5310,33 +5486,52 @@ Bit1: Value smaller than Limit2]]></Comment>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 16 (IDX)">
+				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputState" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputWcState^InputToggle" VarB="WcState^InputToggle"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputWcState^WcState" VarB="WcState^WcStateIn"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 24 (EL1918)">
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.InputState" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.InputWcState^InputToggle" VarB="WcState^InputToggle"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.InputWcState^WcState" VarB="WcState^WcStateIn"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 25 (EL1004)">
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.AGPowerOk_1" VarB="Channel 3^Input"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.AGPowerOk_2" VarB="Channel 4^Input"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.MotorPowerOk_1" VarB="Channel 1^Input"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.MotorPowerOk_2" VarB="Channel 2^Input"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbDigitalInputMonitor.InputState" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbDigitalInputMonitor.InputWcState^WcState" VarB="WcState^WcState"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 26 (EL2904)">
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.InputState" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.InputWcState^InputToggle" VarB="WcState^InputToggle"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.InputWcState^WcState" VarB="WcState^WcStateIn"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 28 (EL3174-0042)">
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.AGPowerRaw" VarB="AI Standard Channel 1^Value"/>
 				<Link VarA="PlcTask Inputs^MAIN.fbAGPowerStatus.MotorPowerRaw" VarB="AI Standard Channel 2^Value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1200)^Term 6 (EL1918)">
-				<Link VarA="PlcTask Inputs^MAIN.AGEstop.Diagnostic" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^Diag"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGEstop.RawState" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^State"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.L_Diagnosis" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^Diag"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.L_Inputs" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data" Size="16" OffsB="16"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.L_State" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^State"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.Diag" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGEstop.EstopFBStateIn" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGEstop.bitStEstopFBDiag" VarB="Function Block Info Data^TwinSafeGroup1.Network1.AGBoxEstop Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.SafetyDiagnosis" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.SafetyState" VarB="Connection Info Data^TwinSafeGroup1.Term 24 (EL1918) - Module 1 (FSOE)_24 Info Data^State"/>
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.Outputs^Output1" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Output Safe Data OutputChannel1"/>
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.Outputs^Output2" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Output Safe Data OutputChannel2"/>
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.Outputs^Output3" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Output Safe Data OutputChannel3"/>
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.Outputs^Output4" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Output Safe Data OutputChannel4"/>
-				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.State" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^State"/>
-				<Link VarA="PlcTask Inputs^MAIN.EstopInput" VarB="StandardInputs^TwinSafeGroup1.EstopToPLC_7"/>
-				<Link VarA="PlcTask Inputs^MAIN.OffMountEstop.Diagnostic" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^Diag"/>
-				<Link VarA="PlcTask Inputs^MAIN.OffMountEstop.RawState" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^State"/>
-				<Link VarA="PlcTask Inputs^MAIN.SafetySystem.Diagnosis" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^Diag"/>
-				<Link VarA="PlcTask Inputs^MAIN.SafetySystem.State" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.SafetyDiagnosis" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.AGSafeOutputs.SafetyState" VarB="Connection Info Data^TwinSafeGroup1.Term 26 (EL2904) - Module 1 (FSOES)_25 Info Data^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.OffMountEstop.EstopFBStateIn" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.OffMountEstop.bitStEstopFBDiag" VarB="Function Block Info Data^TwinSafeGroup1.Network1.OffMountEstop Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.SafetySystem.GlobalEstopStatus" VarB="StandardInputs^TwinSafeGroup1.EstopToPLC_7"/>
+				<Link VarA="PlcTask Inputs^MAIN.SafetySystem.eSafetyGroupDiagnosis" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^Diag"/>
+				<Link VarA="PlcTask Inputs^MAIN.SafetySystem.eSafetyGroupState" VarB="TwinSAFE Group Info Data^TwinSafeGroup1 Info Data^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbSafetyMasterMonitor.InputState" VarB="InfoData^State"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbSafetyMasterMonitor.InputWcState^InputToggle" VarB="WcState^InputToggle"/>
+				<Link VarA="PlcTask Inputs^MAIN.fbSafetyMasterMonitor.InputWcState^WcState" VarB="WcState^WcStateIn"/>
 				<Link VarA="PlcTask Outputs^MAIN.SafetySystem.ErrAck" VarB="StandardOutputs^TwinSafeGroup1.ErrorAcknowledgement_1"/>
 				<Link VarA="PlcTask Outputs^MAIN.SafetySystem.Run" VarB="StandardOutputs^TwinSafeGroup1.Run_2"/>
 			</OwnerB>
@@ -5345,8 +5540,8 @@ Bit1: Value smaller than Limit2]]></Comment>
 				<Link VarA="PlcTask Outputs^MAIN.Force.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear">
-				<Link VarA="PlcTask Inputs^MAIN.fbIDX70.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^MAIN.fbIDX70.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
+				<Link VarA="PlcTask Inputs^MAIN.LinearMotor.Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MAIN.LinearMotor.Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Linear Encoder">
 				<Link VarA="PlcTask Inputs^MAIN.LinearEncoder.NcToPlc" VarB="Outputs^ToPlc"/>

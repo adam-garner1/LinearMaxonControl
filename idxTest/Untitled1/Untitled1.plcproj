@@ -20,21 +20,6 @@
     <Compile Include="DUTs\AGPowerStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\e_SafetyDiag.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\e_SafetyState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\e_EthercatError.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\e_EthercatState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\e_MCState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\Instrument.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -53,16 +38,10 @@
     <Compile Include="DUTs\st_EL2904Outputs.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\st_EthercatState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\ST_SafeEL1918Status.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\st_SafeEL2904Status.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\st_SafetyStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVLs\MovementPositions.TcGVL">
@@ -113,8 +92,12 @@
     <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="Motion">
+      <DefaultResolution>Motion, * (Ljmu)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="SafetyMonitoring">
       <DefaultResolution>SafetyMonitoring, * (Ljmu)</DefaultResolution>
+      <Namespace>SafetyMonitoring</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_ControllerToolbox">
       <DefaultResolution>Tc2_ControllerToolbox, * (Beckhoff Automation GmbH)</DefaultResolution>
