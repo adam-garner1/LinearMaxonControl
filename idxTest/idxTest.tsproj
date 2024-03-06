@@ -3335,7 +3335,7 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{F476AF09-5667-7640-F4F8-21B427825B0C}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{6FED7E58-F626-6B4C-F511-165815DECA37}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
@@ -3514,6 +3514,26 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<Name>MAIN.idxCTRL1</Name>
 							<Type>USINT</Type>
 						</Var>
+						<Var>
+							<Name>MAIN.fbIDXReadErrorCode.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXReadErrorRegister.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>PlcTask Outputs</Name>
@@ -3555,6 +3575,26 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 						</Var>
 						<Var>
 							<Name>MAIN.Force.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXReadErrorCode.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXReadErrorRegister.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -3907,8 +3947,8 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 						<EtherCAT SlaveType="1" PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04562c52" RevisionNo="#x00110000" PortPhys="19" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1110 EtherCAT extension" Desc="EK1110" PortABoxInfo="#x01000006"/>
 					</Box>
 				</Box>
-				<Box Id="16" BoxType="9099" BoxFlags="#x00000020">
-					<Name>Drive 16 (IDX)</Name>
+				<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Drive 4 (IDX)</Name>
 					<ImageId>1003</ImageId>
 					<EtherCAT SlaveType="2" PdiType="#x0680" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="45" FoeType="1" VendorId="#x000000fb" ProductCode="#x66500000" RevisionNo="#x01700000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" DownloadSlotCfg="true" PortPhys="17" MaxSlotCount="1" SlotPdoIncrement="1" Type="IDX70 EtherCAT" Desc="IDX" PortABoxInfo="#x0100000c">
 						<SyncMan>001030002600010001000000300030003000001026010000</SyncMan>
@@ -3921,7 +3961,7 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 						<BootStrapData>0010640064106400</BootStrapData>
 						<DcMode>4443000000000000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
 						<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
-						<MBoxUserCmdData>020003000900000007000000030000000a0009030000000000000000000000002060600001000000084f70206d6f646500</MBoxUserCmdData>
+						<MBoxUserCmdData>02000300090000000700000003000000030009030000000000000000000000002060600001000000084f70206d6f646500</MBoxUserCmdData>
 						<Pdo Name="CSP Inputs" Index="#x1a00" Flags="#x0080" SyncMan="3">
 							<Entry Name="Statusword" Index="#x6041">
 								<Type>UINT</Type>
@@ -3970,7 +4010,7 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<ModuleIdent>2013265922</ModuleIdent>
 							<ModuleIdent>2030043138</ModuleIdent>
 							<ModuleIdent>2046820354</ModuleIdent>
-							<Module Id="#x0309000a" Type="CSP Mode" Class="">
+							<Module Id="#x03090003" Type="CSP Mode" Class="">
 								<Name>Module 1 (CSP Mode)</Name>
 								<ImageId>408</ImageId>
 								<ModuleData>fb00000002000078000004000000000000000000000000000000000000000000</ModuleData>
@@ -3984,7 +4024,7 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 				<Box Id="18" BoxType="9099">
 					<Name>Box 18 (EP2338-0001)</Name>
 					<ImageId>1004</ImageId>
-					<EtherCAT SlaveType="1" PdiType="#x0304" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x09224052" RevisionNo="#x00170001" RepeatSupport="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EP2338-0001 8 Ch. Dig. Input/Output 24V, 0,5A, M8" Desc="EP2338-0001" PortABoxInfo="#x01000010">
+					<EtherCAT SlaveType="1" PdiType="#x0304" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x09224052" RevisionNo="#x00170001" RepeatSupport="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EP2338-0001 8 Ch. Dig. Input/Output 24V, 0,5A, M8" Desc="EP2338-0001" PortABoxInfo="#x01000004">
 						<SyncMan>000f01004400010003000000010001000100000f44090000</SyncMan>
 						<SyncMan>001001000000010004000000010001000100001000010000</SyncMan>
 						<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
@@ -5397,7 +5437,6 @@ Bit1: Value smaller than Limit2]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500821000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{00000000-0030-0304-1000-040330000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0060-0304-1000-040362000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{08502001-0030-0304-0020-500830000403}" Id="#x02030070" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{08502001-0060-0304-0020-500860000403}" Id="#x02030060" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
 		<MappingInfo Identifier="{03040020-0020-0304-2000-040320000403}" Id="#x02030040" Watchdog="04000000040000000400000004000000"/>
@@ -5417,7 +5456,7 @@ Bit1: Value smaller than Limit2]]></Comment>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 18 (EP2338-0001)">
 				<Link VarA="Drive^Inputs^In^nState8" VarB="Channel 1^Input"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 16 (IDX)">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 4 (IDX)">
 				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="Module 1 (CSP Mode)^CSP Inputs^Torque actual value"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="Module 1 (CSP Mode)^CSP Inputs^Statusword"/>
@@ -5486,11 +5525,6 @@ Bit1: Value smaller than Limit2]]></Comment>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TIPC^Untitled1^Untitled1 Instance">
-			<OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 16 (IDX)">
-				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputState" VarB="InfoData^State"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputWcState^InputToggle" VarB="WcState^InputToggle"/>
-				<Link VarA="PlcTask Inputs^MAIN.fbLinearMotorMonitor.InputWcState^WcState" VarB="WcState^WcStateIn"/>
-			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 21 (EK1100-0008)^Term 24 (EL1918)">
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.InputState" VarB="InfoData^State"/>
 				<Link VarA="PlcTask Inputs^MAIN.AGSafeInputs.InputWcState^InputToggle" VarB="WcState^InputToggle"/>

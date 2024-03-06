@@ -2,24 +2,9 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{69DA01E7-C652-C46B-0222-7A50380E1C70}</SystemId>
-		<IssueTime>2024-02-23T10:38:00</IssueTime>
-		<ExpireTime>2024-03-02T00:00:00</ExpireTime>
-		<LicenseKey>5b147151058a8227eb86a23ff65fbefaf6956a525acabb72cc4e831018b67238251c98b5554ff09b2e997f4a9f26ee40ae2dc21e02dbb42ca637a9a0f4e6e55eff88ef3ef33aa4e525538c1b0619fdd85a5bfec38e5a445ec571ba97a57978575cfad3f961f52bbf0cfa48b832a2e192814ee63443408c678f9219ed3f61e970b646a946ce08c2c4f859d1b97d0dd355d403cd485be0cf46b8061ddae45b10ab9ec196673a88984008d21ffbc7f5e802ec3063703808aaf16bd886ab2095328a8e1923e0a1063d2fe90e52201962a94393bca20b968b692089337021775cda4b5979ec9a46d26ff75ff01436802fb484d838cae7b721536e5969d32c507c5f9c</LicenseKey>
-		<License>
-			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
-			<Name>TC3 ADS</Name>
-			<OrderNo>TC1000</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
-			<Name>TC3 IO</Name>
-			<OrderNo>TC1100</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
-			<Name>TC3 PLC</Name>
-			<OrderNo>TC1200</OrderNo>
-		</License>
+		<IssueTime>2024-03-04T14:00:00</IssueTime>
+		<ExpireTime>2024-03-12T00:00:00</ExpireTime>
+		<LicenseKey>261017fcfeff091a37f3abf294126d5759653bc7e0800b290b9aecd9dcf6ca7c1275b1fc2e303a2e5f73c3cb286e4587d6904a8d2f6e98592961bdc873cc6529d6f5ff57889e5a00b051d88efb263ebb36d3c667bc2c1351b250945546d8a21e1fb0a73bc2a9a4688f0616b5f991862a996fa78354a8dc933993748bde0a78040198c3cf3d5e82b073eff0e66b918cb938fc9b102a809e6d2fcd405c8611fc5ebf1f126adf639e40a6ee51754afbb146f3e76ce2ece85c89754589b74468c0da76d35a5e16cb25adc37f17699cb57880a83a0308222dba8746b5278449b6176aae0915b822f14ac4e1657b656c2d29291ccf8f0188d5156715e8e1674e9c37ff</LicenseKey>
 		<License>
 			<LicenseId>{103F30C9-DF25-439E-837B-9DF80CB9356C}</LicenseId>
 			<Name>TC3 EtherCAT Redundancy 250</Name>

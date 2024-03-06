@@ -9,7 +9,8 @@ END_VAR
 VAR
 	
 	LinearMotor :FB_Motion(AxisNameIn := 'LinearMotor');
-	
+	fbIDXError: FB_IDXError;
+	stIDXError : ST_IDXError;
 
 	SafetySystem : FB_SafetySystemMonitor;
 	AGSafeInputs : FB_EL1918Monitor(Namein:='AGSafeInputs',ElectricalRefin:='K7',Addressin:=1008);
@@ -156,19 +157,25 @@ FBLinearEncHome :MC_Home;
 	RotationMove: BOOL;
 	HomingBusy: BOOL;
 	
-	fbCoEWrite        : FB_CoEWrite;
-	NetId             : T_AmsNetID := ''; 
-   Index          : WORD:= 16#10F3;(*CoE object index*)
-   SubIndex       : BYTE:=16#01;(*CoE sub index*)
-   pDstBuf        : PVOID;(*Contains the address of the buffer for the received data*)
-   BufLen         : UDINT;(*Contains the max. number of bytes to be received*)
-   Execute        : BOOL;(*Function block execution is triggered by a rising edge at this input.*)
-   Timeout        : TIME := DEFAULT_ADS_TIMEOUT;(*States the time before the function is cancelled.*)
-   CompleteAccess : BOOL:= FALSE;(*Function block reads the complete object with all sub index*)
-   COEData:UINT;
+	fbCoERead         : FB_CoERead;
+    NetId             : T_AmsNetID := ''; 
+    Index             : WORD := 16#1001;
+    SubIndex          : BYTE := 0; 
+    Execute           : BOOL := FALSE;
+    Timeout           : TIME := T#5S;
+    CompleteAccess    : BOOL := FALSE;
+  
+    Error             : BOOL;
+    AdsErrId          : UDINT;
+    CANopenErrId      : UDINT;
+   COEData : USINT;
 COEString:ARRAY [0..100] of BYTE;
 	COEError: BOOL;
 	
+	fbIDXReadErrorCode: FB_IDXReadErrorCode;
+	fbIDXReadErrorRegister : FB_IDXReadErrorRegister;
+
+	IDXRead: BOOL;
 	MotorPowerRaw :INT;
 	AGPowerRaw:INT;
 	MotorPowerV :REAL;
@@ -178,6 +185,7 @@ COEString:ARRAY [0..100] of BYTE;
 
 	RotationErrorACK: BOOL;
 	SafetyMasterStatus: ST_ethercatStatus;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -218,7 +226,8 @@ fbsafetyModuleCollector(stModuleArrayInOut:= SafetyModuleStatus, ModuleArraySize
 fbEstopFBCollector(stEstopArrayInOut:= EstopArray, EstopArraySizeIn:= EstopArraySize);
 
 
-
+//fbIDXError(Axis := fbIDX70.axis);
+//fbIDXError.GetErrorStructure(StIDXErrorOut=> stIDXError);
 
 //Linear.ReadStatus();
 LinearEncoder.ReadStatus();
@@ -272,28 +281,32 @@ GetUPSStatus(sNetId:='',
 	bEnable:= ReadUPSStatus,
 	bValid=>UPSStatusValid,
 	stStatus=> UPSStatus);
-	
 
 
-
-
-fbCoEWrite(
+fbCoERead(
     NetId          := NetId, 
     Index          := Index, 
     SubIndex       := SubIndex, 
-    pSrcBuf        := ADR(COEData), 
-    BufLen         := SIZEOF(COEData), 
+    pDstBuf        := ADR(COEString), 
+    BufLen         := SIZEOF(COEString), 
     Execute        := Execute, 
     Timeout        := Timeout, 
     CompleteAccess := CompleteAccess, 
-    Axis           := fbEverest.Axis
+    Axis           := LinearMotor.Axis
 );
 
-IF NOT fbCoEWrite.Busy THEN
-    COEError        :=fbCoEWrite.Error;
+IF NOT fbCoERead.Busy THEN
+    Error        :=fbCoERead.Error;
+    AdsErrId     :=fbCoERead.AdsErrId;
+    CANopenErrId :=fbCoERead.CANopenErrId;
     Execute      := FALSE;
-    fbCoEWrite(Execute := Execute, Axis := fbEverest.Axis);
-END_IF
+    fbCoERead(Execute := Execute, Axis := LinearMotor.Axis);
+END_IF	
+
+fbIDXError(Axis:= LinearMotor.Axis,Execute:= IDXRead);
+//fbIDXReadErrorCode(Axis:= LinearMotor.Axis,Execute := IDXRead);
+//fbIDXReadErrorRegister(Axis:= LinearMotor.Axis,Execute:=IDXRead,stErrorRegisterInOut:= stIDXError);
+
 
 // Estop is active low 
 IF NOT Estop THEN  //Estop check
@@ -444,9 +457,16 @@ CASE(RotationAxisState) OF
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="4283" Count="42" />
+      <LineId Id="4283" Count="35" />
+      <LineId Id="4738" Count="0" />
+      <LineId Id="4319" Count="6" />
       <LineId Id="4559" Count="0" />
-      <LineId Id="4326" Count="84" />
+      <LineId Id="4326" Count="46" />
+      <LineId Id="4752" Count="19" />
+      <LineId Id="4373" Count="1" />
+      <LineId Id="4778" Count="0" />
+      <LineId Id="4375" Count="2" />
+      <LineId Id="4395" Count="15" />
       <LineId Id="4412" Count="9" />
       <LineId Id="4558" Count="0" />
       <LineId Id="4553" Count="4" />
