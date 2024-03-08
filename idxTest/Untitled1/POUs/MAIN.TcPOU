@@ -3,11 +3,17 @@
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR CONSTANT 
+
 	SafetyModuleArraySize :UINT:=1;
 	EstopArraySize :UINT := 1;
 END_VAR
 VAR
 	
+
+	fbReadErrorCodeFromESI :FB_ReadErrorCodeFromESI;
+	ReadXML:BOOL;
+	ErrorCode:UINT:=16#808A;
+	ErrorString:STRING;
 	LinearMotor :FB_Motion(AxisNameIn := 'LinearMotor');
 	fbIDXError: FB_IDXError;
 	stIDXError : ST_IDXError;
@@ -189,7 +195,13 @@ COEString:ARRAY [0..100] of BYTE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//standard module monitoring 
+      <ST><![CDATA[fbReadErrorCodeFromESI(
+	ErrorCodeIn:=ErrorCode,
+	Execute:= ReadXML,
+	ErrorStringOut=> ErrorString
+	);
+
+//standard module monitoring 
 fbDigitalInputMonitor();
 fbLinearMotorMonitor();
 fbSafetyMasterMonitor();
@@ -303,7 +315,7 @@ IF NOT fbCoERead.Busy THEN
     fbCoERead(Execute := Execute, Axis := LinearMotor.Axis);
 END_IF	
 
-fbIDXError(Axis:= LinearMotor.Axis,Execute:= IDXRead);
+fbIDXError(Axis:= LinearMotor.Axis);
 //fbIDXReadErrorCode(Axis:= LinearMotor.Axis,Execute := IDXRead);
 //fbIDXReadErrorRegister(Axis:= LinearMotor.Axis,Execute:=IDXRead,stErrorRegisterInOut:= stIDXError);
 
@@ -457,6 +469,11 @@ CASE(RotationAxisState) OF
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
+      <LineId Id="4782" Count="0" />
+      <LineId Id="4976" Count="1" />
+      <LineId Id="4979" Count="0" />
+      <LineId Id="4978" Count="0" />
+      <LineId Id="4783" Count="0" />
       <LineId Id="4283" Count="35" />
       <LineId Id="4738" Count="0" />
       <LineId Id="4319" Count="6" />
