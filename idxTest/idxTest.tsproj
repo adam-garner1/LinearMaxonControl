@@ -2664,6 +2664,29 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 				<Hide GUID="{2DE39888-6737-4C13-B5C9-FECFDAF701E5}"/>
 			</Hides>
 		</DataType>
+		<DataType>
+			<Name GUID="{CCA634A2-6722-41E1-BDDA-01725845E4DA}" PersistentType="true">MotionEvents</Name>
+			<DisplayName TxtId=""><![CDATA[Errors With Motion System]]></DisplayName>
+			<EventId>
+				<Name Id="3">MotorError</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Error {0}- {1}]]></DisplayName>
+				<Severity>Warning</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="1">MotorEnabled</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Enabled]]></DisplayName>
+				<Comment TxtId=""><![CDATA[Motor under Position Control]]></Comment>
+				<Severity>Info</Severity>
+			</EventId>
+			<EventId>
+				<Name Id="2">MotorDisabled</Name>
+				<DisplayName TxtId=""><![CDATA[Motor Disabled]]></DisplayName>
+				<Severity>Info</Severity>
+			</EventId>
+			<Hides>
+				<Hide GUID="{06EFD66A-C774-418D-9A3B-51C8010CD667}"/>
+			</Hides>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ff808080808080808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff0000c00000c0ffffffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
@@ -2685,11 +2708,9 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 				<Cpu CpuId="1"/>
 			</Settings>
 			<Licenses>
-				<Target>
-					<ManualSelect>{ADDFAE21-8CFE-4AF3-9F46-29C36F985936}</ManualSelect>
-					<ManualSelect>{927A7313-A412-4376-8911-4A8F60EC8651}</ManualSelect>
+				<Target BkhfOrder="01255386" CustomOrder="60002203">
+					<ManualSelect>{8161723B-0C2E-405C-B829-EDC5DAAB5104}</ManualSelect>
 					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
-					<ManualSelect>{1601B55A-B68B-4C5B-9A42-31E9CA63F286}</ManualSelect>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -3335,29 +3356,13 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 		</Motion>
 		<Plc>
 			<Project GUID="{440E3532-7195-4D78-9FBC-5D4F5CACA652}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" CopyTmcToTarget="true" CopyTpyToTarget="false" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{072F2F60-9CA9-9ADB-0E31-DF18021740D7}">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="Untitled1\Untitled1.tmc" TmcHash="{629B3278-06DF-AE81-EAC8-A3C85AD09935}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
 							<Name>MAIN.LinearMotor.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.MappedErrorCode</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -3474,14 +3479,6 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<Type GUID="{3DE14912-14A6-433F-BDDE-3B8E3E623606}" Namespace="SafetyMonitoring">ST_WcStateStandard</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbIDX70.Axis.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDX70.MotorError</Name>
-							<Type>WORD</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.fbEverest.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
@@ -3495,6 +3492,10 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 						</Var>
 						<Var>
 							<Name>MAIN.Force.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXResetError.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -3523,19 +3524,19 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.idxInput</Name>
-							<Type>BYTE</Type>
+							<Name>MAIN.fbIDXError.MappedErrorCode</Name>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.idxCTRL1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXReadErrorCode.Axis.NcToPlc</Name>
+							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbIDXReadErrorRegister.Axis.NcToPlc</Name>
+							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.Axis.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -3543,18 +3544,6 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 						<Name>PlcTask Outputs</Name>
 						<Var>
 							<Name>MAIN.LinearMotor.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>MAIN.fbIDXError.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -3578,10 +3567,6 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbIDX70.Axis.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
 							<Name>MAIN.fbEverest.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
@@ -3594,11 +3579,19 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbIDXReadErrorCode.Axis.PlcToNc</Name>
+							<Name>MAIN.fbIDXResetError.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>MAIN.fbIDXReadErrorRegister.Axis.PlcToNc</Name>
+							<Name>MAIN.fbIDXError.fbIdxReadErrorCode.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.fbIDXReadErrorRegister.Axis.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MAIN.fbIDXError.Axis.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>

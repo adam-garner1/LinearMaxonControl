@@ -6310,4 +6310,24 @@
 			<Text LcId="1033">All Errors to do with linear Motor Axis</Text>
 		</Detail>
 	</Source>
+	<Source>
+		<GUID>{CCA634A2-6722-41E1-BDDA-01725845E4DA}</GUID>
+		<Name LcId="1033">Errors With Motion System</Name>
+		<Event>
+			<Id>3</Id>
+			<Message LcId="1033">Motor Error {0}- {1}</Message>
+		</Event>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1033">Motor Enabled</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor under Position Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1033">Motor Disabled</Message>
+		</Event>
+	</Source>
 </TcEventSources>
