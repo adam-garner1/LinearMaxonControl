@@ -9,9 +9,8 @@ VAR CONSTANT
 END_VAR
 VAR
 	LinearErrorArray : ST_IDXError;
-	LinearMotor :FB_Motion(AxisNameIn := 'LinearMotor');
-	fbIDXError: FB_IDXError;
-	fbMotionEventSender: FB_MotionEventSender;
+	LinearMotor :FB_Motion(AxisNameIn := 'M3 Linear');
+	fbIDXError: FB_IDXError(AxisNameIn := 'M3 Linear');
 
 
 	SafetySystem : FB_SafetySystemMonitor;
@@ -232,7 +231,7 @@ GetUPSStatus(sNetId:='',
 
 fbIDXError(Axis:=LinearMotor.Axis);
 fbIDXError.GetErrorStructure(StIDXErrorOut=> LinearErrorArray);
-fbMotionEventSender.MotorError(stIDXError:=LinearErrorArray);
+//fbMotionEventSender.MotorError(stIDXError:=LinearErrorArray);
 
 fbIDXResetError(Execute:= LinearresetAxis,Axis:=LinearMotor.Axis); 
 
