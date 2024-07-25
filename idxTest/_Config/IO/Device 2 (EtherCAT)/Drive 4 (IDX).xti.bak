@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.6" ClassName="CFlbTermDef" SubType="9099">
+	<ImageDatas>
+		<ImageData Id="1000">424de6000000000000007600000028000000100000000e000000010004000000000070000000000000000000000000000000000000000000000000008000008000000080800080000000800080008080000080808000c0c0c0000000ff0000ff000000ffff00ff000000ff00ff00ffff0000ffffff00fffffffffff77777fffffffffff88887fffffffffff88887fffffffffff88c87fffffff0fff8ccc7f0000000fff88c878000000099f88c87f0000000fff88c87ffff0ff0fff88c87f0000ffffff88c87fffffffffff88c87fffffffffff88c87fffffffffff88887fffffffffff88887</ImageData>
+	</ImageDatas>
+	<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
+		<Name>__FILENAME__</Name>
+		<ImageId>1000</ImageId>
+		<EtherCAT SlaveType="2" PdiType="#x0680" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="45" FoeType="1" VendorId="#x000000fb" ProductCode="#x66500000" RevisionNo="#x01700000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" DownloadSlotCfg="true" PortPhys="17" MaxSlotCount="1" SlotPdoIncrement="1" Type="IDX70 EtherCAT" Desc="IDX">
+			<SyncMan>001030002600010001000000300030003000001026010000</SyncMan>
+			<SyncMan>301030002200010002000000300030003000301022010000</SyncMan>
+			<SyncMan>601011006400010003000000000000000000601064010000</SyncMan>
+			<SyncMan>f01011002000010004000000000000000000f01020010000</SyncMan>
+			<Fmmu>0000000000000000601000020100000001000000000000000000000000000000</Fmmu>
+			<Fmmu>0000000000000000f01000010100000002000000000000000000000000000000</Fmmu>
+			<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+			<BootStrapData>0010640064106400</BootStrapData>
+			<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
+			<DcMode>4443000000000000000000000000000044432d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<DcMode>53796e6368726f6e0000000000000000534d2d53796e6368726f6e000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
+			<MBoxUserCmdData>02000300090000000700000003000000030009030000000000000000000000002060600001000000084f70206d6f646500</MBoxUserCmdData>
+			<Pdo Name="CSP Inputs" Index="#x1a00" Flags="#x0080" SyncMan="3">
+				<Entry Name="Statusword" Index="#x6041">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Position actual value" Index="#x6064">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Velocity actual value" Index="#x606c">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Torque actual value" Index="#x6077">
+					<Type>INT</Type>
+				</Entry>
+				<Entry Name="Mode of operation display" Index="#x6061">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Digital inputs" Index="#x60fd">
+					<Type>UDINT</Type>
+				</Entry>
+			</Pdo>
+			<Pdo Name="CSP Outputs" Index="#x1600" InOut="1" Flags="#x0080" SyncMan="2">
+				<Entry Name="Controlword" Index="#x6040">
+					<Type>UINT</Type>
+				</Entry>
+				<Entry Name="Target position" Index="#x607a">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Position offset" Index="#x60b0">
+					<Type>DINT</Type>
+				</Entry>
+				<Entry Name="Torque offset" Index="#x60b2">
+					<Type>INT</Type>
+				</Entry>
+				<Entry Name="Mode of operation" Index="#x6060">
+					<Type>SINT</Type>
+				</Entry>
+				<Entry Name="Digital outputs" Index="#x60fe" Sub="#x01">
+					<Type>UDINT</Type>
+				</Entry>
+			</Pdo>
+			<CoeProfile ProfileNo="402"/>
+			<Slot Name="Axis 1">
+				<SlotData>0000010001000000010000000000000000000000000000000000000000000000</SlotData>
+				<ModuleIdent>1895825410</ModuleIdent>
+				<ModuleIdent>1929379842</ModuleIdent>
+				<ModuleIdent>2013265922</ModuleIdent>
+				<ModuleIdent>2030043138</ModuleIdent>
+				<ModuleIdent>2046820354</ModuleIdent>
+				<Module Id="#x03090003" Type="CSP Mode" Class="">
+					<Name>Module 1 (CSP Mode)</Name>
+					<ImageId>468</ImageId>
+					<ModuleData>fb00000002000078000004000000000000000000000000000000000000000000</ModuleData>
+					<PdoIndex>6656</PdoIndex>
+					<PdoIndex>5632</PdoIndex>
+					<CoeProfile ProfileNo="#x00000192"/>
+				</Module>
+			</Slot>
+		</EtherCAT>
+	</Box>
+</TcSmItem>

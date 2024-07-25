@@ -2,9 +2,24 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{69DA01E7-C652-C46B-0222-7A50380E1C70}</SystemId>
-		<IssueTime>2024-03-25T11:40:00</IssueTime>
-		<ExpireTime>2024-04-02T00:00:00</ExpireTime>
-		<LicenseKey>b7e2a72402f2d579f68a2aae1945e7fd926062823f2700b8e5c653432fdfbf2f3e20a4d5c72438b8769372d01f606403544ef48d8f49de671d95380c2c9931ed710da13a238eed220e88fbf0ff4bdd0532aceb83644ab464b9221f04391156fb9b7e485b416f2bb42fde906b2eec0d04084b380c7bd6b4ba5aec474c392aff569a8f6faa91c1eeada5b1dd1cee57c6a155c26e239d52a7c69918591fa1d1578d23fba136b12183be05bf1374f6bb2425d8658710a160c14e014a0f9c074698bcc53867139aa0398dd520085e653d1437ce183785e1da183321c44735ea6ff7b20c4fefa820af0c184753f42b8597659b1821bb483ad27ed07b23fd7713940204</LicenseKey>
+		<IssueTime>2024-07-24T14:57:00</IssueTime>
+		<ExpireTime>2024-08-01T00:00:00</ExpireTime>
+		<LicenseKey>c7ca6d14ab8c352471b4951f719ca0747f5fb38863c9c11a75481894cef029f63e8d3947fbbd7d195ecd841e163181ecf198676d51573d6f205674339a72310309d7d5f9801d59fd0e09438c9159c46354e011bcaaa28bd788d9fe9341922af034a4a9371859d27c55f734d09cd89fa259027f04febf08b186b2079f9dcd847b4c28cea870dda65a72e514e8cd940b61dd828a46fe5012655a4c782d4392b39a85b4352d5ec23bc41ea15dab22fe6904ee6d84e1eecf0fcd8b91c6a3c1120b74b62791bf696a2e7c0e521273c9db859d39a27a414997793257e3c2947f877ca43e5c27825a0632c0a0704eca419ab7c72224918fd01a239c511fbfddc9969446</LicenseKey>
+		<License>
+			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
+			<Name>TC3 ADS</Name>
+			<OrderNo>TC1000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
+			<Name>TC3 PLC</Name>
+			<OrderNo>TC1200</OrderNo>
+		</License>
 		<License>
 			<LicenseId>{103F30C9-DF25-439E-837B-9DF80CB9356C}</LicenseId>
 			<Name>TC3 EtherCAT Redundancy 250</Name>
@@ -37,6 +52,10 @@
 			<Instances>1</Instances>
 		</License>
 		<License>
+			<LicenseId>{CCE50C10-2CAA-4243-8182-080F02C5BE3D}</LicenseId>
+			<Name>TC3 Reporting Server</Name>
+		</License>
+		<License>
 			<LicenseId>{796D380F-D49E-4C0C-A05F-500052FAC883}</LicenseId>
 			<Name>TC3 HMI Server</Name>
 			<OrderNo>TF2000</OrderNo>
@@ -45,6 +64,19 @@
 			<LicenseId>{8161723B-0C2E-405C-B829-EDC5DAAB5104}</LicenseId>
 			<Name>TC3 HMI Clients Pack 10</Name>
 			<OrderNo>TF2030</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{CC0BCBD5-3EA7-D7D4-4C71-A8B125F0DB72}</LicenseId>
+			<Name>TC3 OPC-UA Analytics Read</Name>
+		</License>
+		<License>
+			<LicenseId>{C2B7B285-EBD7-72CF-843F-15F95A86FEEE}</LicenseId>
+			<Name>TC3 OPC-UA Analytics Write</Name>
+		</License>
+		<License>
+			<LicenseId>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</LicenseId>
+			<Name>TC3 OPC-UA</Name>
+			<OrderNo>TF6100</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

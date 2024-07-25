@@ -21,19 +21,33 @@ VAR
 	MotorPowerConversion:REAL :=128.4/65536.0 ;// 16 bit set to +-60 so 2^16/120 however extended range gives 7% more range 
 	{attribute 'OPC.UA.DA' := '0'}
 	AGPowerConversion:REAL :=64.2/65536.0;// set to +-30
+	DataInvalid AT%I* :BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[MotorPowerV := MotorPowerRaw*MotorPowerConversion;
+      <ST><![CDATA[IF DataInvalid THEN
+	AGPowerRaw := 0;
+	MotorPowerRaw:=0;
+END_IF
+
+MotorPowerV := MotorPowerRaw*MotorPowerConversion;
 AGPowerV := AGPowerRaw*AGPowerConversion;
 MotorPSUOK := MotorPowerOk_1 AND MotorPowerOk_2 ;
 AGPSUOK := AGPowerOk_1 AND AGPowerOk_2;
-AllPSUOK := AGPSUOK AND MOTORPSUOK;]]></ST>
+AllPSUOK := AGPSUOK AND MOTORPSUOK;
+
+]]></ST>
     </Implementation>
     <LineIds Name="fbAGPowerStatus">
+      <LineId Id="53" Count="1" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="57" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="13" Count="1" />
       <LineId Id="27" Count="1" />
+      <LineId Id="52" Count="0" />
+      <LineId Id="51" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

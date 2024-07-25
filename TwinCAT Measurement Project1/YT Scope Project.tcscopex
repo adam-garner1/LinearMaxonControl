@@ -28,11 +28,11 @@
   <KeepPreviousImageExports>true</KeepPreviousImageExports>
   <Layout>&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;Layout&gt;
-  &lt;Window Guid="e2e47f8d-0268-46c1-89a7-c6260837b0bf" LastFocused="133537792647454283" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="33d2e28c-64af-47bb-883b-cd510df01519" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
-  &lt;Window Guid="09842d62-bc2b-4b07-ba58-1151c81c5134" LastFocused="133537797095699244" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="33d2e28c-64af-47bb-883b-cd510df01519" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="e2e47f8d-0268-46c1-89a7-c6260837b0bf" LastFocused="133565279351534945" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="33d2e28c-64af-47bb-883b-cd510df01519" DocumentIndexInWindowGroup="0" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
+  &lt;Window Guid="09842d62-bc2b-4b07-ba58-1151c81c5134" LastFocused="133565244325444993" DockedSize="200" PopupSize="0" FloatingLocation="-1, -1" FloatingSize="550, 400" LastOpenDockSituation="Document" LastFixedDockSituation="Document" LastFixedDockLocation="Right" LastFloatingWindowGuid="00000000-0000-0000-0000-000000000000" LastDockContainerCount="0" LastDockContainerIndex="0" DockedWorkingSize="250, 400" DockedWindowGroupGuid="00000000-0000-0000-0000-000000000000" DockedIndexInWindowGroup="0" DockedSplitPath="0" DocumentWorkingSize="250, 400" DocumentWindowGroupGuid="33d2e28c-64af-47bb-883b-cd510df01519" DocumentIndexInWindowGroup="1" DocumentSplitPath="0" FloatingWorkingSize="250, 400" FloatingWindowGroupGuid="00000000-0000-0000-0000-000000000000" FloatingIndexInWindowGroup="0" FloatingSplitPath="0" /&gt;
   &lt;DocumentContainer Dock="5"&gt;
     &lt;SplitLayoutSystem WorkingSize="250, 400" SplitMode="0"&gt;
-      &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="33d2e28c-64af-47bb-883b-cd510df01519" Collapsed="0" SelectedControl="09842d62-bc2b-4b07-ba58-1151c81c5134"&gt;
+      &lt;ControlLayoutSystem WorkingSize="250, 400" Guid="33d2e28c-64af-47bb-883b-cd510df01519" Collapsed="0" SelectedControl="e2e47f8d-0268-46c1-89a7-c6260837b0bf"&gt;
         &lt;Controls&gt;
           &lt;Control Guid="e2e47f8d-0268-46c1-89a7-c6260837b0bf" /&gt;
           &lt;Control Guid="09842d62-bc2b-4b07-ba58-1151c81c5134" /&gt;
@@ -81,11 +81,11 @@
           <DataType>INT16</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>1</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>d6d2786e-aea4-404b-b248-b4477b02e338</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421032</IndexOffset>
+          <IndexOffset>6060664</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>MCState</Name>
           <Oversample>0</Oversample>
@@ -163,11 +163,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>2</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>7ab76daf-f1c3-474b-a0eb-40ff10029a08</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421034</IndexOffset>
+          <IndexOffset>6060666</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Done</Name>
           <Oversample>0</Oversample>
@@ -245,11 +245,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>3</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>bee0fc5e-1208-4a03-a839-3b4de0af122f</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421035</IndexOffset>
+          <IndexOffset>6060667</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>CommandAborted</Name>
           <Oversample>0</Oversample>
@@ -327,11 +327,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>4</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>13470fc6-9f98-4e59-b72d-445890616db3</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421036</IndexOffset>
+          <IndexOffset>6060668</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Status</Name>
           <Oversample>0</Oversample>
@@ -409,11 +409,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>5</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>c345d180-a53a-46a2-9603-0534dcb2ccf0</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421037</IndexOffset>
+          <IndexOffset>6060669</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Active</Name>
           <Oversample>0</Oversample>
@@ -491,11 +491,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>6</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>c1db3a0a-cb96-4858-8b33-5dd0308f9556</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421038</IndexOffset>
+          <IndexOffset>6060670</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Busy</Name>
           <Oversample>0</Oversample>
@@ -573,11 +573,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>7</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>7f85d93c-6039-4656-8e39-93398e0f0791</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421039</IndexOffset>
+          <IndexOffset>6060671</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Error</Name>
           <Oversample>0</Oversample>
@@ -655,11 +655,11 @@
           <DataType>UINT32</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>8</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>38cce912-af90-4c27-9eaf-6ccbf95f0c81</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>421040</IndexOffset>
+          <IndexOffset>6060672</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>ErrorID</Name>
           <Oversample>0</Oversample>
@@ -737,11 +737,11 @@
           <DataType>REAL64</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>9</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>3616e452-1a9d-464c-862e-5e02b609d6d2</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>445784</IndexOffset>
+          <IndexOffset>5761440</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>LinearCommandedPosition</Name>
           <Oversample>0</Oversample>
@@ -819,11 +819,11 @@
           <DataType>INT16</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>10</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>3dfad949-b57b-428f-941f-df36a29da4bc</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>445778</IndexOffset>
+          <IndexOffset>5759348</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>LinearAxisState</Name>
           <Oversample>0</Oversample>
@@ -901,11 +901,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>11</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>3e053d71-b7cd-4588-a327-50a00420111f</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>445777</IndexOffset>
+          <IndexOffset>5759350</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>LinearMove</Name>
           <Oversample>0</Oversample>
@@ -983,11 +983,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>12</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>93f8b83a-527c-47f0-b09a-403c8943d260</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>446131</IndexOffset>
+          <IndexOffset>5761454</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>HomingBusy</Name>
           <Oversample>0</Oversample>
@@ -1065,11 +1065,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>13</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>db4949ad-788c-4459-be4e-5eea580fa82f</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>445783</IndexOffset>
+          <IndexOffset>5761450</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>LinearHome</Name>
           <Oversample>0</Oversample>
@@ -1147,11 +1147,11 @@
           <DataType>INT16</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>14</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>007af7c1-8e4f-4d0d-84c2-4542ed6bc38c</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422312</IndexOffset>
+          <IndexOffset>6061944</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>MCState (1)</Name>
           <Oversample>0</Oversample>
@@ -1229,11 +1229,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>15</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>69613041-9593-463a-8aaf-71817ca5987f</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422314</IndexOffset>
+          <IndexOffset>6061946</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Done (1)</Name>
           <Oversample>0</Oversample>
@@ -1311,11 +1311,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>16</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>81476dae-d394-4ab7-8604-3fd5fb531cf6</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422315</IndexOffset>
+          <IndexOffset>6061947</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>CommandAborted (1)</Name>
           <Oversample>0</Oversample>
@@ -1393,11 +1393,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>17</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>ab53891b-6eda-4030-ab0e-8b41f4f8ee49</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422316</IndexOffset>
+          <IndexOffset>6061948</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Status (1)</Name>
           <Oversample>0</Oversample>
@@ -1475,11 +1475,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>18</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>fee1d94e-c93f-42be-87cc-3c1c24841635</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422317</IndexOffset>
+          <IndexOffset>6061949</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Active (1)</Name>
           <Oversample>0</Oversample>
@@ -1557,11 +1557,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>19</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>735a3ed3-19f3-4753-8a1b-5022ce77ec7f</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422318</IndexOffset>
+          <IndexOffset>6061950</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Busy (1)</Name>
           <Oversample>0</Oversample>
@@ -1639,11 +1639,11 @@
           <DataType>BIT</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>20</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>87e86e17-d5d7-4e60-ad3d-88c55088aa4c</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422319</IndexOffset>
+          <IndexOffset>6061951</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>Error (1)</Name>
           <Oversample>0</Oversample>
@@ -1721,11 +1721,11 @@
           <DataType>UINT32</DataType>
           <DisplayColor>Black</DisplayColor>
           <Enabled>true</Enabled>
-          <FileHandle>0</FileHandle>
+          <FileHandle>21</FileHandle>
           <ForceOversampling>false</ForceOversampling>
           <Guid>96067bab-878c-4657-becc-abac9a1d2855</Guid>
           <IndexGroup>16448</IndexGroup>
-          <IndexOffset>422320</IndexOffset>
+          <IndexOffset>6061952</IndexOffset>
           <IsHistorical>false</IsHistorical>
           <Name>ErrorID (1)</Name>
           <Oversample>0</Oversample>
@@ -1816,7 +1816,7 @@
           <ShowTitle>true</ShowTitle>
           <SortPriority>100</SortPriority>
           <SubMember />
-          <TimePosition>133537796557120000</TimePosition>
+          <TimePosition>133565279099490000</TimePosition>
           <Title>Time Marker</Title>
           <ValuePrecision>4</ValuePrecision>
           <Visible>true</Visible>
@@ -2053,7 +2053,7 @@
                   <ShowTitle>true</ShowTitle>
                   <SortPriority>100</SortPriority>
                   <SubMember />
-                  <TimePosition>35106381</TimePosition>
+                  <TimePosition>133565279134596381</TimePosition>
                   <Title>Time Marker (1)</Title>
                   <ValuePrecision>4</ValuePrecision>
                   <Visible>true</Visible>

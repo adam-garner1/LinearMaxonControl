@@ -10,6 +10,7 @@ END_VAR
 VAR
 	LinearErrorArray : ST_IDXError;
 	LinearMotor :FB_Motion(AxisNameIn := 'M3 Linear');
+	LinearBrake AT%Q*:BOOL;
 	fbIDXError: FB_IDXError(AxisNameIn := 'M3 Linear');
 
 
@@ -38,7 +39,7 @@ VAR
 	fbEverest :EverestMC();
 	LinearEncoder: AXIS_REF;
 	Force: AXIS_REF;
-	fbIDXResetError : FB_IDXResetError;
+	fbIDXResetError : FB_IDXResetError(AxisNameIn := 'M3 Linear');
 	ResetError :BOOL;
 	GetUPSStatus : FB_GetUPSStatus;
 	ReadUPSStatus:BOOL := TRUE;
@@ -84,11 +85,28 @@ nWorkArray_SIZEOF:= 800);
 	{attribute 'OPC.UA.DA.Access' := '1'}
 	Estop: BOOL;
 	RotationHome :BOOL:=FALSE;
-	LinearresetAxis :BOOL:=FALSE;
+	LinearResetAxis :BOOL:=FALSE;
+	LinearResetNC	:BOOL := FALSE;
 	RotationresetAxis :BOOL:=FALSE;
+	FBLInearEncHome :MC_Home;
 LinearEncHome:BOOL;
 LinearHomePosition:LREAL;
-FBLinearEncHome :MC_Home;
+
+
+
+LinearBrakeRawData AT %I* :INT;
+LinearBrakePressure		:LREAL; //bar
+LinearBrakeMinOperatingPressure:LREAL:= 5.0; //bar
+LinearBrakeUnderPressure :BOOL;
+fbLinearBrakePressureScale :FB_CTRL_SCALE;
+LinearBrakeScaleParams : ST_CTRL_SCALE_PARAMS:=(
+	fInMax:=10000.0,//mv
+	fInMin:=0.0,//mv
+	fOutMax:=10.0,//bar
+	fOutMin:= 0.0,//bar
+	tCtrlCycleTime:=T#500MS,
+	tTaskCycleTime:= T#10MS);
+BrakeUnderPressureTimer :ton := (PT:= T#250MS); // timer prevents small dips of pressure during valves opens to disable motor
 
 	
 	{attribute 'OPC.UA.DA' := '1'}
@@ -234,14 +252,28 @@ fbIDXError.GetErrorStructure(StIDXErrorOut=> LinearErrorArray);
 //fbMotionEventSender.MotorError(stIDXError:=LinearErrorArray);
 
 fbIDXResetError(Execute:= LinearresetAxis,Axis:=LinearMotor.Axis); 
-
+fbLinearBrakePressureScale(
+	fIn:= LinearBrakeRawData,
+	stParams:= LinearBrakeScaleParams,
+	fOut=> LinearBrakePressure);
 
 // Estop is active low 
 IF NOT Estop THEN  //Estop check
-
 	IdxEnable:=FALSE;
 	EveEnable:=FALSE;	
 END_IF
+
+IF LinearBrakePressure<LinearBrakeMinOperatingPressure THEN
+	LinearBrakeUnderPressure := TRUE;
+ELSE 
+	LinearBrakeUnderPressure := FALSE;
+END_IF
+BrakeUnderPressureTimer(IN:= LinearBrakeUnderPressure);
+
+IF BrakeUnderPressureTimer.Q THEN
+	IdxEnable:=FALSE;
+END_IF
+LinearBrake := IdxEnable;// brake disabled when motor online 
 LinearMotor.Estop(Execute:= NOT Estop );
 
 
@@ -249,13 +281,13 @@ LinearMotor.Estop(Execute:= NOT Estop );
 LinearMotor.Enable(Execute:= IdxEnable);
 
 
-LinearMotor.Reset(Execute := LinearresetAxis);
+LinearMotor.Reset(Execute := LinearResetNC);
 
 HomingBusy:= LinearMotor.Home(Execute:= LinearHome,HomePositionIn:= 510.0);
 
 LinearMotor.GetCurrentPosition(PositionOut=> LinearPosition);
 
-LinearMotor.GetStatus(AxisOut=> LinearStatus);
+LinearMotor.GetStatus(AxisOut:= LinearStatus);
 
 LinearMotor.MoveTo(
 	Execute:= LinearMove,
@@ -263,10 +295,10 @@ LinearMotor.MoveTo(
 	VelocityIn := LinearMovementSpeed,
 	eStateOut=> LinearMoveState);
 
-IF LinearStatus.Error THEN
-	LinearAxisState:=linearstates.Error;
-ELSIF NOT IdxEnable OR LinearAxisState = linearstates.Error THEN
-		LinearAxisState:=linearstates.Initialising;
+IF LinearStatus.Error  THEN // put in error state if axis is in error 
+	LinearAxisState:=LinearStates.Error;
+ELSIF NOT IdxEnable THEN // if not in error or enabled 
+		LinearAxisState:=LinearStates.Initialising;
 		
 END_IF
 
@@ -275,7 +307,7 @@ CASE(LinearAxisState) OF
 	LinearStates.Initialising:
 		
 		IF  LinearStatus.Operational AND LinearStatus.Homed THEN
-			LinearAxisState:=Linearstates.Idle;	
+			LinearAxisState:=LinearStates.Idle;	
 		ELSIF LinearStatus.Operational THEN 
 			LinearAxisState:=LinearStates.Start_Homing;
 		END_IF
@@ -300,16 +332,20 @@ CASE(LinearAxisState) OF
 	LinearStates.Start_Move:
 			LinearMove:=TRUE;
 			LinearAxisState:=LinearStates.Moving; 
-				
+			
 	LinearStates.Moving:
-		
 		IF LinearMoveState = e_MCState.Done THEN
 			LinearAxisState:=LinearStates.Idle; 
+			
+		ELSIF LinearMoveState = e_MCState.Error THEN
+			LinearAxisState:=LinearStates.Error; 
 		END_IF
 	
 	LinearStates.Error:
+	IdxEnable:=FALSE;
 		IF LinearErrorACK THEN
-			LinearresetAxis:=TRUE;
+			LinearResetAxis:=TRUE;
+			LinearResetNC := TRUE;
 			LinearErrorACK:=FALSE;
 			LinearAxisState:= LinearStates.Initialising;
 		END_IF
@@ -394,7 +430,21 @@ END_CASE]]></ST>
       <LineId Id="5462" Count="1" />
       <LineId Id="5465" Count="0" />
       <LineId Id="4376" Count="1" />
-      <LineId Id="4395" Count="11" />
+      <LineId Id="5901" Count="0" />
+      <LineId Id="5900" Count="0" />
+      <LineId Id="5902" Count="0" />
+      <LineId Id="4395" Count="2" />
+      <LineId Id="4399" Count="2" />
+      <LineId Id="5910" Count="0" />
+      <LineId Id="5897" Count="0" />
+      <LineId Id="5904" Count="2" />
+      <LineId Id="5899" Count="0" />
+      <LineId Id="5907" Count="0" />
+      <LineId Id="5913" Count="0" />
+      <LineId Id="5746" Count="0" />
+      <LineId Id="5908" Count="1" />
+      <LineId Id="5745" Count="0" />
+      <LineId Id="4402" Count="4" />
       <LineId Id="5321" Count="0" />
       <LineId Id="4407" Count="3" />
       <LineId Id="4412" Count="3" />
@@ -403,9 +453,16 @@ END_CASE]]></ST>
       <LineId Id="4422" Count="35" />
       <LineId Id="4459" Count="0" />
       <LineId Id="4552" Count="0" />
-      <LineId Id="4460" Count="0" />
+      <LineId Id="5605" Count="0" />
       <LineId Id="4472" Count="0" />
-      <LineId Id="4477" Count="74" />
+      <LineId Id="4478" Count="1" />
+      <LineId Id="5602" Count="0" />
+      <LineId Id="5600" Count="1" />
+      <LineId Id="4480" Count="2" />
+      <LineId Id="5608" Count="0" />
+      <LineId Id="4483" Count="1" />
+      <LineId Id="5607" Count="0" />
+      <LineId Id="4485" Count="66" />
       <LineId Id="66" Count="0" />
     </LineIds>
   </POU>

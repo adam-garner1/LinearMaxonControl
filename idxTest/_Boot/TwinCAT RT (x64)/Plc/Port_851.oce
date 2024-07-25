@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<TcEventSources Version="2">
+	<Source>
+		<GUID>{FC3F7426-C9B8-4F08-8BBC-2E63CF5F9B4B}</GUID>
+		<Name LcId="1033">Errors With Motion System</Name>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1033">{0} Axis Motor Enabled Successfully</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor under Position Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1033">{0} Axis Motor Disabled</Message>
+		</Event>
+		<Event>
+			<Id>5</Id>
+			<Message LcId="1033">NC Error {0}</Message>
+		</Event>
+		<Event>
+			<Id>7</Id>
+			<Message LcId="1033">{0} Axis Movement Command to {1} mm at {2} mms-1 received</Message>
+		</Event>
+		<Event>
+			<Id>8</Id>
+			<Message LcId="1033">{0} Axis Starting Move</Message>
+		</Event>
+		<Event>
+			<Id>9</Id>
+			<Message LcId="1033">{0} Axis Movement Finshed at {1} mm</Message>
+		</Event>
+		<Event>
+			<Id>10</Id>
+			<Message LcId="1033">{0} Axis MotorMove Error Code {1}</Message>
+		</Event>
+		<Event>
+			<Id>11</Id>
+			<Message LcId="1033">{0} Axis Movement Aborted</Message>
+		</Event>
+		<Event>
+			<Id>12</Id>
+			<Message LcId="1033">{0} Axis Home Started</Message>
+		</Event>
+		<Event>
+			<Id>13</Id>
+			<Message LcId="1033">{0} Axis Home completed successfully</Message>
+		</Event>
+		<Event>
+			<Id>14</Id>
+			<Message LcId="1033">{0} Axis Home Failed Error Code {1}</Message>
+		</Event>
+		<Event>
+			<Id>15</Id>
+			<Message LcId="1033">{0} Axis NC Reset Received</Message>
+		</Event>
+		<Event>
+			<Id>16</Id>
+			<Message LcId="1033">{0} Axis NC Reset successfully</Message>
+		</Event>
+		<Event>
+			<Id>17</Id>
+			<Message LcId="1033">{0} Axis NC Reset Failed ErrorCode {1}</Message>
+		</Event>
+		<Event>
+			<Id>18</Id>
+			<Message LcId="1033">{0} Axis Home Aborted</Message>
+		</Event>
+		<Event>
+			<Id>3</Id>
+			<Message LcId="1033">{0} Axis Motor Error  (0x{1}) {2}</Message>
+		</Event>
+		<Event>
+			<Id>4</Id>
+			<Message LcId="1033">{0} Axis COE Read/Write Error ADS Error {1} during {2}</Message>
+		</Event>
+		<Event>
+			<Id>6</Id>
+			<Message LcId="1033">{0} Axis Motor Failed to Enable</Message>
+		</Event>
+		<Event>
+			<Id>19</Id>
+			<Message LcId="1033">{0} Axis Motor Reset Received</Message>
+		</Event>
+		<Event>
+			<Id>20</Id>
+			<Message LcId="1033">{0} Axis Motor Reset successfully</Message>
+		</Event>
+	</Source>
+	<Source>
+		<GUID>{FAF2DE53-3A40-4CE0-99B0-3CD522E168DC}</GUID>
+		<Name LcId="1033">M3</Name>
+		<Event>
+			<Id>1</Id>
+			<Message LcId="1033">Motor Enabled</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor under Position Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>2</Id>
+			<Message LcId="1033">Motor Disabled</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">Motor not under PID Control</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>3</Id>
+			<Message LcId="1033">IDX Error  {0}</Message>
+			<Detail>
+				<Name>Comment</Name>
+				<Text LcId="1033">idx motor needs resetting</Text>
+			</Detail>
+		</Event>
+		<Event>
+			<Id>4</Id>
+			<Message LcId="1033">Motor Controller Error {0}</Message>
+		</Event>
+		<Event>
+			<Id>5</Id>
+			<Message LcId="1033">Motor Move Command to {0}mm at {1} mm/s sent</Message>
+		</Event>
+		<Event>
+			<Id>6</Id>
+			<Message LcId="1033">IDX and PLC motion Controller Reset</Message>
+		</Event>
+		<Event>
+			<Id>7</Id>
+			<Message LcId="1033">Motor Move Finished</Message>
+		</Event>
+		<Event>
+			<Id>8</Id>
+			<Message LcId="1033">Homing command sent</Message>
+		</Event>
+		<Event>
+			<Id>9</Id>
+			<Message LcId="1033">Homing Successfully completed</Message>
+		</Event>
+		<Event>
+			<Id>10</Id>
+			<Message LcId="1033">PLC Restarted</Message>
+		</Event>
+		<Event>
+			<Id>11</Id>
+			<Message LcId="1033">Axis Error {0}</Message>
+		</Event>
+		<Event>
+			<Id>12</Id>
+			<Message LcId="1033">Homing Failed Error  {0}</Message>
+		</Event>
+		<Event>
+			<Id>13</Id>
+			<Message LcId="1033">Move Failed {0}</Message>
+		</Event>
+		<Event>
+			<Id>14</Id>
+			<Message LcId="1033">Motor Move Command relative {0}mm at {1} mm/s sent</Message>
+		</Event>
+		<Detail>
+			<Name>Comment</Name>
+			<Text LcId="1033">All Errors to do with linear Motor Axis</Text>
+		</Detail>
+	</Source>
+</TcEventSources>
