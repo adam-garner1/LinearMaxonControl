@@ -2804,8 +2804,8 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 			</Settings>
 			<Licenses>
 				<Target BkhfOrder="01255386" CustomOrder="60002203">
-					<ManualSelect>{8161723B-0C2E-405C-B829-EDC5DAAB5104}</ManualSelect>
 					<ManualSelect>{BDCC0070-42D5-49AE-ABF1-1D4434813D60}</ManualSelect>
+					<ManualSelect>{8161723B-0C2E-405C-B829-EDC5DAAB5104}</ManualSelect>
 				</Target>
 			</Licenses>
 			<Tasks>
@@ -3854,21 +3854,7 @@ reloading the TwinSAFE logic program (or parts of it).]]></Comment>
 			</Project>
 		</Plc>
 		<Safety>
-			<Project GUID="{73266323-38E9-4CAB-835E-B3E71B41C233}" Name="FocalStation" PrjFilePath="FocalStation\FocalStation.splcproj" TmcFilePath="FocalStation\FocalStation.tmc" GeneralArchiveSettings="#x000f" TargetArchiveSettings="#x0007" FileArchiveSettings="#x000e">
-				<Instance Id="#x01010010" KeepUnrestoredLinks="2">
-					<Name>FocalStation Instance</Name>
-					<TmcDesc GUID="{72A6D5B8-E98C-4604-8B90-09D1F8AB38A9}">
-						<Name>Safety</Name>
-						<InitSequence>PO</InitSequence>
-						<Contexts>
-							<Context>
-								<Id>1</Id>
-								<Name>Default</Name>
-							</Context>
-						</Contexts>
-					</TmcDesc>
-				</Instance>
-			</Project>
+			<Project File="FocalStation.xti"/>
 		</Safety>
 		<Io>
 			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="5.119.202.92.3.1" RemoteName="Device 2 (EtherCAT)" InfoImageId="6">

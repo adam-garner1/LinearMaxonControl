@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.7">
   <POU Name="MAIN" Id="{4e8483c1-ccbb-4128-b543-7a53eb2e77a5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR CONSTANT 
@@ -18,7 +18,6 @@ VAR
 	AGSafeInputs : FB_EL1918Monitor(Namein:='AGSafeInputs',ElectricalRefin:='K7',Addressin:=1008);
 	AGSafeOutputs : FB_EL2904Monitor(NameIn:='AGSafeOutputs',ElectricalRefIn:='K8',AddressIn:=1010);
 	AGEstop: FB_SafetyEstopMonitor(NameIn:='A&G Box');
-
 	OffMountEstop :FB_SafetyEstopMonitor(NameIn:='Off Mount');
 
 	fbDigitalInputMonitor : FB_EthercatModuleMonitor(NameIn:='AGDigitalInput',ElectricalRefIn:='K2',AddressIn:=1009);
@@ -279,14 +278,9 @@ LinearMotor.Estop(Execute:= NOT Estop );
 
 
 LinearMotor.Enable(Execute:= IdxEnable);
-
-
 LinearMotor.Reset(Execute := LinearResetNC);
-
 HomingBusy:= LinearMotor.Home(Execute:= LinearHome,HomePositionIn:= 510.0);
-
 LinearMotor.GetCurrentPosition(PositionOut=> LinearPosition);
-
 LinearMotor.GetStatus(AxisOut:= LinearStatus);
 
 LinearMotor.MoveTo(
@@ -319,7 +313,7 @@ CASE(LinearAxisState) OF
 	LinearStates.Homing:
 		IF LinearStatus.Homed AND NOT HomingBusy THEN
 			LinearAxisState:=LinearStates.Idle;
-			//LinearCommandedPosition:=MovementPositions.linearpos.deployed;
+		
 		END_IF
 	
 	LinearStates.Idle:
@@ -415,55 +409,5 @@ CASE(RotationAxisState) OF
 	
 END_CASE]]></ST>
     </Implementation>
-    <LineIds Name="MAIN">
-      <LineId Id="5178" Count="0" />
-      <LineId Id="5176" Count="0" />
-      <LineId Id="4283" Count="35" />
-      <LineId Id="4738" Count="0" />
-      <LineId Id="4319" Count="6" />
-      <LineId Id="4559" Count="0" />
-      <LineId Id="4326" Count="34" />
-      <LineId Id="4366" Count="6" />
-      <LineId Id="4752" Count="1" />
-      <LineId Id="4374" Count="0" />
-      <LineId Id="4778" Count="0" />
-      <LineId Id="5462" Count="1" />
-      <LineId Id="5465" Count="0" />
-      <LineId Id="4376" Count="1" />
-      <LineId Id="5901" Count="0" />
-      <LineId Id="5900" Count="0" />
-      <LineId Id="5902" Count="0" />
-      <LineId Id="4395" Count="2" />
-      <LineId Id="4399" Count="2" />
-      <LineId Id="5910" Count="0" />
-      <LineId Id="5897" Count="0" />
-      <LineId Id="5904" Count="2" />
-      <LineId Id="5899" Count="0" />
-      <LineId Id="5907" Count="0" />
-      <LineId Id="5913" Count="0" />
-      <LineId Id="5746" Count="0" />
-      <LineId Id="5908" Count="1" />
-      <LineId Id="5745" Count="0" />
-      <LineId Id="4402" Count="4" />
-      <LineId Id="5321" Count="0" />
-      <LineId Id="4407" Count="3" />
-      <LineId Id="4412" Count="3" />
-      <LineId Id="4558" Count="0" />
-      <LineId Id="4553" Count="4" />
-      <LineId Id="4422" Count="35" />
-      <LineId Id="4459" Count="0" />
-      <LineId Id="4552" Count="0" />
-      <LineId Id="5605" Count="0" />
-      <LineId Id="4472" Count="0" />
-      <LineId Id="4478" Count="1" />
-      <LineId Id="5602" Count="0" />
-      <LineId Id="5600" Count="1" />
-      <LineId Id="4480" Count="2" />
-      <LineId Id="5608" Count="0" />
-      <LineId Id="4483" Count="1" />
-      <LineId Id="5607" Count="0" />
-      <LineId Id="4485" Count="66" />
-      <LineId Id="66" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
